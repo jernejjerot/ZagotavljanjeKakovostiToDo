@@ -115,3 +115,8 @@ Besednjak
 
  ![Use Case Diagram for To-Do App](./ToDOApp.png)
 
+Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcionalnost vključuje možnost nastavitve opomnikov za opravila.
+- Pregled opravil: Uporabnik lahko pregleda vsa ustvarjena opravila, vključno s pregledom zgodovine opravljenih nalog.
+- Urejanje opravil: Uporabnik lahko ureja obstoječa opravila, kar vključuje dodatne funkcionalnosti, kot so filtriranje in brisanje opravil.
+- Prijava: Uporabnik se mora prijaviti, da lahko dostopa do aplikacije.
+- Pregled vsebine (Admin): Skrbnik (Admin) lahko pregleda vsebino, kar mu omogoča vpogled v celoten seznam opravil vseh uporabnikov.

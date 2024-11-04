@@ -11,8 +11,8 @@ Naša vizija za To-Do aplikacijo je ponuditi mladim in odraslim uporabnikom reš
 
     1. Backend (Java Spring Boot)
 - Kontrolerji:
-  - TaskController`: Upravljanje nalog (ustvarjanje, brisanje, posodobitev).
-  - UserController`: Upravljanje uporabnikov (prijava, ustvarjanje).
+  - TaskController: Upravljanje nalog (ustvarjanje, brisanje, posodobitev).
+  - UserController: Upravljanje uporabnikov (prijava, ustvarjanje).
   - ResponsibilityController: Upravljanje vrst odgovornosti za naloge.
 - Repositoryji (Repositories):
   - TaskRepository, UserRepository, ResponsibilityRepository: Uporaba Spring Data JPA za interakcijo z bazo podatkov.

@@ -113,5 +113,5 @@ Besednjak
 
  Prijava: Proces, kjer se uporabnik identificira in pridobi dostop do svojih nalog v aplikaciji. Prijava zahteva uporabniško ime (e-mail) in geslo.
 
- ![Diagram primera uporabe] (ToDOApp.png)
+ ![Use Case Diagram for To-Do App](./Diagram%20primera%20uporabe%20ToDOApp.png)
 

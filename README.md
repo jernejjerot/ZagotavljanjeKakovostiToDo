@@ -112,3 +112,6 @@ Besednjak
  Opomnik: Funkcionalnost, ki opozori uporabnika na bližajoč se rok naloge. Opomniki pomagajo uporabniku, da pravočasno izvede svoje naloge.
 
  Prijava: Proces, kjer se uporabnik identificira in pridobi dostop do svojih nalog v aplikaciji. Prijava zahteva uporabniško ime (e-mail) in geslo.
+
+ ![Diagram primera uporabe] (ToDOApp.png)
+

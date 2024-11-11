@@ -35,7 +35,7 @@ Navodila za namestitev
 Zahteve
 - Java 17: Potreben za zagon Spring Boot strežnika.
 - Maven: Gradbeni sistem za upravljanje odvisnosti.
-- Node.js: Za zagon frontend proxy strežnika.
+- Node.js v20.14.0: Za zagon frontend proxy strežnika.
 
 Koraki za namestitev
 
@@ -46,7 +46,7 @@ Koraki za namestitev
 
 2. Nastavite podatkovno bazo
    - Preverite konfiguracijo baze podatkov v application.properties, ki se nahaja v	src/main/resources/.
-   - Baza podatkov mora biti konfigurirana za uporabo MySQL. Poskrbite, da je MySQL strežnik aktiven 	in da je baza pravilno konfigurirana.
+   - Baza podatkov mora biti konfigurirana za uporabo MySQL verzije 8.4. Poskrbite, da je MySQL strežnik aktiven 	in da je baza pravilno konfigurirana.
 
 3. Zagon backend strežnika
    mvn spring-boot:run

@@ -120,3 +120,5 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
 - Urejanje opravil: Uporabnik lahko ureja obstoječa opravila, kar vključuje dodatne funkcionalnosti, kot so filtriranje in brisanje opravil.
 - Prijava: Uporabnik se mora prijaviti, da lahko dostopa do aplikacije.
 - Pregled vsebine (Admin): Skrbnik (Admin) lahko pregleda vsebino, kar mu omogoča vpogled v celoten seznam opravil vseh uporabnikov.
+
+  [View the PDF Documentation](C:\Users\cvikl\OneDrive\Namizje\RIS_skupinska\ToDoApp\data\zapis_novih_funk_5nal.pdf)

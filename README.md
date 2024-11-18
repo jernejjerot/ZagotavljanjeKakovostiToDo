@@ -129,11 +129,11 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
   Glavni razred, ki predstavlja uporabnika sistema. Vsak uporabnik ima osnovne podatke, kot so e-poštni naslov, geslo, ime in opombe.
   Ključne metode:
   login(email: String, geslo: String): Boolean
-  Omogoča prijavo uporabnika v sistem z uporabo e-pošte in gesla.
+  omogoča prijavo uporabnika v sistem z uporabo e-pošte in gesla.
   editProfile(details: Uporabnik): void
-  Omogoča uporabniku urejanje osebnih podatkov.
+  omogoča uporabniku urejanje osebnih podatkov.
   editTask(details: Opravilo): void
-  Omogoča urejanje posameznih opravil, ki jih ima uporabnik.
+  omogoča urejanje posameznih opravil, ki jih ima uporabnik.
 2. Admin (Podrazred Uporabnika)
   Vloga in namen:
   Posebna vrsta uporabnika z dodatnimi privilegiji, kot je upravljanje drugih uporabnikov in pregled vseh opravil v sistemu.
@@ -151,32 +151,32 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
   updateStatus(status: StatusOpravila): void
   Posodobi status opravila (npr. "NI OPRAVLJEN" ali "OPRAVLJEN").
   editTask(details: Task): void
-  Omogoča urejanje podrobnosti opravila.
+  omogoča urejanje podrobnosti opravila.
 4. Odgovornost
   Vloga in namen:
   Predstavlja odgovornost, povezano z opravilom. Vsaka odgovornost ima ime (npr. "Šola", "Služba", "Dom").
   Ključne metode:
   editOdgovornost(details: Odgovornost): void
-  Omogoča urejanje odgovornosti.
+  omogoča urejanje odgovornosti.
 5. Lokacija
   Vloga in namen:
-  Predstavlja lokacijo, kjer se opravlja določeno opravilo. Vsebuje podatke, kot so ime lokacije, koordinate in seznam opravil, povezanih z lokacijo.
+  predstavlja lokacijo, kjer se opravlja določeno opravilo. Vsebuje podatke, kot so ime lokacije, koordinate in seznam opravil, povezanih z lokacijo.
   Ključne metode:
   getLocationDetails(): String
   Vrne podrobnosti o lokaciji.
   pridobiOpravilaZaDan(datum: Date): List<Opravilo>
-  Pridobi vsa opravila, povezana z lokacijo, za določen datum.
+  pridobi vsa opravila, povezana z lokacijo, za določen datum.
   dodajOpraviloNaLokacijo(opravilo: Opravilo): void
-  Dodaja opravila na določeno lokacijo.
+  dodaja opravila na določeno lokacijo.
 6. Opozorilo
   Vloga in namen:
   Predstavlja obvestila ali opozorila, povezana z opravilom.
   Ključne metode:
   posljiOpozorilo(opravilo: Opravilo): void
-  Pošlje opozorilo uporabniku, povezano z določenim opravilom.
+  pošlje opozorilo uporabniku, povezano z določenim opravilom.
 7. <enum> StatusOpravila
   Vloga in namen:
-  Enum, ki določa status opravila. Možni statusi so "NI OPRAVLJEN" in "OPRAVLJEN".
+  enum, ki določa status opravila. Možni statusi so "NI OPRAVLJEN" in "OPRAVLJEN".
 8. <enum> PrioritetniNivo
   Vloga in namen:
-  Enum, ki določa prioriteto opravila. Možnosti so "NIZEK", "SREDNJI" in "VISOK".
+  enum, ki določa prioriteto opravila. Možnosti so "NIZEK", "SREDNJI" in "VISOK".

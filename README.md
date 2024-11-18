@@ -121,4 +121,5 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
 - Prijava: Uporabnik se mora prijaviti, da lahko dostopa do aplikacije.
 - Pregled vsebine (Admin): Skrbnik (Admin) lahko pregleda vsebino, kar mu omogoča vpogled v celoten seznam opravil vseh uporabnikov.
 
+![Class Diagram for To-Do App](./ClassDiagram.drawio.png)
 

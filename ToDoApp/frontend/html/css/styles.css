@@ -10,6 +10,28 @@ body {
     position: relative;
 }
 
+/* Navigation links */
+.navigation {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
 /* Login container fixed in the top-right corner */
 .login-container {
     position: fixed;
@@ -112,4 +134,20 @@ li button {
 
 li button:hover {
     background-color: #c82333;
+}
+
+/* Styling for separate register and edit pages */
+.container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 500px;
+    width: 90%;
+}
+
+.input-container {
+    width: 100%;
 }

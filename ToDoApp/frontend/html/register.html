@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Account</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Create Account</h1>
+            <div class="input-container">
+                <input type="text" id="registerName" placeholder="Enter name">
+                <input type="text" id="registerSurname" placeholder="Enter surname">
+                <input type="email" id="registerEmail" placeholder="Enter email">
+                <input type="password" id="registerPassword" placeholder="Enter password">
+                <button id="registerBtn">Register</button>
+            </div>
+            <div class="navigation">
+                <a href="index.html">Back to Home</a>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.getElementById('registerBtn').addEventListener('click', () => {
+                const name = document.getElementById('registerName').value.trim();
+                const surname = document.getElementById('registerSurname').value.trim();
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value.trim();
+
+                if (name && surname && email && password) {
+                    axios.post('/users/create-account', { name, surname, email, password })
+                        .then(response => {
+                            const userId = response.data.id; // Assuming the server responds with the user ID
+                            if (userId) {
+                                localStorage.setItem('loggedInUserId', userId); // Store in localStorage
+                                alert('Account created successfully. You are now logged in.');
+                                window.location.href = 'index.html'; // Redirect to the home page
+                            } else {
+                                alert('Account created, but login failed. Please log in manually.');
+                                window.location.href = 'index.html';
+                            }
+                        })
+                        .catch(error => {
+                            if (error.response && error.response.status === 409) {
+                                alert('Email already in use.');
+                            } else {
+                                console.error('Error creating account:', error);
+                            }
+                        });
+                } else {
+                    alert('All fields are required.');
+                }
+            });
+        </script>
+    </body>
+</html>

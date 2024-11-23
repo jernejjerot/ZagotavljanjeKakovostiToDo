@@ -8,6 +8,15 @@ const port = 3000;
 app.use(express.json()); // For parsing JSON requests
 app.use(express.static(path.join(__dirname, 'frontend/html')));
 
+// Serve register and editUser pages
+app.get('/register.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/html/register.html'));
+});
+
+app.get('/editUser.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/html/editUser.html'));
+});
+
 // Fetch all tasks from the Spring Boot backend
 app.get('/tasks', async (req, res) => {
     try {
@@ -62,6 +71,29 @@ app.post('/users/login', async (req, res) => {
     } catch (error) {
         console.error('Error logging in to Spring Boot:', error);
         res.status(500).send('Error logging in');
+    }
+});
+
+// Proxy the create account request
+app.post('/users/create-account', async (req, res) => {
+    try {
+        const response = await axios.post('http://localhost:8080/users/create-account', req.body);
+        res.send(response.data);
+    } catch (error) {
+        console.error('Error creating account:', error);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Error creating account');
+    }
+});
+
+// Proxy the edit user request
+app.put('/users/edit-user/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await axios.put(`http://localhost:8080/users/edit-user/${id}`, req.body);
+        res.send(response.data);
+    } catch (error) {
+        console.error('Error editing user:', error);
+        res.status(error.response?.status || 500).send(error.response?.data || 'Error editing user');
     }
 });
 

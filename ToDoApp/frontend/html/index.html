@@ -9,11 +9,19 @@
     <body>
         <div class="container">
             <h1>To-Do List</h1>
+
+            <div class="navigation">
+                <a href="register.html">Register</a>
+                <a href="editUser.html">Edit Account</a>
+            </div>
             <!-- Login Form -->
             <div class="login-container" style="position: absolute; top: 20px; right: 20px;">
                 <input type="text" id="username" placeholder="Enter email">
                 <input type="password" id="password" placeholder="Enter password">
                 <button id="loginBtn">Login</button>
+            </div>
+            <div class="logout-container" style="position: absolute; top: 60px; right: 20px;">
+                <button id="logoutBtn">Logout</button>
             </div>
             <!-- Task Input Form -->
             <div class="input-container">
@@ -35,15 +43,56 @@
 
         <script>
             let loggedInUserId = null;
-            let taskBeingEdited = null;  // Track the task being edited
+            let taskBeingEdited = null; // Track the task being edited
 
             document.addEventListener('DOMContentLoaded', () => {
+                // Check if user is logged in
+                const storedUserId = localStorage.getItem('loggedInUserId');
+                if (storedUserId) {
+                    loggedInUserId = storedUserId; // Set the global loggedInUserId
+                    document.querySelector('.login-container').innerHTML = `Logged in as User ID: ${storedUserId}`;
+                }
+
+                // Attach event listeners
+                const loginBtn = document.getElementById('loginBtn');
+                const addTaskBtn = document.getElementById('addTaskBtn');
+                const logoutBtn = document.getElementById('logoutBtn');
+
+                if (loginBtn) loginBtn.addEventListener('click', loginUser);
+                if (addTaskBtn) addTaskBtn.addEventListener('click', addOrUpdateTask);
+                if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
+
+                // Fetch tasks for the logged-in user
                 fetchTasks();
-                document.getElementById('loginBtn').addEventListener('click', loginUser);
-                document.getElementById('addTaskBtn').addEventListener('click', addOrUpdateTask);
             });
 
-            // Fetch all tasks from the Node.js backend
+            // Logout function
+            function logoutUser() {
+                localStorage.removeItem('loggedInUserId'); // Clear the stored user ID
+                loggedInUserId = null; // Clear the global variable
+                alert('Logged out successfully.');
+                window.location.href = 'index.html'; // Redirect to login page
+            }
+
+            // Login function
+            function loginUser() {
+                const email = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+
+                axios.post('/users/login', { email, password })
+                    .then(response => {
+                        localStorage.setItem('loggedInUserId', response.data.userId); // Store in localStorage
+                        alert('Login successful');
+                        // Update the UI to show logged-in status
+                        document.querySelector('.login-container').innerHTML = `Logged in as ${email}`;
+                    })
+                    .catch(error => {
+                        console.error('Error logging in:', error);
+                        alert('Login failed');
+                    });
+            }
+
+            // Fetch tasks
             function fetchTasks() {
                 axios.get('/tasks')
                     .then(response => {
@@ -150,7 +199,7 @@
                 document.getElementById('responsibilitySelect').value = task.responsibility.id;
                 document.getElementById('dueDate').value = new Date(task.dueDate).toISOString().substring(0, 10);
 
-                taskBeingEdited = task;  // Set the task being edited
+                taskBeingEdited = task; // Set the task being edited
             }
 
             // Clear the form after adding or updating a task
@@ -159,24 +208,6 @@
                 document.getElementById('taskDescription').value = '';
                 document.getElementById('dueDate').value = '';
                 taskBeingEdited = null;
-            }
-
-            // Login function
-            function loginUser() {
-                const email = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value.trim();
-
-                axios.post('/users/login', { email, password })
-                    .then(response => {
-                        loggedInUserId = response.data.userId;  // Store the user ID on successful login
-                        alert('Login successful');
-                        // Update the UI to show logged-in status
-                        document.querySelector('.login-container').innerHTML = `Logged in as ${email}`;
-                    })
-                    .catch(error => {
-                        console.error('Error logging in:', error);
-                        alert('Login failed');
-                    });
             }
         </script>
     </body>

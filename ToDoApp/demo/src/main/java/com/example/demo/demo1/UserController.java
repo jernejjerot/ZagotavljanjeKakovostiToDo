@@ -25,6 +25,19 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    // Create a new account
+    @PostMapping("/create-account")
+    public ResponseEntity<?> createAccount(@RequestBody User user) {
+        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
+
+        user.setPassword(user.getPassword()); // Hash this in production
+        User savedUser = userRepository.save(user);
+        return ResponseEntity.ok(savedUser);
+    }
+
     // Get all users
     @GetMapping
     public List<User> getAllUsers() {
@@ -46,6 +59,21 @@ public class UserController {
         user.setEmail(userDetails.getEmail());
         user.setPassword(userDetails.getPassword());
         return userRepository.save(user);
+    }
+
+    // Update user details
+    @PutMapping("/edit-user/{id}")
+    public ResponseEntity<?> editUser(@PathVariable Long id, @RequestBody User userDetails) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(userDetails.getName());
+        user.setSurname(userDetails.getSurname());
+        user.setEmail(userDetails.getEmail());
+        user.setPassword(userDetails.getPassword()); // Hash this in production
+
+        User updatedUser = userRepository.save(user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     // Delete a user by ID

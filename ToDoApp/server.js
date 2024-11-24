@@ -18,24 +18,34 @@ app.get('/editUser.html', (req, res) => {
 });
 
 // Fetch all tasks from the Spring Boot backend
-app.get('/tasks', async (req, res) => {
+app.post('/tasks', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:8080/tasks');
+        const userId = req.headers['user-id'];
+        const taskData = req.body;
+
+        const response = await axios.post('http://localhost:8080/tasks', taskData, {
+            headers: { 'user-id': userId },
+        });
+
         res.send(response.data);
     } catch (error) {
-        console.error('Error fetching tasks from Spring Boot:', error);
-        res.status(500).send('Error fetching tasks');
+        console.error('Error forwarding task creation:', error.response?.data || error.message);
+        res.status(500).send('Error creating task');
     }
 });
 
-// Add a new task
-app.post('/tasks', async (req, res) => {
+app.get('/tasks', async (req, res) => {
     try {
-        const response = await axios.post('http://localhost:8080/tasks', req.body);
+        const userId = req.headers['user-id'];
+
+        const response = await axios.get('http://localhost:8080/tasks', {
+            headers: { 'user-id': userId },
+        });
+
         res.send(response.data);
     } catch (error) {
-        console.error('Error adding task to Spring Boot:', error);
-        res.status(500).send('Error adding task');
+        console.error('Error fetching tasks:', error.response?.data || error.message);
+        res.status(500).send('Error fetching tasks');
     }
 });
 
@@ -43,7 +53,11 @@ app.post('/tasks', async (req, res) => {
 app.put('/tasks/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const response = await axios.put(`http://localhost:8080/tasks/${id}`, req.body);
+        const userId = req.headers['user-id'];
+
+        const response = await axios.put(`http://localhost:8080/tasks/${id}`, req.body, {
+            headers: { 'user-id': userId }
+        });
         res.send(response.data);
     } catch (error) {
         console.error('Error updating task in Spring Boot:', error);
@@ -55,7 +69,11 @@ app.put('/tasks/:id', async (req, res) => {
 app.delete('/tasks/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        await axios.delete(`http://localhost:8080/tasks/${id}`);
+        const userId = req.headers['user-id'];
+
+        await axios.delete(`http://localhost:8080/tasks/${id}`, {
+            headers: { 'user-id': userId }
+        });
         res.sendStatus(204);
     } catch (error) {
         console.error('Error deleting task in Spring Boot:', error);

@@ -43,8 +43,8 @@
 
         <script>
             let loggedInUserId = null;
-            let taskBeingEdited = null; // Track the task being edited
-
+            let taskBeingEdited = null;
+        
             document.addEventListener('DOMContentLoaded', () => {
                 // Check if user is logged in
                 const storedUserId = localStorage.getItem('loggedInUserId');
@@ -52,20 +52,54 @@
                     loggedInUserId = storedUserId; // Set the global loggedInUserId
                     document.querySelector('.login-container').innerHTML = `Logged in as User ID: ${storedUserId}`;
                 }
-
+        
                 // Attach event listeners
                 const loginBtn = document.getElementById('loginBtn');
                 const addTaskBtn = document.getElementById('addTaskBtn');
                 const logoutBtn = document.getElementById('logoutBtn');
-
+        
                 if (loginBtn) loginBtn.addEventListener('click', loginUser);
                 if (addTaskBtn) addTaskBtn.addEventListener('click', addOrUpdateTask);
                 if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
-
+        
                 // Fetch tasks for the logged-in user
                 fetchTasks();
             });
-
+        
+            // Login function
+            function loginUser() {
+                const email = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+        
+                if (!email || !password) {
+                    alert('Please enter both email and password.');
+                    return;
+                }
+        
+                // Send login request to the backend
+                axios.post('/users/login', { email, password })
+                    .then(response => {
+                        // Store the user ID in localStorage
+                        localStorage.setItem('loggedInUserId', response.data.userId);
+        
+                        // Set the global variable for logged-in user
+                        loggedInUserId = response.data.userId;
+        
+                        // Inform the user of successful login
+                        alert('Login successful');
+        
+                        // Update the UI to reflect login status
+                        document.querySelector('.login-container').innerHTML = `Logged in as ${email}`;
+        
+                        // Fetch tasks for the logged-in user
+                        fetchTasks();
+                    })
+                    .catch(error => {
+                        console.error('Error logging in:', error);
+                        alert('Login failed');
+                    });
+            }
+        
             // Logout function
             function logoutUser() {
                 localStorage.removeItem('loggedInUserId'); // Clear the stored user ID
@@ -73,103 +107,67 @@
                 alert('Logged out successfully.');
                 window.location.href = 'index.html'; // Redirect to login page
             }
-
-            // Login function
-            function loginUser() {
-                const email = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value.trim();
-
-                axios.post('/users/login', { email, password })
-                    .then(response => {
-                        localStorage.setItem('loggedInUserId', response.data.userId); // Store in localStorage
-                        alert('Login successful');
-                        // Update the UI to show logged-in status
-                        document.querySelector('.login-container').innerHTML = `Logged in as ${email}`;
-                    })
-                    .catch(error => {
-                        console.error('Error logging in:', error);
-                        alert('Login failed');
-                    });
-            }
-
+        
             // Fetch tasks
             function fetchTasks() {
-                axios.get('/tasks')
+                if (!loggedInUserId) {
+                    alert('Please log in to view tasks.');
+                    return;
+                }
+        
+                axios.get('/tasks', { headers: { 'user-id': loggedInUserId } })
                     .then(response => {
                         const taskList = document.getElementById('taskList');
                         taskList.innerHTML = ''; // Clear existing tasks
-
+        
                         response.data.forEach(task => {
                             const li = document.createElement('li');
                             const formattedDate = new Date(task.dueDate).toLocaleDateString();
-
-                            // Create task name element
-                            const taskNameElement = document.createElement('h3');
-                            taskNameElement.textContent = task.taskName;
-
-                            // Create task description element
-                            const taskDescriptionElement = document.createElement('p');
-                            taskDescriptionElement.textContent = `- ${task.description}`;
-
-                            // Create due date element
-                            const taskDueDateElement = document.createElement('p');
-                            taskDueDateElement.textContent = `(Due: ${formattedDate})`;
-
-                            // Append the elements to the task list item
-                            li.appendChild(taskNameElement);
-                            li.appendChild(taskDescriptionElement);
-                            li.appendChild(taskDueDateElement);
-
-                            // Add buttons for edit and delete actions
+        
+                            // Add task details
+                            li.textContent = `${task.taskName}: ${task.description} (Due: ${formattedDate})`;
+        
+                            // Add Edit and Delete buttons
                             createTaskElements(li, task);
-
+        
                             taskList.appendChild(li);
                         });
                     })
                     .catch(error => console.error('Error fetching tasks:', error));
             }
-
+        
             // Add or update task
             function addOrUpdateTask() {
-                const taskInput = document.getElementById('newTask');
-                const taskName = taskInput.value.trim();
+                const taskName = document.getElementById('newTask').value.trim();
                 const taskDescription = document.getElementById('taskDescription').value.trim();
                 const responsibilityId = document.getElementById('responsibilitySelect').value;
                 const dueDate = document.getElementById('dueDate').value;
-
-                if (taskName !== '' && taskDescription !== '' && loggedInUserId && dueDate !== '') {
-                    const taskData = {
-                        taskName: taskName,
-                        description: taskDescription,
-                        user: { id: loggedInUserId },
-                        responsibility: { id: responsibilityId },
-                        dueDate: dueDate,
-                        isCompleted: false
-                    };
-
-                    if (taskBeingEdited) {
-                        // Update task
-                        axios.put(`/tasks/${taskBeingEdited.id}`, taskData)
-                            .then(() => {
-                                fetchTasks();
-                                clearTaskForm();
-                            })
-                            .catch(error => console.error('Error updating task:', error));
-                    } else {
-                        // Create new task
-                        axios.post('/tasks', taskData)
-                            .then(fetchTasks)
-                            .catch(error => console.error('Error adding task:', error));
-                    }
-
-                    taskInput.value = '';
-                    document.getElementById('taskDescription').value = '';
-                    document.getElementById('dueDate').value = '';
-                } else {
-                    alert('Please log in, enter the task name, description, and select a due date.');
+        
+                if (!taskName || !taskDescription || !dueDate || !loggedInUserId) {
+                    alert('Please fill in all fields and log in.');
+                    return;
                 }
+        
+                const taskData = {
+                    taskName: taskName,
+                    description: taskDescription,
+                    responsibility: { id: responsibilityId },
+                    dueDate: dueDate,
+                    isCompleted: false,
+                };
+        
+                axios.post('/tasks', taskData, { headers: { 'user-id': loggedInUserId } })
+                    .then(() => {
+                        console.log('Task created successfully');
+                        fetchTasks(); // Refresh tasks
+                        clearTaskForm();
+                    })
+                    .catch((error) => {
+                        console.error('Error creating task:', error.response?.data || error.message);
+                        alert('Error creating task');
+                    });
             }
-
+        
             // Helper to create buttons for task actions (edit and delete)
             function createTaskElements(li, task) {
                 // Edit button
@@ -179,29 +177,28 @@
                     editTask(task);
                 });
                 li.appendChild(editBtn);
-
+        
                 // Delete button
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', () => {
-                    axios.delete(`/tasks/${task.id}`)
-                        .then(fetchTasks)
+                    axios.delete(`/tasks/${task.id}`, { headers: { 'user-id': loggedInUserId } })
+                        .then(() => fetchTasks())
                         .catch(error => console.error('Error deleting task:', error));
                 });
-
                 li.appendChild(deleteBtn);
             }
-
+        
             // Edit task function: Populate the form with the task details
             function editTask(task) {
                 document.getElementById('newTask').value = task.taskName;
                 document.getElementById('taskDescription').value = task.description;
                 document.getElementById('responsibilitySelect').value = task.responsibility.id;
                 document.getElementById('dueDate').value = new Date(task.dueDate).toISOString().substring(0, 10);
-
+        
                 taskBeingEdited = task; // Set the task being edited
             }
-
+        
             // Clear the form after adding or updating a task
             function clearTaskForm() {
                 document.getElementById('newTask').value = '';

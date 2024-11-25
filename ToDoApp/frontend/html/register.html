@@ -32,21 +32,15 @@
                 if (name && surname && email && password) {
                     axios.post('/users/create-account', { name, surname, email, password })
                         .then(response => {
-                            const userId = response.data.id; // Assuming the server responds with the user ID
-                            if (userId) {
-                                localStorage.setItem('loggedInUserId', userId); // Store in localStorage
-                                alert('Account created successfully. You are now logged in.');
-                                window.location.href = 'index.html'; // Redirect to the home page
-                            } else {
-                                alert('Account created, but login failed. Please log in manually.');
-                                window.location.href = 'index.html';
-                            }
+                            alert('Account created successfully.');
+                            window.location.href = 'index.html';
                         })
                         .catch(error => {
                             if (error.response && error.response.status === 409) {
                                 alert('Email already in use.');
                             } else {
                                 console.error('Error creating account:', error);
+                                alert('An error occurred while creating the account.');
                             }
                         });
                 } else {

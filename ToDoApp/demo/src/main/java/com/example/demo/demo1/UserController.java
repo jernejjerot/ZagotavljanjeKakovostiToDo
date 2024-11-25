@@ -19,85 +19,81 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // Create a new user
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
-    }
-
-    // Create a new account
+    // Create a new account (public endpoint)
     @PostMapping("/create-account")
-    public ResponseEntity<?> createAccount(@RequestBody User user) {
-        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+    public ResponseEntity<User> createAccount(@RequestBody User user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // No user entity in the response
         }
-
-        user.setPassword(user.getPassword()); // Hash this in production
+        user.setAdmin(false); // Ensure admin status is false by default
         User savedUser = userRepository.save(user);
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser); // Return the created user
     }
 
+    // Admin creates a new user
     @PostMapping("/admin/create-user")
-    public ResponseEntity<?> createUser(@RequestBody User newUser, @RequestHeader("user-id") Long adminId) {
-        // Validate the admin
+    public ResponseEntity<?> createUserByAdmin(@RequestBody User newUser, @RequestHeader("user-id") Long adminId) {
+        // Check if the requesting user is an admin
         Optional<User> admin = userRepository.findById(adminId);
-        if (!admin.isPresent() || !admin.get().getAdmin()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: Only admins can create users");
+        if (admin.isPresent() && admin.get().getAdmin()) {
+            // Save the new user
+            if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use.");
+            }
+            newUser.setAdmin(false); // Ensure the new user is not an admin by default
+            userRepository.save(newUser);
+            return ResponseEntity.ok("User created successfully.");
         }
-
-        // Check if user already exists
-        if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
-        }
-
-        // Save the new user
-        User savedUser = userRepository.save(newUser);
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to create users.");
     }
 
-    // Get all users
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    // Get all users (Admin only)
+    @GetMapping("/admin/all")
+    public ResponseEntity<?> getAllUsers(@RequestHeader("user-id") Long adminId) {
+        Optional<User> admin = userRepository.findById(adminId);
+        if (admin.isPresent() && admin.get().getAdmin()) {
+            List<User> users = userRepository.findAll();
+            return ResponseEntity.ok(users);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to view all users.");
     }
 
     // Get a specific user by ID
     @GetMapping("/{id}")
-    public Optional<User> getUserById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id)
+                .map(ResponseEntity::ok) // Return the found user with 200 OK
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // No body, just 404
     }
 
     // Update a user by ID
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User user = userRepository.findById(id).orElseThrow();
-        user.setName(userDetails.getName());
-        user.setSurname(userDetails.getSurname());
-        user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword());
-        return userRepository.save(user);
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setName(userDetails.getName());
+            user.setSurname(userDetails.getSurname());
+            user.setEmail(userDetails.getEmail());
+            user.setPassword(userDetails.getPassword());
+            userRepository.save(user);
+            return ResponseEntity.ok("User updated successfully.");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
     }
 
-    // Update user details
-    @PutMapping("/edit-user/{id}")
-    public ResponseEntity<?> editUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        user.setName(userDetails.getName());
-        user.setSurname(userDetails.getSurname());
-        user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword()); // Hash this in production
-
-        User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
-    }
-
-    // Delete a user by ID
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+    // Delete a user by ID (Admin only)
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id, @RequestHeader("user-id") Long adminId) {
+        Optional<User> admin = userRepository.findById(adminId);
+        if (admin.isPresent() && admin.get().getAdmin()) {
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+                return ResponseEntity.ok("User deleted successfully.");
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to delete users.");
     }
 
     // Handle user login
@@ -115,6 +111,6 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
     }
 }

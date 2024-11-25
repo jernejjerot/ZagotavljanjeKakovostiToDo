@@ -14,6 +14,7 @@
                 <a href="register.html">Register</a>
                 <a href="editUser.html">Edit Account</a>
             </div>
+
             <!-- Login Form -->
             <div class="login-container" style="position: absolute; top: 20px; right: 20px;">
                 <input type="text" id="username" placeholder="Enter email">
@@ -23,6 +24,7 @@
             <div class="logout-container" style="position: absolute; top: 60px; right: 20px;">
                 <button id="logoutBtn">Logout</button>
             </div>
+
             <!-- Task Input Form -->
             <div class="input-container">
                 <input type="text" id="newTask" placeholder="Enter new task...">
@@ -37,17 +39,13 @@
             </div>
             <ul id="taskList"></ul>
 
-            <!-- dodaj userja forma -->
-            <div id="adminContainer" style="display: none;">
-                <h3>Create New User</h3>
+            <!-- Admin: Create User Form -->
+            <div id="adminContainer" style="display: none; margin-top: 20px;">
+                <h2>Create New User</h2>
                 <input type="text" id="newUserName" placeholder="First Name">
                 <input type="text" id="newUserSurname" placeholder="Last Name">
                 <input type="email" id="newUserEmail" placeholder="Email">
                 <input type="password" id="newUserPassword" placeholder="Password">
-                <select id="newUserAdmin">
-                    <option value="false">Regular User</option>
-                    <option value="true">Admin</option>
-                </select>
                 <button id="createUserBtn">Create User</button>
             </div>
         </div>
@@ -57,151 +55,154 @@
 
         <script>
             let loggedInUserId = null;
+            let isAdmin = false;
             let taskBeingEdited = null;
-        
+
             document.addEventListener('DOMContentLoaded', () => {
                 // Check if user is logged in
                 const storedUserId = localStorage.getItem('loggedInUserId');
+                const storedIsAdmin = localStorage.getItem('isAdmin');
                 if (storedUserId) {
-                    loggedInUserId = storedUserId; // Set the global loggedInUserId
+                    loggedInUserId = storedUserId;
+                    isAdmin = storedIsAdmin === 'true';
                     document.querySelector('.login-container').innerHTML = `Logged in as User ID: ${storedUserId}`;
+
+                    if (isAdmin) {
+                        document.getElementById('adminContainer').style.display = 'block';
+                    }
                 }
-        
+
                 // Attach event listeners
                 const loginBtn = document.getElementById('loginBtn');
                 const addTaskBtn = document.getElementById('addTaskBtn');
                 const logoutBtn = document.getElementById('logoutBtn');
-        
+                const createUserBtn = document.getElementById('createUserBtn');
+
                 if (loginBtn) loginBtn.addEventListener('click', loginUser);
                 if (addTaskBtn) addTaskBtn.addEventListener('click', addOrUpdateTask);
                 if (logoutBtn) logoutBtn.addEventListener('click', logoutUser);
-        
+                if (createUserBtn) createUserBtn.addEventListener('click', createUser);
+
                 // Fetch tasks for the logged-in user
                 fetchTasks();
             });
-        
-            // Login function
+
             function loginUser() {
                 const email = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value.trim();
 
                 axios.post('/users/login', { email, password })
                     .then(response => {
-                        localStorage.setItem('loggedInUserId', response.data.userId);
-                        loggedInUserId = response.data.userId;
+                        const user = response.data;
+                        localStorage.setItem('loggedInUserId', user.userId);
+                        localStorage.setItem('isAdmin', user.isAdmin);
 
-                        // Check admin status
-                        if (response.data.isAdmin) {
-                            document.getElementById('adminContainer').style.display = 'block'; // Show admin features
-                        }
+                        loggedInUserId = user.userId;
+                        isAdmin = user.isAdmin;
+
                         alert('Login successful');
+                        document.querySelector('.login-container').innerHTML = `Logged in as ${user.email}`;
+
+                        if (isAdmin) {
+                            document.getElementById('adminContainer').style.display = 'block';
+                        }
+
+                        fetchTasks();
                     })
                     .catch(error => {
                         console.error('Error logging in:', error);
                         alert('Login failed');
                     });
             }
-        
-            // Logout function
+
             function logoutUser() {
-                localStorage.removeItem('loggedInUserId'); // Clear the stored user ID
-                loggedInUserId = null; // Clear the global variable
+                localStorage.removeItem('loggedInUserId');
+                localStorage.removeItem('isAdmin');
+                loggedInUserId = null;
+                isAdmin = false;
+
                 alert('Logged out successfully.');
-                window.location.href = 'index.html'; // Redirect to login page
+                window.location.href = 'index.html';
             }
-        
-            // Fetch tasks
+
             function fetchTasks() {
                 if (!loggedInUserId) {
                     alert('Please log in to view tasks.');
                     return;
                 }
-        
+
                 axios.get('/tasks', { headers: { 'user-id': loggedInUserId } })
                     .then(response => {
                         const taskList = document.getElementById('taskList');
-                        taskList.innerHTML = ''; // Clear existing tasks
-        
+                        taskList.innerHTML = '';
+
                         response.data.forEach(task => {
                             const li = document.createElement('li');
                             const formattedDate = new Date(task.dueDate).toLocaleDateString();
-        
-                            // Add task details
                             li.textContent = `${task.taskName}: ${task.description} (Due: ${formattedDate})`;
-        
-                            // Add Edit and Delete buttons
                             createTaskElements(li, task);
-        
                             taskList.appendChild(li);
                         });
                     })
                     .catch(error => console.error('Error fetching tasks:', error));
             }
-        
-            // Add or update task
+
             function addOrUpdateTask() {
                 const taskName = document.getElementById('newTask').value.trim();
                 const taskDescription = document.getElementById('taskDescription').value.trim();
                 const responsibilityId = document.getElementById('responsibilitySelect').value;
                 const dueDate = document.getElementById('dueDate').value;
-        
+
                 if (!taskName || !taskDescription || !dueDate || !loggedInUserId) {
                     alert('Please fill in all fields and log in.');
                     return;
                 }
-        
+
                 const taskData = {
-                    taskName: taskName,
+                    taskName,
                     description: taskDescription,
                     responsibility: { id: responsibilityId },
-                    dueDate: dueDate,
+                    dueDate,
                     isCompleted: false,
                 };
-        
+
                 axios.post('/tasks', taskData, { headers: { 'user-id': loggedInUserId } })
                     .then(() => {
-                        console.log('Task created successfully');
-                        fetchTasks(); // Refresh tasks
+                        alert('Task created successfully');
+                        fetchTasks();
                         clearTaskForm();
                     })
-                    .catch((error) => {
-                        console.error('Error creating task:', error.response?.data || error.message);
-                        alert('Error creating task');
+                    .catch(error => {
+                        console.error('Error creating task:', error);
+                        alert('Failed to create task');
                     });
             }
-        
-            // Helper to create buttons for task actions (edit and delete)
+
             function createTaskElements(li, task) {
-                // Edit button
                 const editBtn = document.createElement('button');
                 editBtn.textContent = 'Edit';
-                editBtn.addEventListener('click', () => {
-                    editTask(task);
-                });
+                editBtn.addEventListener('click', () => editTask(task));
                 li.appendChild(editBtn);
-        
-                // Delete button
+
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.addEventListener('click', () => {
                     axios.delete(`/tasks/${task.id}`, { headers: { 'user-id': loggedInUserId } })
-                        .then(() => fetchTasks())
+                        .then(fetchTasks)
                         .catch(error => console.error('Error deleting task:', error));
                 });
                 li.appendChild(deleteBtn);
             }
-        
-            // Edit task function: Populate the form with the task details
+
             function editTask(task) {
                 document.getElementById('newTask').value = task.taskName;
                 document.getElementById('taskDescription').value = task.description;
                 document.getElementById('responsibilitySelect').value = task.responsibility.id;
                 document.getElementById('dueDate').value = new Date(task.dueDate).toISOString().substring(0, 10);
-        
-                taskBeingEdited = task; // Set the task being edited
+
+                taskBeingEdited = task;
             }
-        
-            // Clear the form after adding or updating a task
+
             function clearTaskForm() {
                 document.getElementById('newTask').value = '';
                 document.getElementById('taskDescription').value = '';
@@ -209,46 +210,35 @@
                 taskBeingEdited = null;
             }
 
-            </script>
-            <script>
-                function createNewUser() {
-                    const newUserName = document.getElementById('newUserName').value.trim();
-                    const newUserSurname = document.getElementById('newUserSurname').value.trim();
-                    const newUserEmail = document.getElementById('newUserEmail').value.trim();
-                    const newUserPassword = document.getElementById('newUserPassword').value.trim();
-                    const newUserAdmin = document.getElementById('newUserAdmin').value === 'true';
-            
-                    if (!newUserName || !newUserSurname || !newUserEmail || !newUserPassword) {
-                        alert('Please fill in all fields.');
-                        return;
-                    }
-            
-                    const newUser = {
-                        name: newUserName,
-                        surname: newUserSurname,
-                        email: newUserEmail,
-                        password: newUserPassword,
-                        admin: newUserAdmin
-                    };
-            
-                    axios.post('/users/admin/create-user', newUser, { headers: { 'user-id': loggedInUserId } })
-                        .then(response => {
-                            alert(`User ${response.data.name} created successfully.`);
-                            clearAdminForm();
-                        })
-                        .catch(error => {
-                            console.error('Error creating user:', error.response?.data || error.message);
-                            alert('Error creating user. Please check the console for details.');
-                        });
+            function createUser() {
+                const name = document.getElementById('newUserName').value.trim();
+                const surname = document.getElementById('newUserSurname').value.trim();
+                const email = document.getElementById('newUserEmail').value.trim();
+                const password = document.getElementById('newUserPassword').value.trim();
+
+                if (!name || !surname || !email || !password) {
+                    alert('All fields are required.');
+                    return;
                 }
-            
-                function clearAdminForm() {
+
+                axios.post('/users/admin/create-user', {
+                    name,
+                    surname,
+                    email,
+                    password,
+                }, { headers: { 'user-id': loggedInUserId } })
+                .then(() => {
+                    alert('User created successfully');
                     document.getElementById('newUserName').value = '';
                     document.getElementById('newUserSurname').value = '';
                     document.getElementById('newUserEmail').value = '';
                     document.getElementById('newUserPassword').value = '';
-                    document.getElementById('newUserAdmin').value = 'false';
-                }
-            </script>
+                })
+                .catch(error => {
+                    console.error('Error creating user:', error.response?.data || error.message);
+                    alert('Failed to create user');
+                });
+            }
+        </script>
     </body>
 </html>

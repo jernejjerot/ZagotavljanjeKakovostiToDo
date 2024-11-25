@@ -1,1 +1,16 @@
+
+# macOS system files
+.DS_Store
+
+# IntelliJ IDEA project files
+.idea/
+
+# Node.js modules
+node_modules/
+
+# VS Code settings
+.vscode/
+
 "node_modules/" 
+
+.idea/

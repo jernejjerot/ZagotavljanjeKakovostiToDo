@@ -115,6 +115,23 @@ app.put('/users/edit-user/:id', async (req, res) => {
     }
 });
 
+// Proxy the create-user request for admin
+app.post('/users/admin/create-user', async (req, res) => {
+    try {
+        const userId = req.headers['user-id'];
+        const newUser = req.body;
+
+        const response = await axios.post('http://localhost:8080/users/admin/create-user', newUser, {
+            headers: { 'user-id': userId },
+        });
+
+        res.send(response.data);
+    } catch (error) {
+        console.error('Error forwarding create-user request:', error.response?.data || error.message);
+        res.status(500).send('Error creating user');
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

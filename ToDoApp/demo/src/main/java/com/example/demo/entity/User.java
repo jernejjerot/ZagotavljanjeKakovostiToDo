@@ -13,9 +13,12 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private String password;
+    private String password; // Plain-text password
 
-    // Getters and Setters
+    @Column(name = "admin", nullable = false) // Add the annotation here
+    private boolean admin; // Primitive boolean
+
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -54,5 +57,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin != null && admin; // Avoid null issues
     }
 }

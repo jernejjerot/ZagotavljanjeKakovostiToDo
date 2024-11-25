@@ -38,6 +38,24 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
+    @PostMapping("/admin/create-user")
+    public ResponseEntity<?> createUser(@RequestBody User newUser, @RequestHeader("user-id") Long adminId) {
+        // Validate the admin
+        Optional<User> admin = userRepository.findById(adminId);
+        if (!admin.isPresent() || !admin.get().getAdmin()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: Only admins can create users");
+        }
+
+        // Check if user already exists
+        if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
+
+        // Save the new user
+        User savedUser = userRepository.save(newUser);
+        return ResponseEntity.ok(savedUser);
+    }
+
     // Get all users
     @GetMapping
     public List<User> getAllUsers() {
@@ -88,14 +106,15 @@ public class UserController {
         String email = loginDetails.get("email");
         String password = loginDetails.get("password");
 
-        Optional<User> user = userRepository.findByEmailAndPassword(email, password);
-        if (user.isPresent()) {
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "Login successful");
             response.put("userId", user.get().getId());
+            response.put("isAdmin", user.get().getAdmin());
             return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 }

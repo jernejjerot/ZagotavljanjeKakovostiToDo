@@ -36,6 +36,20 @@
                 <button id="addTaskBtn">Add Task</button>
             </div>
             <ul id="taskList"></ul>
+
+            <!-- dodaj userja forma -->
+            <div id="adminContainer" style="display: none;">
+                <h3>Create New User</h3>
+                <input type="text" id="newUserName" placeholder="First Name">
+                <input type="text" id="newUserSurname" placeholder="Last Name">
+                <input type="email" id="newUserEmail" placeholder="Email">
+                <input type="password" id="newUserPassword" placeholder="Password">
+                <select id="newUserAdmin">
+                    <option value="false">Regular User</option>
+                    <option value="true">Admin</option>
+                </select>
+                <button id="createUserBtn">Create User</button>
+            </div>
         </div>
 
         <!-- Axios CDN -->
@@ -70,29 +84,17 @@
             function loginUser() {
                 const email = document.getElementById('username').value.trim();
                 const password = document.getElementById('password').value.trim();
-        
-                if (!email || !password) {
-                    alert('Please enter both email and password.');
-                    return;
-                }
-        
-                // Send login request to the backend
+
                 axios.post('/users/login', { email, password })
                     .then(response => {
-                        // Store the user ID in localStorage
                         localStorage.setItem('loggedInUserId', response.data.userId);
-        
-                        // Set the global variable for logged-in user
                         loggedInUserId = response.data.userId;
-        
-                        // Inform the user of successful login
+
+                        // Check admin status
+                        if (response.data.isAdmin) {
+                            document.getElementById('adminContainer').style.display = 'block'; // Show admin features
+                        }
                         alert('Login successful');
-        
-                        // Update the UI to reflect login status
-                        document.querySelector('.login-container').innerHTML = `Logged in as ${email}`;
-        
-                        // Fetch tasks for the logged-in user
-                        fetchTasks();
                     })
                     .catch(error => {
                         console.error('Error logging in:', error);
@@ -206,6 +208,47 @@
                 document.getElementById('dueDate').value = '';
                 taskBeingEdited = null;
             }
-        </script>
+
+            </script>
+            <script>
+                function createNewUser() {
+                    const newUserName = document.getElementById('newUserName').value.trim();
+                    const newUserSurname = document.getElementById('newUserSurname').value.trim();
+                    const newUserEmail = document.getElementById('newUserEmail').value.trim();
+                    const newUserPassword = document.getElementById('newUserPassword').value.trim();
+                    const newUserAdmin = document.getElementById('newUserAdmin').value === 'true';
+            
+                    if (!newUserName || !newUserSurname || !newUserEmail || !newUserPassword) {
+                        alert('Please fill in all fields.');
+                        return;
+                    }
+            
+                    const newUser = {
+                        name: newUserName,
+                        surname: newUserSurname,
+                        email: newUserEmail,
+                        password: newUserPassword,
+                        admin: newUserAdmin
+                    };
+            
+                    axios.post('/users/admin/create-user', newUser, { headers: { 'user-id': loggedInUserId } })
+                        .then(response => {
+                            alert(`User ${response.data.name} created successfully.`);
+                            clearAdminForm();
+                        })
+                        .catch(error => {
+                            console.error('Error creating user:', error.response?.data || error.message);
+                            alert('Error creating user. Please check the console for details.');
+                        });
+                }
+            
+                function clearAdminForm() {
+                    document.getElementById('newUserName').value = '';
+                    document.getElementById('newUserSurname').value = '';
+                    document.getElementById('newUserEmail').value = '';
+                    document.getElementById('newUserPassword').value = '';
+                    document.getElementById('newUserAdmin').value = 'false';
+                }
+            </script>
     </body>
 </html>

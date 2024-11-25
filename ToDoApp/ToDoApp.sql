@@ -9,6 +9,9 @@ GRANT SELECT ON *.* TO 'readonly'@'localhost';
 CREATE USER 'JakaCvikl'@'localhost' IDENTIFIED BY '123123';
 GRANT SELECT, INSERT, UPDATE, DELETE ON ToDoList.* TO 'JakaCvikl'@'localhost';
 
+CREATE USER 'root'@'localhost' IDENTIFIED BY '515346jj';
+GRANT SELECT, INSERT, UPDATE, DELETE ON ToDoList.* TO 'root'@'localhost';
+
 DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS responsibilities;
 DROP TABLE IF EXISTS user;

@@ -1,7 +1,13 @@
 package com.example.demo.entity;
 
+
+import com.example.demo.demo1.enums.TaskStatus;
+import com.example.demo.demo1.enums.PriorityLevel;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
+
+import com.example.demo.demo1.enums.TaskStatus;
 
 @Entity
 @Table(name = "tasks")
@@ -83,4 +89,14 @@ public class Task {
     public void setIsCompleted(Boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    public void setReminder(LocalDate date) {
+        System.out.println("Reminder set for: " + date);
+    }
+
+    public void updateStatus(TaskStatus status) {
+        this.isCompleted = (status == TaskStatus.COMPLETED);
+        System.out.println("Task status updated to: " + status);
+    }
+
 }

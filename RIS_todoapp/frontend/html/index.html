@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <ul id="navLinks">
+                <li><a href="/html/register.html">Register</a></li>
+                <li><a href="/html/editUser.html">Edit Account</a></li>
+                <li><a href="/html/doneTasks.html">Completed Tasks</a></li>
+            <!-- Admin link dynamically added -->
+            </ul>
+        </nav>
+        <div id="userActions" class="login-container"></div>
+    </header>
+
+    <main>
+        <h1>Welcome, <span id="userName">Guest</span></h1>
+        <section id="tasksSection" style="display: none;">
+            <h2>My Tasks</h2>
+            <h3>Add New Task</h3>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskType">Task Type:</label>
+                    <select id="taskType" required>
+                        <!-- Options will be dynamically populated -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Description:</label>
+                    <textarea id="taskDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">Due Date:</label>
+                    <input type="datetime-local" id="dueDate">
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Save Task</button>
+                    <button type="button" id="cancelEditButton" style="display: none;">Cancel Edit</button>
+                </div>
+            </form>
+            <div id="taskGrid" class="task-grid"></div> <!-- Task grid added -->
+        </section>
+    </main>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

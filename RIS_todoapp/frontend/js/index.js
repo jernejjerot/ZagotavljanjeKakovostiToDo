@@ -93,6 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     async function moveToDoneTasks(task) {
+        console.log("Task received by moveToDoneTasks:", task); // Debugging input task
+    
+        // Validate taskName
+        if (!task.taskName || task.taskName.trim() === "") {
+            console.error("Task name is missing or empty.");
+            return;
+        }
+        if (!task.taskType || !task.taskType.id) {
+            console.error("Task type is missing or invalid.");
+            return;
+        }
+    
         const payload = {
             id: task.id,
             taskName: task.taskName,
@@ -107,33 +119,39 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             isCompleted: task.isCompleted,
         };
-        console.log("Payload sent to /tasks/done:", payload); // Debugging
     
-        // Ensure task object contains all necessary fields
-        if (!task.taskName || !task.taskType || !task.taskType.id) {
-            console.error("Task data is incomplete. Ensure taskName and taskType are present.");
-            return;
-        }
+        console.log("Payload sent to /tasks/done:", JSON.stringify(payload, null, 2)); // Debugging payload
     
         try {
             const response = await fetch('/tasks/done', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'user-id': userId },
-                body: JSON.stringify(task), // Send the full task object
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'user-id': localStorage.getItem('userId') 
+                },
+                body: JSON.stringify({
+                    id: task.id,
+                    taskName: task.taskName,
+                    taskType: task.taskType, // Ensure taskType is an object with `id` and `type`
+                    description: task.description,
+                    dueDateTime: task.dueDateTime,
+                    user: task.user, // Ensure this is an object with `id`
+                    isCompleted: true, // Mark as done
+                }),
             });
     
             if (!response.ok) {
                 const errorText = await response.text();
-                console.error(`Failed to move task to done: ${errorText}`);
-                alert('Error moving task to done: ' + errorText);
+                console.error("Error from server:", errorText);
+                alert(`Failed to mark task as done: ${errorText}`);
                 return;
             }
     
-            console.log(`Task with ID ${task.id} moved to completed successfully.`);
-            alert(`Task "${task.taskName}" moved to completed successfully!`);
+            console.log(`Task "${task.taskName}" marked as completed.`);
+            alert(`Task "${task.taskName}" moved to completed.`);
         } catch (error) {
-            console.error('Error moving task to done:', error.message);
-            alert('Error moving task to done.');
+            console.error("Error in moveToDoneTasks:", error.message);
+            alert("Failed to mark task as done.");
         }
     }
 

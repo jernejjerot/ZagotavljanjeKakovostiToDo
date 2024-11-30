@@ -13,6 +13,11 @@ app.use('/css', express.static(path.join(__dirname, 'css'))); // Serve CSS
 app.use('/js', express.static(path.join(__dirname, 'js')));   // Serve JS
 app.use('/html', express.static(path.join(__dirname, 'html'))); // Serve HTML
 
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, 'favicon.ico'));
+});
+
+
 // Default route to serve index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'html/index.html'));

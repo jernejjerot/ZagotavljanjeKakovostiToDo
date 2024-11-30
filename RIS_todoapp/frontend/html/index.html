@@ -13,7 +13,7 @@
                 <li><a href="/html/register.html">Register</a></li>
                 <li><a href="/html/editUser.html">Edit Account</a></li>
                 <li><a href="/html/doneTasks.html">Completed Tasks</a></li>
-            <!-- Admin link dynamically added -->
+                <!-- Admin link dynamically added -->
             </ul>
         </nav>
         <div id="userActions" class="login-container"></div>
@@ -21,6 +21,8 @@
 
     <main>
         <h1>Welcome, <span id="userName">Guest</span></h1>
+        
+        <!-- Tasks Section -->
         <section id="tasksSection" style="display: none;">
             <h2>My Tasks</h2>
             <h3>Add New Task</h3>
@@ -48,7 +50,35 @@
                     <button type="button" id="cancelEditButton" style="display: none;">Cancel Edit</button>
                 </div>
             </form>
-            <div id="taskGrid" class="task-grid"></div> <!-- Task grid added -->
+            <div id="taskGrid" class="task-grid"></div>
+        </section>
+
+        <!-- Create User Section (Visible for Admins Only) -->
+        <section id="tasksSection" style="display: none;">
+            <h2>My Tasks</h2>
+            <!-- Task Form and Task Grid -->
+        </section>
+        
+        <section id="createUserSection" style="display: none;">
+            <h2>Create New User</h2>
+            <form id="createUserForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                
+                <label for="admin">Is Admin:</label>
+                <input type="checkbox" id="admin">
+                
+                <button type="submit">Create User</button>
+            </form>
         </section>
     </main>
 

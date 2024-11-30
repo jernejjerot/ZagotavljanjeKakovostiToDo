@@ -206,3 +206,7 @@ button:hover {
 .task-box .move-button:hover {
     background: #025aa5;
 }
+
+#createUserSection {
+    display: none;
+}

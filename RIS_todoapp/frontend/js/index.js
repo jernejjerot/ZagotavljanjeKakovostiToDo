@@ -9,12 +9,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskForm = document.getElementById("taskForm");
     const taskTypeSelect = document.getElementById("taskType");
     const tasksSection = document.getElementById("tasksSection");
+    const createUserSection = document.getElementById("createUserSection"); // Forma za ustvarjanje uporabnikov
 
-    // Added for admin page visibility
-    if (isAdmin) {
+    // Privzeto skrij formo za ustvarjanje uporabnikov
+    if (createUserSection) {
+        createUserSection.style.display = 'none';
+    }
+
+    // Prikaz forme za ustvarjanje uporabnikov in admin navigacijskega elementa
+    if (isAdmin && userId) {
+        // Prikaži formo za admina
+        if (createUserSection) {
+            createUserSection.style.display = 'block';
+        }
+
+        // Dodaj povezavo do admin strani
         const adminLink = document.createElement("li");
         adminLink.innerHTML = `<a href="/html/admin.html">Admin Page</a>`;
         navLinks.appendChild(adminLink);
+
+        // Poslušalec dogodkov za formo za ustvarjanje uporabnikov
+        document.getElementById('createUserForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const userData = {
+                name: document.getElementById('name').value,
+                surname: document.getElementById('surname').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                admin: document.getElementById('admin').checked,
+            };
+
+            try {
+                const response = await fetch('/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData),
+                });
+
+                if (response.ok) {
+                    alert('User created successfully!');
+                    document.getElementById('createUserForm').reset();
+                } else {
+                    const errorText = await response.text();
+                    alert(`Failed to create user: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('Error creating user:', error);
+            }
+        });
+    }
+
+    // Login/logout funkcionalnost
+    if (!userId) {
+        userActions.innerHTML = `
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        `;
+        document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    } else {
+        userActions.innerHTML = `
+            <div class="logout-container">
+                <p>Logged in as: ${userName}</p>
+                <button id="logoutButton" class="logout-button">Logout</button>
+            </div>
+        `;
+        document.getElementById('logoutButton').addEventListener('click', handleLogout);
+        userNameElement.textContent = userName;
+        tasksSection.style.display = 'block';
+        loadTaskTypes();
+        fetchTasks();
     }
     
     cancelEditButton.id = 'cancelEditButton';
@@ -74,51 +141,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('/tasks', { headers: { 'user-id': userId } });
         const tasks = await response.json();
         console.log("Fetched tasks:", tasks); // Debugging
-        taskGrid.innerHTML = ''; // Clear the task grid
+        taskGrid.innerHTML = ''; // Počisti mrežo nalog
         const now = new Date();
-    
+
         for (const task of tasks) {
             console.log("Rendering task:", task);
-    
+
             const dueTime = new Date(task.dueDateTime);
             const timeLeft = dueTime - now;
-    
-            // If overdue and not completed, move to done tasks
+
             if (timeLeft <= 0 && !task.isCompleted) {
                 await moveToDoneTasks(task);
                 continue;
             }
-    
-            // Render only non-completed tasks
+
             if (!task.isCompleted) {
                 renderTask(task, taskGrid, now);
             }
         }
     }
 
-    // Display login/logout functionality
-    if (!userId) {
-        userActions.innerHTML = `
-            <form id="loginForm">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        `;
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    } else {
-        userActions.innerHTML = `
-            <div class="logout-container">
-                <p>Logged in as: ${userName}</p>
-                <button id="logoutButton" class="logout-button">Logout</button>
-            </div>
-        `;
-        document.getElementById('logoutButton').addEventListener('click', handleLogout);
-        userNameElement.textContent = userName;
-        tasksSection.style.display = 'block';
-        loadTaskTypes();
-        fetchTasks();
-    }
+    // // Display login/logout functionality
+    // if (!userId) {
+    //     userActions.innerHTML = `
+    //         <form id="loginForm">
+    //             <input type="email" id="email" placeholder="Email" required>
+    //             <input type="password" id="password" placeholder="Password" required>
+    //             <button type="submit">Login</button>
+    //         </form>
+    //     `;
+    //     document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    // } else {
+    //     userActions.innerHTML = `
+    //         <div class="logout-container">
+    //             <p>Logged in as: ${userName}</p>
+    //             <button id="logoutButton" class="logout-button">Logout</button>
+    //         </div>
+    //     `;
+    //     document.getElementById('logoutButton').addEventListener('click', handleLogout);
+    //     userNameElement.textContent = userName;
+    //     tasksSection.style.display = 'block';
+    //     loadTaskTypes();
+    //     fetchTasks();
+    // }
 
     // Login functionality
     async function handleLogin(event) {
@@ -127,19 +192,25 @@ document.addEventListener('DOMContentLoaded', () => {
             email: document.getElementById('email').value,
             password: document.getElementById('password').value,
         };
-        const response = await fetch('/users/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(loginData),
-        });
 
-        if (response.ok) {
-            const user = await response.json();
-            localStorage.setItem('userId', user.id);
-            localStorage.setItem('userName', user.name);
-            location.reload();
-        } else {
-            alert('Login failed.');
+        try {
+            const response = await fetch('/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(loginData),
+            });
+
+            if (response.ok) {
+                const user = await response.json();
+                localStorage.setItem('userId', user.id);
+                localStorage.setItem('userName', user.name);
+                localStorage.setItem('isAdmin', user.admin); // Shranimo status admina
+                location.reload(); // Osveži stran po prijavi
+            } else {
+                alert('Login failed.');
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
         }
     }
 
@@ -147,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleLogout() {
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
+        localStorage.removeItem('isAdmin');
         alert('You have been logged out.');
         location.reload();
     }
@@ -156,73 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/task-types');
             if (!response.ok) throw new Error('Failed to load task types.');
-    
+
             const taskTypes = await response.json();
             taskTypeSelect.innerHTML = taskTypes.map(type => `<option value="${type.id}">${type.type}</option>`).join('');
         } catch (error) {
             console.error('Error loading task types:', error);
         }
     }
-
-/*// Move tasks to completed tasks
-async function moveToDoneTasks(task) {
-    console.log("Payload sent to /tasks/done:", task);
-    try {
-        const response = await fetch('/tasks/done', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'user-id': userId },
-            body: JSON.stringify(task), // Send the full task object
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Failed to move task to done: ${errorText}`);
-            return; // Stop further execution without showing alert
-        }
-
-        console.log(`Task with ID ${task.id} moved to completed successfully.`);
-    } catch (error) {
-        console.error('Error moving task to done:', error.message);
-    }
-}*/
-
-
-
-
-
-
-
-
-
-
-  /*  // Fetch and render tasks
-    async function fetchTasks() {
-        const response = await fetch('/tasks', { headers: { 'user-id': userId } });
-        const tasks = await response.json();
-        console.log("Fetched tasks:", tasks); // Debugging
-        taskGrid.innerHTML = ''; // Clear the task grid
-        const now = new Date();
-    
-        for (const task of tasks) {
-
-            // Debugging each task
-        console.log("Rendering task:", task);
-
-            const dueTime = new Date(task.dueDateTime);
-            const timeLeft = dueTime - now;
-    
-            // If overdue and not completed, move to done tasks
-            if (timeLeft <= 0 && !task.isCompleted) {
-                await moveToDoneTasks(task);
-                continue;
-            }
-    
-            // Render only non-completed tasks
-            if (!task.isCompleted) {
-                renderTask(task, taskGrid, now);
-            }
-        }
-    }*/
     
 
         function renderTask(task, taskGrid, now) {

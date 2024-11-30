@@ -181,6 +181,4 @@ public ResponseEntity<?> updateTaskAsAdmin(
     }
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to update tasks.");
 }
-
-
 }

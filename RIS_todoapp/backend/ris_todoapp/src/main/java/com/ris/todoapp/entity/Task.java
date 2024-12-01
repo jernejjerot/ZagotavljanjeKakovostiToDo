@@ -31,6 +31,15 @@ public class Task {
     @Column(name = "is_completed")
     private boolean isCompleted;
 
+    @Column(name = "location_address")
+    private String locationAddress; // Naslov lokacije
+
+    @Column(name = "latitude")
+    private Double latitude; // Geografska širina
+
+    @Column(name = "longitude")
+    private Double longitude; // Geografska dolžina
+
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -46,4 +55,23 @@ public class Task {
     public void setDueDateTime(LocalDateTime dueDateTime) { this.dueDateTime = dueDateTime; }
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+    public Double getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+    public Double getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }

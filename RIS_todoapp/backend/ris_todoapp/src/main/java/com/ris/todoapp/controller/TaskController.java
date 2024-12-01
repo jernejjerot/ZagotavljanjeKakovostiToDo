@@ -1,11 +1,13 @@
 package com.ris.todoapp.controller;
 
+import com.ris.todoapp.dto.GeocodingResult;
 import com.ris.todoapp.entity.Task;
 import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.entity.User;
 import com.ris.todoapp.repository.TaskRepository;
 import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.repository.UserRepository;
+import com.ris.todoapp.service.GeocodingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
+
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "http://localhost:3000") // Allow requests from the frontend
 public class TaskController {
+
+    @Autowired
+    private GeocodingService geocodingService;
+
 
     @Autowired
     private TaskRepository taskRepository;
@@ -29,45 +37,44 @@ public class TaskController {
 
     // Create a new task
     @PostMapping
-public ResponseEntity<?> createTask(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
-    try {
-        // Check if user exists
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid user ID.");
+    public ResponseEntity<?> createTask(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
+        try {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isEmpty()) {
+                return ResponseEntity.badRequest().body("Invalid user ID.");
+            }
+
+            if (task.getTaskType() == null || task.getTaskType().getId() == null) {
+                return ResponseEntity.badRequest().body("TaskType must be provided.");
+            }
+
+            Optional<TaskType> taskType = taskTypeRepository.findById(task.getTaskType().getId());
+            if (taskType.isEmpty()) {
+                return ResponseEntity.badRequest().body("Invalid task type ID.");
+            }
+
+            // Preveri in shranjuje naslov lokacije
+            if (task.getLocationAddress() != null && !task.getLocationAddress().isBlank()) {
+                GeocodingResult result = geocodingService.geocode(task.getLocationAddress());
+                if (result != null) {
+                    task.setLatitude(result.getLatitude());
+                    task.setLongitude(result.getLongitude());
+                } else {
+                    return ResponseEntity.badRequest().body("Invalid location address.");
+                }
+            }
+
+            task.setUser(user.get());
+            task.setTaskType(taskType.get());
+            Task savedTask = taskRepository.save(task);
+
+            return ResponseEntity.ok(savedTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error occurred while creating task.");
         }
-
-        // Validate TaskType
-        if (task.getTaskType() == null || task.getTaskType().getId() == null) {
-            return ResponseEntity.badRequest().body("TaskType must be provided.");
-        }
-
-        Optional<TaskType> taskType = taskTypeRepository.findById(task.getTaskType().getId());
-        if (taskType.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid task type ID.");
-        }
-
-        // Check for null or blank taskName
-        if (task.getTaskName() == null || task.getTaskName().isBlank()) {
-            return ResponseEntity.badRequest().body("Task name cannot be blank.");
-        }
-
-        // Validate description
-        if (task.getDescription() == null || task.getDescription().isBlank()) {
-            task.setDescription("No description provided.");
-        }
-
-        // Set user and task type
-        task.setUser(user.get());
-        task.setTaskType(taskType.get());
-
-        Task savedTask = taskRepository.save(task);
-        return ResponseEntity.ok(savedTask);
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body("Error occurred while creating task.");
     }
-}
+
 
 
 
@@ -223,6 +230,8 @@ public ResponseEntity<?> moveTaskToDone(@RequestBody Task task, @RequestHeader("
         return ResponseEntity.status(500).body("Error moving task to done.");
     }
 }
+
+
 
 
 

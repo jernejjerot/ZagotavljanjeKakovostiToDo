@@ -1,3 +1,5 @@
+import { geocodeAddress } from './locationUtils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const userId = localStorage.getItem("userId");
     const userName = localStorage.getItem("userName");
@@ -156,28 +158,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchTasks() {
-        const response = await fetch('/tasks', { headers: { 'user-id': userId } });
+        const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
         const tasks = await response.json();
         console.log("Fetched tasks:", tasks); // Debugging
-        taskGrid.innerHTML = ''; // Počisti mrežo nalog
+    
+        // Počistimo mrežo nalog
+        const taskGrid = document.getElementById('taskGrid');
+        taskGrid.innerHTML = '';
+    
         const now = new Date();
-
+    
         for (const task of tasks) {
-            console.log("Rendering task:", task);
-
+            console.log("Processing task:", task);
+    
             const dueTime = new Date(task.dueDateTime);
             const timeLeft = dueTime - now;
-
+    
+            // Premaknemo nalogo v "done", če je rok potekel
             if (timeLeft <= 0 && !task.isCompleted) {
                 await moveToDoneTasks(task);
-                continue;
-            }
-
-            if (!task.isCompleted) {
+            } else if (!task.isCompleted) {
+                // Prikazujemo le nepopolne naloge
                 renderTask(task, taskGrid, now);
             }
         }
     }
+    
 
     // // Display login/logout functionality
     // if (!userId) {
@@ -307,6 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
             checkbox.type = 'checkbox';
             checkbox.checked = task.isCompleted;
             checkbox.addEventListener('change', () => toggleCompletion(task.id, checkbox.checked));
+
+            const locationElement = document.createElement('p');
+            locationElement.textContent = task.locationAddress
+            ? `Location: ${task.locationAddress}`
+            : 'No location provided.';
         
             // Edit button
             const editButton = document.createElement('button');
@@ -321,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteButton.addEventListener('click', () => deleteTask(task.id));
         
             // Append elements to the task box
-            taskBox.append(checkbox, title, type, descriptionElement, dueDate, editButton, deleteButton);
+            taskBox.append(checkbox, title, type, descriptionElement, dueDate, locationElement, editButton, deleteButton);
             taskGrid.appendChild(taskBox);
         }
         
@@ -417,6 +428,7 @@ async function toggleCompletion(taskId, isCompleted) {
             taskType: { id: parseInt(taskTypeSelect.value) },
             description: document.getElementById('taskDescription').value,
             dueDateTime: document.getElementById('dueDate').value,
+            locationAddress: document.getElementById('taskLocation').value,
         };
 
         const response = await fetch(editingTaskId ? `/tasks/${editingTaskId}` : '/tasks', {
@@ -444,6 +456,139 @@ async function toggleCompletion(taskId, isCompleted) {
         });
         fetchTasks();
     }
+
+    // Geokodiranje naslova (pretvorba v latitude/longitude)
+async function geocodeAddress(address) {
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=YOUR_API_KEY`);
+    const data = await response.json();
+    if (data.results.length > 0) {
+        return {
+            latitude: data.results[0].geometry.location.lat,
+            longitude: data.results[0].geometry.location.lng,
+        };
+    }
+    return null;
+}
+
+// Pošiljanje nove naloge z lokacijo
+taskForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const taskLocation = document.getElementById('taskLocation').value;
+
+        let geocodedLocation = null;
+    if (taskLocation) {
+        try {
+            geocodedLocation = await geocodeAddress(taskLocation);
+            console.log('Geocoded Location:', geocodedLocation);
+        } catch (error) {
+            console.error('Error geocoding address:', error);
+            alert('Failed to geocode the address. Please try again or leave it blank.');
+            return;
+        }
+    }
+
+    const taskData = {
+        taskName: document.getElementById('taskName').value,
+        taskType: { id: parseInt(taskTypeSelect.value) },
+        description: document.getElementById('taskDescription').value,
+        dueDateTime: document.getElementById('dueDate').value,
+        locationAddress: taskLocation || null, // Naslov
+        latitude: geocodedLocation ? geocodedLocation.latitude : null, // Latitude
+        longitude: geocodedLocation ? geocodedLocation.longitude : null, // Longitude
+        user: { id: parseInt(userId) },
+    };
+    
+
+    const response = await fetch('/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'user-id': userId },
+        body: JSON.stringify(taskData),
+    });
+
+    if (response.ok) {
+        alert('Task created successfully!');
+        fetchTasks();
+        taskForm.reset();
+    } else {
+        alert('Failed to save the task.');
+    }
+});
+
+
+async function checkUserProximity() {
+    if (!navigator.geolocation) {
+        console.error("Geolocation is not supported by this browser.");
+        return;
+    }
+
+    try {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const userLatitude = position.coords.latitude;
+            const userLongitude = position.coords.longitude;
+
+            // Pridobi vse naloge z lokacijami
+            const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
+
+            if (!response.ok) {
+                console.error("Failed to fetch tasks:", await response.text());
+                return;
+            }
+
+            const tasks = await response.json();
+
+            tasks.forEach(task => {
+                if (task.latitude && task.longitude) {
+                    const distance = calculateDistance(userLatitude, userLongitude, task.latitude, task.longitude);
+
+                    if (distance < 0.5) { // Če je uporabnik v radiju 0.5 km
+                        notifyUser(task.taskName, distance);
+                    }
+                }
+            });
+        }, (error) => {
+            console.error("Error obtaining geolocation:", error.message);
+        });
+    } catch (error) {
+        console.error("Error checking user proximity:", error);
+    }
+}
+
+// Funkcija za izračun razdalje med dvema točkama (Haversine formula)
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Polmer Zemlje v km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Razdalja v km
+}
+
+// Funkcija za obveščanje uporabnika
+function notifyUser(taskName, distance) {
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Task Nearby", {
+            body: `You're within ${distance.toFixed(2)} km of the location for task: ${taskName}`,
+        });
+    } else {
+        alert(`You're near the location for task: ${taskName} (within ${distance.toFixed(2)} km)`);
+    }
+}
+
+// Zahteva dovoljenje za obvestila ob nalaganju strani
+if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            console.log("Notification permission granted.");
+        }
+    });
+}
+
+
+
 
     
     

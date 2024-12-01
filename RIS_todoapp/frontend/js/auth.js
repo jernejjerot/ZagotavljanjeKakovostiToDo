@@ -115,3 +115,18 @@ document.getElementById('editUserForm')?.addEventListener('submit', async (e) =>
     }
 });
 
+// Funkcija za odjavo uporabnika
+function handleLogout() {
+    // Odstrani podatke o uporabniku iz localStorage
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('isAdmin');
+
+    // Pokaži sporočilo o odjavi (neobvezno)
+    alert('You have been logged out.');
+
+    // Preusmeri uporabnika na prijavno stran ali osveži trenutno stran
+    window.location.href = '/login.html'; // Preusmeri na login.html
+}
+
+

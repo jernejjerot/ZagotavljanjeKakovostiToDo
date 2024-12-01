@@ -13,6 +13,7 @@
                 <li><a href="/html/register.html">Register</a></li>
                 <li><a href="/html/editUser.html">Edit Account</a></li>
                 <li><a href="/html/doneTasks.html">Completed Tasks</a></li>
+                <button id="logoutButton" class="logout-button">Logout</button>
                 <!-- Admin link dynamically added -->
             </ul>
         </nav>
@@ -44,6 +45,12 @@
                 <div class="form-group">
                     <label for="dueDate">Due Date:</label>
                     <input type="datetime-local" id="dueDate">
+                </div>
+                <div class="form-group">
+                    <label for="taskLocation">Location (optional):</label>
+                    <input type="text" id="taskLocation" 
+                        placeholder="Trg republike 3, 1000 Ljubljana, Slovenija"
+                        >
                 </div>
                 <div class="form-buttons">
                     <button type="submit">Save Task</button>
@@ -82,7 +89,7 @@
         </section>
     </main>
 
-    <script src="../js/index.js"></script>
+    <script src="../js/index.js" type="module"></script>
     <script src="../js/auth.js"></script>
 </body>
 </html>

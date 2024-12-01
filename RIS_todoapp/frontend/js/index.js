@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         createUserSection.style.display = 'none';
     }
 
+    // prva izvedba funkcije
+    checkUserProximity();
+
+    // periodično preverjanje lokacije
+    setInterval(() => {
+        console.log("Running periodic proximity check...");
+        checkUserProximity();
+    }, 60000); // Preverjanje vsakih 60 sekund (60000 ms)
+
     // Prikaz forme za ustvarjanje uporabnikov in admin navigacijskega elementa
     if (isAdmin && userId) {
         // Prikaži formo za admina
@@ -421,32 +430,63 @@ async function toggleCompletion(taskId, isCompleted) {
     }
 
     // Create or update a task
-    taskForm.addEventListener('submit', async event => {
-        event.preventDefault();
+    taskForm.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Preprečimo privzeto obnašanje obrazca
+    
+        // Preprečimo večkratno oddajo obrazca
+        const submitButton = taskForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true; // Onemogočimo gumb za oddajo
+    
+        const taskLocation = document.getElementById('taskLocation').value;
+    
+        let geocodedLocation = null;
+        if (taskLocation) {
+            try {
+                geocodedLocation = await geocodeAddress(taskLocation);
+                console.log('Geocoded Location:', geocodedLocation);
+            } catch (error) {
+                console.error('Error geocoding address:', error);
+                alert('Failed to geocode the address. Please try again or leave it blank.');
+                submitButton.disabled = false; // Ponovno omogočimo gumb, če pride do napake
+                return;
+            }
+        }
+    
         const taskData = {
             taskName: document.getElementById('taskName').value,
             taskType: { id: parseInt(taskTypeSelect.value) },
             description: document.getElementById('taskDescription').value,
             dueDateTime: document.getElementById('dueDate').value,
-            locationAddress: document.getElementById('taskLocation').value,
+            locationAddress: taskLocation || null, // Naslov
+            latitude: geocodedLocation ? geocodedLocation.latitude : null, // Latitude
+            longitude: geocodedLocation ? geocodedLocation.longitude : null, // Longitude
+            user: { id: parseInt(userId) },
         };
-
-        const response = await fetch(editingTaskId ? `/tasks/${editingTaskId}` : '/tasks', {
-            method: editingTaskId ? 'PUT' : 'POST',
-            headers: { 'Content-Type': 'application/json', 'user-id': userId },
-            body: JSON.stringify(taskData),
-        });
-
-        if (response.ok) {
-            alert(editingTaskId ? 'Task updated successfully!' : 'Task created successfully!');
-            fetchTasks();
-            taskForm.reset();
-            editingTaskId = null;
-            cancelEditButton.style.display = 'none';
-        } else {
-            alert('Failed to save the task.');
+    
+        try {
+            const response = await fetch('/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'user-id': userId },
+                body: JSON.stringify(taskData),
+            });
+    
+            if (response.ok) {
+                alert('Task created successfully!');
+                fetchTasks(); // Osvežimo seznam nalog
+                taskForm.reset(); // Počistimo obrazec
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to save the task:', errorText);
+                alert(`Failed to save the task: ${errorText}`);
+            }
+        } catch (error) {
+            console.error('Error saving task:', error);
+            alert('An unexpected error occurred while saving the task.');
+        } finally {
+            submitButton.disabled = false; // Vedno omogočimo gumb po zaključku
         }
     });
+    
 
     // Delete a task
     async function deleteTask(taskId) {
@@ -527,6 +567,8 @@ async function checkUserProximity() {
             const userLatitude = position.coords.latitude;
             const userLongitude = position.coords.longitude;
 
+            console.log("User coordinates: ", userLatitude, userLongitude); // Dodano tukaj
+
             // Pridobi vse naloge z lokacijami
             const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
 
@@ -541,7 +583,10 @@ async function checkUserProximity() {
                 if (task.latitude && task.longitude) {
                     const distance = calculateDistance(userLatitude, userLongitude, task.latitude, task.longitude);
 
-                    if (distance < 0.5) { // Če je uporabnik v radiju 0.5 km
+                    console.log("Task coordinates: ", task.latitude, task.longitude); // Dodano tukaj
+                    console.log("Calculated distance: ", distance); // Dodano tukaj
+
+                    if (distance < 10) { // Če je uporabnik v radiju 0.5 km
                         notifyUser(task.taskName, distance);
                     }
                 }
@@ -553,6 +598,7 @@ async function checkUserProximity() {
         console.error("Error checking user proximity:", error);
     }
 }
+
 
 // Funkcija za izračun razdalje med dvema točkama (Haversine formula)
 function calculateDistance(lat1, lon1, lat2, lon2) {

@@ -2,9 +2,12 @@
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/TaskController.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/TaskTypeController.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/UserController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/dto/GeocodingResult.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/dto/NominatimResponse.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/entity/Task.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/entity/TaskType.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/entity/User.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/repository/TaskRepository.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/repository/TaskTypeRepository.java
 /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/repository/UserRepository.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/service/GeocodingService.java

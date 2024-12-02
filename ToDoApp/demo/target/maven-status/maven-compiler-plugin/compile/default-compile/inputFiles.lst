@@ -1,0 +1,16 @@
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/Application.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/HelloController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/LocationController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/ResponsibilityController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/TaskController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/UserController.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/enums/PriorityLevel.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/enums/TaskStatus.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/repository/LocationRepository.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/repository/ResponsibilityRepository.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/repository/TaskRepository.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/demo1/repository/UserRepository.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/entity/Location.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/entity/Responsibility.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/entity/Task.java
+/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/ToDoApp/demo/src/main/java/com/example/demo/entity/User.java

@@ -53,10 +53,12 @@ public class TaskController {
                 return ResponseEntity.badRequest().body("Invalid task type ID.");
             }
 
-            // Preveri in shranjuje naslov lokacije
+            // Check and save the location address
             if (task.getLocationAddress() != null && !task.getLocationAddress().isBlank()) {
-                GeocodingResult result = geocodingService.geocode(task.getLocationAddress());
-                if (result != null) {
+                Optional<GeocodingResult> resultOptional = geocodingService.geocode(task.getLocationAddress());
+
+                if (resultOptional.isPresent()) {
+                    GeocodingResult result = resultOptional.get();
                     task.setLatitude(result.getLatitude());
                     task.setLongitude(result.getLongitude());
                 } else {
@@ -74,8 +76,6 @@ public class TaskController {
             return ResponseEntity.status(500).body("Error occurred while creating task.");
         }
     }
-
-
 
 
     // Get all tasks for a user
@@ -231,18 +231,19 @@ public ResponseEntity<?> moveTaskToDone(@RequestBody Task task, @RequestHeader("
     }
 }
 
+    public void setTaskRepository(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
+    public void setTaskTypeRepository(TaskTypeRepository taskTypeRepository) {
+        this.taskTypeRepository = taskTypeRepository;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    public void setGeocodingService(GeocodingService geocodingService) {
+        this.geocodingService = geocodingService;
+    }
 }

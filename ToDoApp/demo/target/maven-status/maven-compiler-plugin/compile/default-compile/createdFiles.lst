@@ -1,0 +1,16 @@
+com/example/demo/demo1/UserController.class
+com/example/demo/demo1/enums/PriorityLevel.class
+com/example/demo/demo1/TaskController.class
+com/example/demo/demo1/Application.class
+com/example/demo/demo1/repository/UserRepository.class
+com/example/demo/demo1/ResponsibilityController.class
+com/example/demo/demo1/enums/TaskStatus.class
+com/example/demo/entity/User.class
+com/example/demo/demo1/LocationController.class
+com/example/demo/entity/Responsibility.class
+com/example/demo/entity/Task.class
+com/example/demo/demo1/HelloController.class
+com/example/demo/entity/Location.class
+com/example/demo/demo1/repository/ResponsibilityRepository.class
+com/example/demo/demo1/repository/TaskRepository.class
+com/example/demo/demo1/repository/LocationRepository.class

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.repository.TaskTypeRepositoryTest" time="0.04" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.controller.TaskTypeControllerTest" time="2.24" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,22 +67,253 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testFindAll" classname="com.ris.todoapp.repository.TaskTypeRepositoryTest" time="0.012">
-    <system-out><![CDATA[2024-12-02T16:58:17.650+01:00  INFO 21444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.repository.TaskTypeRepositoryTest]: TaskTypeRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-12-02T16:58:17.670+01:00  INFO 21444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.repository.TaskTypeRepositoryTest
-2024-12-02T16:58:17.681+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
-    /* <criteria> */ select
+  <testcase name="testCreateTaskType" classname="com.ris.todoapp.controller.TaskTypeControllerTest" time="0.481">
+    <system-out><![CDATA[2024-12-02T16:58:15.356+01:00  INFO 21444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.controller.TaskTypeControllerTest]: TaskTypeControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-12-02T16:58:15.363+01:00  INFO 21444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.controller.TaskTypeControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2024-12-02T16:58:15.437+01:00  INFO 21444 --- [           main] c.r.t.controller.TaskTypeControllerTest  : Starting TaskTypeControllerTest using Java 21.0.1 with PID 21444 (started by cvikl in C:\Users\cvikl\OneDrive\Namizje\RIS_skupinska\RIS_todoapp\backend\ris_todoapp)
+2024-12-02T16:58:15.437+01:00  INFO 21444 --- [           main] c.r.t.controller.TaskTypeControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2024-12-02T16:58:15.699+01:00  INFO 21444 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-02T16:58:15.717+01:00  INFO 21444 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 3 JPA repository interfaces.
+2024-12-02T16:58:16.129+01:00  INFO 21444 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2024-12-02T16:58:16.156+01:00  INFO 21444 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-02T16:58:16.157+01:00  INFO 21444 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-12-02T16:58:16.264+01:00  INFO 21444 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-02T16:58:16.267+01:00  INFO 21444 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 821 ms
+2024-12-02T16:58:16.438+01:00  INFO 21444 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-02T16:58:16.444+01:00  INFO 21444 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-12-02T16:58:16.464+01:00  INFO 21444 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-02T16:58:16.466+01:00  INFO 21444 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2024-12-02T16:58:16.514+01:00  INFO 21444 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@411e5672
+2024-12-02T16:58:16.515+01:00  INFO 21444 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2024-12-02T16:58:16.516+01:00  WARN 21444 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-02T16:58:16.517+01:00  WARN 21444 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-12-02T16:58:16.658+01:00  INFO 21444 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-02T16:58:16.689+01:00  INFO 21444 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-02T16:58:16.792+01:00  WARN 21444 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-02T16:58:16.829+01:00 DEBUG 21444 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 21 mappings in 'requestMappingHandlerMapping'
+2024-12-02T16:58:16.891+01:00 DEBUG 21444 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-12-02T16:58:16.906+01:00 DEBUG 21444 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-12-02T16:58:16.914+01:00 DEBUG 21444 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-12-02T16:58:17.029+01:00  INFO 21444 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 52692 (http) with context path '/'
+2024-12-02T16:58:17.035+01:00  INFO 21444 --- [           main] c.r.t.controller.TaskTypeControllerTest  : Started TaskTypeControllerTest in 1.664 seconds (process running for 10.634)
+2024-12-02T16:58:17.054+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
         tt1_0.id,
         tt1_0.type 
     from
-        taskType tt1_0
+        taskType tt1_0 
+    where
+        tt1_0.id=?
 Hibernate: 
-    /* <criteria> */ select
+    select
         tt1_0.id,
         tt1_0.type 
     from
-        taskType tt1_0
-Task Types: [com.ris.todoapp.entity.TaskType@149ca998]
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.058+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+2024-12-02T16:58:17.110+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : HTTP POST http://localhost:52692/task-types
+2024-12-02T16:58:17.181+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2024-12-02T16:58:17.197+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : Writing [com.ris.todoapp.entity.TaskType@74baaba6] with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2024-12-02T16:58:17.293+01:00  INFO 21444 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-02T16:58:17.294+01:00  INFO 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-02T16:58:17.294+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2024-12-02T16:58:17.294+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2024-12-02T16:58:17.294+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2024-12-02T16:58:17.296+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3b5950f
+2024-12-02T16:58:17.296+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@71897380
+2024-12-02T16:58:17.297+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-12-02T16:58:17.298+01:00  INFO 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-12-02T16:58:17.310+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/task-types", parameters={}
+2024-12-02T16:58:17.323+01:00 DEBUG 21444 --- [o-auto-1-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ris.todoapp.controller.TaskTypeController#createTaskType(TaskType)
+2024-12-02T16:58:17.363+01:00 DEBUG 21444 --- [o-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ris.todoapp.entity.TaskType@fc9cadf]
+2024-12-02T16:58:17.379+01:00 DEBUG 21444 --- [o-auto-1-exec-1] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+2024-12-02T16:58:17.408+01:00 DEBUG 21444 --- [o-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
+2024-12-02T16:58:17.409+01:00 DEBUG 21444 --- [o-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing [com.ris.todoapp.entity.TaskType@fc9cadf]
+2024-12-02T16:58:17.419+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : Response 200 OK
+2024-12-02T16:58:17.419+01:00 DEBUG 21444 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-12-02T16:58:17.421+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : Reading to [com.ris.todoapp.entity.TaskType]
+2024-12-02T16:58:17.503+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.511+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.515+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.TaskType */delete 
+    from
+        taskType 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.TaskType */delete 
+    from
+        taskType 
+    where
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testDeleteTaskType" classname="com.ris.todoapp.controller.TaskTypeControllerTest" time="0.056">
+    <system-out><![CDATA[2024-12-02T16:58:17.532+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.534+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.TaskType */insert 
+    into
+        taskType (type) 
+    values
+        (?)
+2024-12-02T16:58:17.543+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : HTTP DELETE http://localhost:52692/task-types/18
+2024-12-02T16:58:17.546+01:00 DEBUG 21444 --- [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : DELETE "/task-types/18", parameters={masked}
+2024-12-02T16:58:17.547+01:00 DEBUG 21444 --- [o-auto-1-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ris.todoapp.controller.TaskTypeController#deleteTaskType(Long)
+2024-12-02T16:58:17.552+01:00 DEBUG 21444 --- [o-auto-1-exec-2] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.554+01:00 DEBUG 21444 --- [o-auto-1-exec-2] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.TaskType */delete 
+    from
+        taskType 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.TaskType */delete 
+    from
+        taskType 
+    where
+        id=?
+2024-12-02T16:58:17.562+01:00 DEBUG 21444 --- [o-auto-1-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2024-12-02T16:58:17.563+01:00 DEBUG 21444 --- [o-auto-1-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing ["Task type deleted successfully."]
+2024-12-02T16:58:17.564+01:00 DEBUG 21444 --- [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2024-12-02T16:58:17.570+01:00 DEBUG 21444 --- [           main] o.s.web.client.RestTemplate              : Response 200 OK
+2024-12-02T16:58:17.572+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+2024-12-02T16:58:17.578+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
+Hibernate: 
+    select
+        tt1_0.id,
+        tt1_0.type 
+    from
+        taskType tt1_0 
+    where
+        tt1_0.id=?
 ]]></system-out>
   </testcase>
 </testsuite>

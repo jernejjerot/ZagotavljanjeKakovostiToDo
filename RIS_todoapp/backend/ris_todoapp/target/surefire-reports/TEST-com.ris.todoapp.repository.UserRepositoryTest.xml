@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.repository.TaskTypeRepositoryTest" time="0.04" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.repository.UserRepositoryTest" time="0.2" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,22 +67,251 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testFindAll" classname="com.ris.todoapp.repository.TaskTypeRepositoryTest" time="0.012">
-    <system-out><![CDATA[2024-12-02T16:58:17.650+01:00  INFO 21444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.repository.TaskTypeRepositoryTest]: TaskTypeRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-12-02T16:58:17.670+01:00  INFO 21444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.repository.TaskTypeRepositoryTest
-2024-12-02T16:58:17.681+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+  <testcase name="testSaveUser" classname="com.ris.todoapp.repository.UserRepositoryTest" time="0.124">
+    <system-out><![CDATA[2024-12-02T16:58:17.692+01:00  INFO 21444 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.repository.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-12-02T16:58:17.697+01:00  INFO 21444 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.repository.UserRepositoryTest
+2024-12-02T16:58:17.705+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+2024-12-02T16:58:17.717+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+2024-12-02T16:58:17.806+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
-        tt1_0.id,
-        tt1_0.type 
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
     from
-        taskType tt1_0
+        user u1_0 
+    where
+        u1_0.email=?
 Hibernate: 
     /* <criteria> */ select
-        tt1_0.id,
-        tt1_0.type 
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
     from
-        taskType tt1_0
-Task Types: [com.ris.todoapp.entity.TaskType@149ca998]
+        user u1_0 
+    where
+        u1_0.email=?
+2024-12-02T16:58:17.812+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+Hibernate: 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+2024-12-02T16:58:17.815+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+2024-12-02T16:58:17.816+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testFindByEmail_NotFound" classname="com.ris.todoapp.repository.UserRepositoryTest" time="0.031">
+    <system-out><![CDATA[2024-12-02T16:58:17.829+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+2024-12-02T16:58:17.840+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0 
+    where
+        u1_0.email=?
+2024-12-02T16:58:17.845+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+Hibernate: 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+2024-12-02T16:58:17.847+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testFindByEmail_Success" classname="com.ris.todoapp.repository.UserRepositoryTest" time="0.033">
+    <system-out><![CDATA[2024-12-02T16:58:17.862+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    /* insert for
+        com.ris.todoapp.entity.User */insert 
+    into
+        user (admin, email, name, password, surname) 
+    values
+        (?, ?, ?, ?, ?)
+2024-12-02T16:58:17.874+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0 
+    where
+        u1_0.email=?
+2024-12-02T16:58:17.879+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+Hibernate: 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.admin,
+        u1_0.email,
+        u1_0.name,
+        u1_0.password,
+        u1_0.surname 
+    from
+        user u1_0
+2024-12-02T16:58:17.882+01:00 DEBUG 21444 --- [           main] org.hibernate.SQL                        : 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
+Hibernate: 
+    /* delete for com.ris.todoapp.entity.User */delete 
+    from
+        user 
+    where
+        id=?
 ]]></system-out>
   </testcase>
 </testsuite>

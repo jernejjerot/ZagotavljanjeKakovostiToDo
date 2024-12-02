@@ -1,3 +1,3 @@
-com/ris/todoapp/service/GeocodingServiceTest.class
-com/ris/todoapp/repository/TaskTypeRepositoryTest.class
-com/ris/todoapp/controller/TaskControllerTest.class
+com\ris\todoapp\repository\TaskTypeRepositoryTest.class
+com\ris\todoapp\controller\TaskControllerTest.class
+com\ris\todoapp\service\GeocodingServiceTest.class

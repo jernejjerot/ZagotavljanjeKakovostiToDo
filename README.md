@@ -180,3 +180,7 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
 8. <enum> PrioritetniNivo
   Vloga in namen:
   enum, ki določa prioriteto opravila. Možnosti so "NIZEK", "SREDNJI" in "VISOK".
+
+
+## Testiranje
+V projektu je bila dodana mapa `testiranje`, ki vsebuje poročilo o enotnem testiranju (`porocilo_testiranja.md`). V poročilu so opisani testi, rezultati testiranja in analiza uspešnosti.

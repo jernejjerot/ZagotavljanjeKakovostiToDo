@@ -104,66 +104,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     async function moveToDoneTasks(task) {
-        console.log("Task received by moveToDoneTasks:", task); // Debugging input task
+        // console.log("Task received by moveToDoneTasks:", task); // Debugging input task
     
-        // Validate taskName
-        if (!task.taskName || task.taskName.trim() === "") {
-            console.error("Task name is missing or empty.");
-            return;
-        }
-        if (!task.taskType || !task.taskType.id) {
-            console.error("Task type is missing or invalid.");
-            return;
-        }
+        // // Validate taskName
+        // if (!task.taskName || task.taskName.trim() === "") {
+        //     console.error("Task name is missing or empty.");
+        //     return;
+        // }
+        // if (!task.taskType || !task.taskType.id) {
+        //     console.error("Task type is missing or invalid.");
+        //     return;
+        // }
     
-        const payload = {
-            id: task.id,
-            taskName: task.taskName,
-            taskType: {
-                id: task.taskType.id,
-                type: task.taskType.type, // Optional but helpful for clarity
-            },
-            description: task.description,
-            dueDateTime: task.dueDateTime,
-            user: {
-                id: task.user.id,
-            },
-            isCompleted: task.isCompleted,
-        };
+        // const payload = {
+        //     id: task.id,
+        //     taskName: task.taskName,
+        //     taskType: {
+        //         id: task.taskType.id,
+        //         type: task.taskType.type, // Optional but helpful for clarity
+        //     },
+        //     description: task.description,
+        //     dueDateTime: task.dueDateTime,
+        //     user: {
+        //         id: task.user.id,
+        //     },
+        //     isCompleted: task.isCompleted,
+        // };
     
-        console.log("Payload sent to /tasks/done:", JSON.stringify(payload, null, 2)); // Debugging payload
+        // console.log("Payload sent to /tasks/done:", JSON.stringify(payload, null, 2)); // Debugging payload
     
-        try {
-            const response = await fetch('/tasks/done', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json', 
-                    'user-id': localStorage.getItem('userId') 
-                },
-                body: JSON.stringify({
-                    id: task.id,
-                    taskName: task.taskName,
-                    taskType: task.taskType, // Ensure taskType is an object with `id` and `type`
-                    description: task.description,
-                    dueDateTime: task.dueDateTime,
-                    user: task.user, // Ensure this is an object with `id`
-                    isCompleted: true, // Mark as done
-                }),
-            });
+        // try {
+        //     const response = await fetch('/tasks/done', {
+        //         method: 'POST',
+        //         headers: { 
+        //             'Content-Type': 'application/json', 
+        //             'user-id': localStorage.getItem('userId') 
+        //         },
+        //         body: JSON.stringify({
+        //             id: task.id,
+        //             taskName: task.taskName,
+        //             taskType: task.taskType, // Ensure taskType is an object with `id` and `type`
+        //             description: task.description,
+        //             dueDateTime: task.dueDateTime,
+        //             user: task.user, // Ensure this is an object with `id`
+        //             isCompleted: true, // Mark as done
+        //         }),
+        //     });
     
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error("Error from server:", errorText);
-                alert(`Failed to mark task as done: ${errorText}`);
-                return;
-            }
+        //     if (!response.ok) {
+        //         const errorText = await response.text();
+        //         console.error("Error from server:", errorText);
+        //         alert(`Failed to mark task as done: ${errorText}`);
+        //         return;
+        //     }
     
-            console.log(`Task "${task.taskName}" marked as completed.`);
-            alert(`Task "${task.taskName}" moved to completed.`);
-        } catch (error) {
-            console.error("Error in moveToDoneTasks:", error.message);
-            alert("Failed to mark task as done.");
-        }
+        //     console.log(`Task "${task.taskName}" marked as completed.`);
+        //     alert(`Task "${task.taskName}" moved to completed.`);
+        // } catch (error) {
+        //     console.error("Error in moveToDoneTasks:", error.message);
+        //     alert("Failed to mark task as done.");
+        // }
     }
 
     async function fetchTasks() {
@@ -460,6 +460,7 @@ async function toggleCompletion(taskId, isCompleted) {
             locationAddress: taskLocation || null, // Naslov
             latitude: geocodedLocation ? geocodedLocation.latitude : null, // Latitude
             longitude: geocodedLocation ? geocodedLocation.longitude : null, // Longitude
+            isCompleted: false,
             user: { id: parseInt(userId) },
         };
     
@@ -487,6 +488,7 @@ async function toggleCompletion(taskId, isCompleted) {
         }
     });
     
+    
 
     // Delete a task
     async function deleteTask(taskId) {
@@ -509,51 +511,6 @@ async function geocodeAddress(address) {
     }
     return null;
 }
-
-// Pošiljanje nove naloge z lokacijo
-taskForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const taskLocation = document.getElementById('taskLocation').value;
-
-        let geocodedLocation = null;
-    if (taskLocation) {
-        try {
-            geocodedLocation = await geocodeAddress(taskLocation);
-            console.log('Geocoded Location:', geocodedLocation);
-        } catch (error) {
-            console.error('Error geocoding address:', error);
-            alert('Failed to geocode the address. Please try again or leave it blank.');
-            return;
-        }
-    }
-
-    const taskData = {
-        taskName: document.getElementById('taskName').value,
-        taskType: { id: parseInt(taskTypeSelect.value) },
-        description: document.getElementById('taskDescription').value,
-        dueDateTime: document.getElementById('dueDate').value,
-        locationAddress: taskLocation || null, // Naslov
-        latitude: geocodedLocation ? geocodedLocation.latitude : null, // Latitude
-        longitude: geocodedLocation ? geocodedLocation.longitude : null, // Longitude
-        user: { id: parseInt(userId) },
-    };
-    
-
-    const response = await fetch('/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'user-id': userId },
-        body: JSON.stringify(taskData),
-    });
-
-    if (response.ok) {
-        alert('Task created successfully!');
-        fetchTasks();
-        taskForm.reset();
-    } else {
-        alert('Failed to save the task.');
-    }
-});
 
 
 async function checkUserProximity() {

@@ -81,4 +81,4 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 ---
 
 **Zaključek:**
-Napredek sledi načrtu, pri čemer smo zaključili začetne korake na backendu. V naslednji fazi se bomo osredotočili na frontend in API povezave.
+#tu pišeš o napredku, ki si ga naredil

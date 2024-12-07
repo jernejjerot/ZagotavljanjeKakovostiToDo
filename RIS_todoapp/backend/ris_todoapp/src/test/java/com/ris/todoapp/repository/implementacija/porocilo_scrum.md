@@ -54,8 +54,8 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 | Naloga                                     | Status       | Opombe                        |
 |-------------------------------------------|--------------|--------------------------------|
 | Prilagoditev podatkovne baze              | Done         |  ////////////////////////////  |
-| Posodobitev entitet in repozitorijev      | Doing        |                                |
-| Posodobitev `TaskController`              | ToDo         |                                |
+| Posodobitev entitet in repozitorijev      | Done         |  ////////////////////////////  |
+| Posodobitev `TaskController`              | Done         |  ////////////////////////////  |
 | Posodobitev uporabniškega vmesnika        | ToDo         |                                |
 | Posodobitev API povezav (`server.js`)     | ToDo         |                                |
 | Upravljanje slik na strežniku             | ToDo         |                                |
@@ -70,25 +70,31 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 ## Sprint Skupni Čas
 **Zaključene naloge:**
-Prilagoditev podatkovne baze 0.5 ur
-- **Primeri testnih podatkov dodani**:
+Prilagoditev podatkovne baze **0.5 ur**
+- **Primeri testnih podatkov dodani v mysql**:
   - Vstavljeni primeri nalog z različnimi slikami.
+- Posodobitev entitet in repozitorijev: **0.5 ure**
+   -**Getterji in Setterji v Task entiteti**
+     -Dodana getPicture in setPicture v Task entiteti
+- Posodobitev `TaskController`: **1 ura**
+  -**Dodan default.jpg v TaskController**
+   -v primeru če ni zbrana nobena slika
   
 **Naslednji korak:**  
-- Implementacija Java entitete `Task` s poljem `slike`.
-- Posodobitev `TaskController` za nalaganje in pridobivanje slik.
+- posodobitev uporabniškega vmesnika
 
 
 **V teku:** 
--posodobitev Task entitet in Kontrolerjev
+-
 
 **Preostale naloge:** 
-*
+- posodobitev uporabniškega vmesnika
+- Povezava API-ja (`server.js`).
+- Upravljanje slik na strežniku.
+- Testiranje vseh funkcionalnosti.
 
 ---
 
 **Zaključek:**
-### Sprint Napredek (datum:2024-12-07)
-- **Dodajanje stolpca `slike` v tabelo `tasks`**: Zaključeno 
-  - Nova struktura tabele `tasks` vključuje:
-    - `pictures`: Pot do naložene slike.
+Backend del je uspešno implementiran, vključno s podatkovno bazo, entitetami in kontrolerji.   
+Naslednji korak je posodobitev uporabniškega vmesnika in testiranje celotnega sistema.

@@ -40,12 +40,15 @@
 - **Aleš Močnik:**
     - GeocodingServiceTest (oba testa).
     - TaskControllerTest (oba testa).
+    - AdminControllerTest (en test).
 - **Jernej Jerot:**
-  - TaskTypeControllerTest
-    UserControllerTest
+  - TaskTypeControllerTest.
+  - UserControllerTest.
+  - AdminControllerTest (dva testa).
+
 - **Jaka Cvikl:**
     - UserRepositoryTest (vsi trije testi).
-    - AdminControllerTest (vseh šest testov).
+    - AdminControllerTest (trije testi).
 
 ## Analiza rezultatov testiranja
 - **Skupno število testov:** 17

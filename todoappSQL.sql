@@ -44,6 +44,7 @@ CREATE TABLE tasks (
     task_name VARCHAR(100) NOT NULL,
     description TEXT,
     due_datetime DATETIME, -- Combined date and time
+    picture VARCHAR(255),
     is_completed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     FOREIGN KEY (task_type_id) REFERENCES taskType(id) ON DELETE CASCADE -- Updated reference
@@ -59,11 +60,11 @@ VALUES
 INSERT INTO taskType (type)
 VALUES ('School'), ('Work'), ('Home');
 
-INSERT INTO tasks (user_id, task_type_id, task_name, description, due_datetime, is_completed)
+INSERT INTO tasks (user_id, task_type_id, task_name, description, due_datetime, picture, is_completed)
 VALUES 
-    (1, 1, 'Finish homework', 'Complete math and science homework', '2024-10-22 18:40:00', FALSE),
-    (2, 2, 'Work meeting', 'Attend project meeting with the team', '2024-10-21 14:00:00', FALSE),
-    (3, 3, 'Clean house', 'Do some cleaning before the weekend', '2024-10-20 09:30:00', FALSE);
+    (1, 1, 'Finish homework', 'Complete math and science homework', '2024-10-22 18:40:00', '/uploads/homework.jpg', FALSE),
+    (2, 2, 'Work meeting', 'Attend project meeting with the team', '2024-10-21 14:00:00', '/uploads/meeting.jpg', FALSE),
+    (3, 3, 'Clean house', 'Do some cleaning before the weekend', '2024-10-20 09:30:00', '/uploads/cleaning.jpg', FALSE);
 
 -- Verify data
 SELECT * FROM user;

@@ -68,6 +68,11 @@ public class TaskController {
 
             task.setUser(user.get());
             task.setTaskType(taskType.get());
+
+            if (task.getPicture() == null || task.getPicture().isBlank()) {
+                task.setPicture("/uploads/default.jpg");  // Default image if not provided
+            }
+
             Task savedTask = taskRepository.save(task);
 
             return ResponseEntity.ok(savedTask);
@@ -146,6 +151,12 @@ public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task tas
         }
 
         taskToUpdate.setCompleted(taskDetails.isCompleted());
+
+
+        if (taskDetails.getPicture() != null && !taskDetails.getPicture().isBlank()) {
+            taskToUpdate.setPicture(taskDetails.getPicture()); //pictures added
+        }
+    
         taskRepository.save(taskToUpdate);
 
         return ResponseEntity.ok("Task updated successfully.");

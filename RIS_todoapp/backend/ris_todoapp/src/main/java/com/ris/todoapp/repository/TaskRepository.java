@@ -11,5 +11,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     // Fetch completed tasks for a specific user
     List<Task> findByUserIdAndIsCompletedTrue(Long userId);
 
-    
+    List<Task> findByPicture(String picture);
 }

@@ -40,6 +40,9 @@ public class Task {
     @Column(name = "longitude")
     private Double longitude; // Geografska dolžina
 
+    @Column(name = "picture") //dodano
+    private String picture;
+
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -74,4 +77,6 @@ public class Task {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
+    public String getPicture() {return picture;} //dodano
+    public void setPicture(String picture) {this.picture = picture;} //dodano
 }

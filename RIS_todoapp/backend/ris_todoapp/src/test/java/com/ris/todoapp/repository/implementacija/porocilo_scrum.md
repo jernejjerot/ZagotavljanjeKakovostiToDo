@@ -53,8 +53,8 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 | Naloga                                     | Status       | Opombe                        |
 |-------------------------------------------|--------------|--------------------------------|
-| Prilagoditev podatkovne baze              | Doing        |                                |
-| Posodobitev entitet in repozitorijev      | ToDo         |                                |
+| Prilagoditev podatkovne baze              | Done         |  ////////////////////////////  |
+| Posodobitev entitet in repozitorijev      | Doing        |                                |
 | Posodobitev `TaskController`              | ToDo         |                                |
 | Posodobitev uporabniškega vmesnika        | ToDo         |                                |
 | Posodobitev API povezav (`server.js`)     | ToDo         |                                |
@@ -70,10 +70,17 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 ## Sprint Skupni Čas
 **Zaključene naloge:**
+Prilagoditev podatkovne baze 0.5 ur
+- **Primeri testnih podatkov dodani**:
+  - Vstavljeni primeri nalog z različnimi slikami.
+  
+**Naslednji korak:**  
+- Implementacija Java entitete `Task` s poljem `slike`.
+- Posodobitev `TaskController` za nalaganje in pridobivanje slik.
 
 
 **V teku:** 
--prilagoditev podatkovne baze, dodajanje slik
+-posodobitev Task entitet in Kontrolerjev
 
 **Preostale naloge:** 
 *
@@ -81,4 +88,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 ---
 
 **Zaključek:**
-#tu pišeš o napredku, ki si ga naredil
+### Sprint Napredek (datum:2024-12-07)
+- **Dodajanje stolpca `slike` v tabelo `tasks`**: Zaključeno 
+  - Nova struktura tabele `tasks` vključuje:
+    - `pictures`: Pot do naložene slike.

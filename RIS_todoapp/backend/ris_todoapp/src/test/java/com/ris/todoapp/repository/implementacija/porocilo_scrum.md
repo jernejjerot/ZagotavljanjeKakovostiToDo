@@ -12,26 +12,26 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 ## Sprint Razdelitev
 ### Naloge (Backlog):
 1. **Backend - Prilagoditev podatkovne baze:**
-   - Dodaj tabelo `attachments`, povezano s tabelo `tasks`.
-   - Ustvari shemo za shranjevanje podatkov o prilogah (ime datoteke, pot do datoteke, velikost itd.).
+   - Dodaj 'pictures' v tabelo 'Tasks'.
+   - Dodaj testne podatke v INSERT INTO Tasks in posodobi skripto.
 
 2. **Backend - Posodobitev entitet in repozitorijev:**
-   - Dodaj entiteto `Attachment` za povezavo z `Task`.
-   - Posodobi `TaskController` za upravljanje prilog (nalaganje, brisanje, pridobivanje).
+   - Posodobi entiteto Tasks z pictures.
+   - Posodobi `TaskController` za upravljanje s slikamo.
 
 3. **Frontend - Posodobitev uporabniškega vmesnika:**
-   - V obrazec za dodajanje/urejanje nalog dodaj možnost nalaganja prilog.
-   - Omogoči ogled prenesenih prilog.
+   - V obrazec za dodajanje/urejanje nalog dodaj možnost nalaganja slik.
+   - Omogoči ogled prenesenih slik.
 
 4. **Frontend - Ustvarjanje API povezav:**
-   - Posodobi `server.js`, da omogoča prenos in upravljanje datotek prek API-ja.
+   - Posodobi `server.js`, da omogoča prenos in upravljanje slik prek API-ja.
 
 5. **Shranjevanje datotek na strežniku:**
    - Ustvari mapo `/uploads` za shranjevanje datotek na strežniku.
-   - Dodaj logiko za upravljanje datotek z uporabo knjižnice Multer.
+   - Dodaj logiko za upravljanje datotek z uporabo knjižnice Multer. --lahko kaj drugega kot Multer ker je to tudi za datoteke
 
 6. **Testiranje:**
-   - Testiraj nalaganje datotek, validacijo velikosti in tipov datotek.
+   - Testiraj nalaganje slik in prejšnjih funkcionalnosti.
 
 ---
 
@@ -44,7 +44,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 | Posodobitev `TaskController`              | 1                     |
 | Posodobitev uporabniškega vmesnika        | 3                     |
 | Posodobitev API povezav (`server.js`)     | 2                     |
-| Upravljanje datotek na strežniku          | 2                     |
+| Upravljanje slik na strežniku             | 2                     |
 | Testiranje funkcionalnosti                | 1                     |
 
 ---
@@ -58,7 +58,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 | Posodobitev `TaskController`              | ToDo         |                                |
 | Posodobitev uporabniškega vmesnika        | ToDo         |                                |
 | Posodobitev API povezav (`server.js`)     | ToDo         |                                |
-| Upravljanje datotek na strežniku          | ToDo         |                                |
+| Upravljanje slik na strežniku             | ToDo         |                                |
 | Testiranje funkcionalnosti                | ToDo         |                                |
 
 ---

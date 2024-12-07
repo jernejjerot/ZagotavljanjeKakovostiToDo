@@ -51,15 +51,15 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 ## Sprint Napredek
 
-| Naloga                                     | Status       | Opombe                        |
-|-------------------------------------------|--------------|--------------------------------|
-| Prilagoditev podatkovne baze              | Done         |  ////////////////////////////  |
-| Posodobitev entitet in repozitorijev      | Done         |  ////////////////////////////  |
-| Posodobitev `TaskController`              | Done         |  ////////////////////////////  |
-| Posodobitev uporabniškega vmesnika        | ToDo         |                                |
-| Posodobitev API povezav (`server.js`)     | ToDo         |                                |
-| Upravljanje slik na strežniku             | ToDo         |                                |
-| Testiranje funkcionalnosti                | ToDo         |                                |
+| Naloga                                     | Status | Opombe                        |
+|-------------------------------------------|--------|--------------------------------|
+| Prilagoditev podatkovne baze              | Done   |  ////////////////////////////  |
+| Posodobitev entitet in repozitorijev      | Done   |  ////////////////////////////  |
+| Posodobitev `TaskController`              | Done   |  ////////////////////////////  |
+| Posodobitev uporabniškega vmesnika        | Doing     |                                |
+| Posodobitev API povezav (`server.js`)     | ToDo   |                                |
+| Upravljanje slik na strežniku             | ToDo   |                                |
+| Testiranje funkcionalnosti                | ToDo   |                                |
 
 ---
 

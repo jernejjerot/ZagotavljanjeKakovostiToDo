@@ -53,7 +53,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 | Naloga                                     | Status       | Opombe                        |
 |-------------------------------------------|--------------|--------------------------------|
-| Prilagoditev podatkovne baze              | ToDo         |                                |
+| Prilagoditev podatkovne baze              | Doing        |                                |
 | Posodobitev entitet in repozitorijev      | ToDo         |                                |
 | Posodobitev `TaskController`              | ToDo         |                                |
 | Posodobitev uporabniškega vmesnika        | ToDo         |                                |
@@ -73,7 +73,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 
 **V teku:** 
-
+-prilagoditev podatkovne baze, dodajanje slik
 
 **Preostale naloge:** 
 *

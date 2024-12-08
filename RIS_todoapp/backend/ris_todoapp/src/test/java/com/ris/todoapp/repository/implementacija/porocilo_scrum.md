@@ -79,10 +79,10 @@ Prilagoditev podatkovne baze **0.5 ur**
 - Posodobitev `TaskController`: **1 ura**
   -**Dodan default.jpg v TaskController**
    -v primeru če ni zbrana nobena slika
-- Posodobitev uporabniškega vmesnika: **3 ure**
+- Posodobitev uporabniškega vmesnika: **4 ure**
     - Dodan obrazec za nalaganje slik.
     - Prikaz slik pri ustvarjenih nalogah.
-- Posodobitev API povezav (`server.js`): **2 uri**
+- Posodobitev API povezav (`server.js`): **3 ure**
     - Dodani endpointi za nalaganje in prikaz slik.
   
 **Naslednji korak:**  

@@ -5,6 +5,12 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
+const fileUpload = require("express-fileupload");
+
+// Middleware za obdelavo datotek
+app.use(fileUpload());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Middleware to parse JSON requests
 app.use(express.json());
 
@@ -99,6 +105,44 @@ app.post('/tasks', async (req, res) => {
         res.status(response.status).send(response.data);
     } catch (error) {
         res.status(error.response?.status || 500).send(error.response?.data || 'Error creating task.');
+    }
+});
+
+app.post("/tasks/:id/upload", async (req, res) => {
+    try {
+        const taskId = req.params.id;
+        const userId = req.headers["user-id"];
+
+        if (!userId) {
+            return res.status(401).send("User ID is required.");
+        }
+
+        if (!req.files || !req.files.picture) {
+            console.error("No file uploaded.");
+            return res.status(400).send("No file uploaded.");
+        }
+
+        const picture = req.files.picture;
+        console.log("Uploading picture:", picture.name); // Log to confirm file
+
+        const uploadPath = path.join(__dirname, "uploads", picture.name);
+
+        // Save the file
+        await picture.mv(uploadPath);
+        console.log("File saved at:", uploadPath); // Log file save path
+
+        // Update the task with the picture URL
+        const backendResponse = await axios.put(
+            `${backendUrl}/tasks/${taskId}`,
+            { picture: `/uploads/${picture.name}` },
+            { headers: { "user-id": userId } }
+        );
+
+        console.log("Picture URL updated in backend:", `/uploads/${picture.name}`);
+        res.status(backendResponse.status).send({ picture: `/uploads/${picture.name}` });
+    } catch (err) {
+        console.error("Error uploading picture:", err);
+        res.status(500).send("Error uploading picture.");
     }
 });
 

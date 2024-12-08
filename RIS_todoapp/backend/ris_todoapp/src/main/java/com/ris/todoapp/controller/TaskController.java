@@ -12,6 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -79,6 +87,48 @@ public class TaskController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Error occurred while creating task.");
+        }
+    }
+
+    // Upload picture for a task
+    @PostMapping("/{id}/upload")
+    public ResponseEntity<?> uploadTaskPicture(
+            @PathVariable Long id,
+            @RequestHeader("user-id") Long userId,
+            @RequestParam("picture") MultipartFile picture) {
+        try {
+            // Check if the task exists and belongs to the user
+            Optional<Task> optionalTask = taskRepository.findById(id);
+            if (optionalTask.isEmpty()) {
+                return ResponseEntity.status(404).body("Task not found.");
+            }
+
+            Task task = optionalTask.get();
+            if (!task.getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Unauthorized to upload picture for this task.");
+            }
+
+            // Check if file is empty
+            if (picture.isEmpty()) {
+                return ResponseEntity.badRequest().body("Uploaded file is empty.");
+            }
+
+            // Set the upload path
+            String picturePath = "/uploads/" + picture.getOriginalFilename();
+            String absolutePath = System.getProperty("user.dir") + "/uploads/" + picture.getOriginalFilename();
+
+            // Save the file to the uploads directory
+            picture.transferTo(new java.io.File(absolutePath));
+            System.out.println("Picture saved at: " + absolutePath);
+
+            // Update the task with the picture URL
+            task.setPicture(picturePath);
+            taskRepository.save(task);
+
+            return ResponseEntity.ok("Picture uploaded successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error uploading picture.");
         }
     }
 

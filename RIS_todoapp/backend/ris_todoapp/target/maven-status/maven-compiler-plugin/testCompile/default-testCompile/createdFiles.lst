@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-com\ris\todoapp\repository\UserRepositoryTest.class
-com\ris\todoapp\repository\TaskTypeRepositoryTest.class
-com\ris\todoapp\controller\TaskControllerTest.class
-com\ris\todoapp\service\GeocodingServiceTest.class
-com\ris\todoapp\controller\UserControllerTest.class
-com\ris\todoapp\controller\TaskTypeControllerTest.class
-com\ris\todoapp\controller\AdminControllerTest.class
-=======
-com/ris/todoapp/controller/TaskControllerTest.class
-com/ris/todoapp/controller/TaskTypeControllerTest.class
 com/ris/todoapp/controller/UserControllerTest.class
 com/ris/todoapp/controller/AdminControllerTest.class
+com/ris/todoapp/repository/UserRepositoryTest.class
+com/ris/todoapp/controller/TaskControllerTest.class
+com/ris/todoapp/controller/TaskTypeControllerTest.class
 com/ris/todoapp/repository/TaskTypeRepositoryTest.class
 com/ris/todoapp/service/GeocodingServiceTest.class
-com/ris/todoapp/repository/UserRepositoryTest.class
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07

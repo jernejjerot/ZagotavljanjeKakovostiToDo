@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasksSection = document.getElementById("tasksSection");
     const createUserSection = document.getElementById("createUserSection"); // Forma za ustvarjanje uporabnikov
 
+    
+
     // Privzeto skrij formo za ustvarjanje uporabnikov
     if (createUserSection) {
         createUserSection.style.display = 'none';
@@ -270,80 +272,104 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
 
-        function renderTask(task, taskGrid, now) {
-            const dueTime = new Date(task.dueDateTime || now); // Handle missing dueDateTime
-            const timeLeft = dueTime - now;
-        
-            // Set default values for missing fields
-            const taskName = task.taskName || "Unnamed Task";
-            const taskType = task.taskType ? task.taskType.type : "Unknown"; // Handle missing taskType
-            const description = task.description || "No description provided.";
-        
-            // Task box creation
-            const taskBox = document.createElement('div');
-            taskBox.classList.add('task-box');
-            taskBox.setAttribute('data-task-id', task.id); // Add task ID as data attribute
-        
-            if (task.isCompleted) {
-                taskBox.classList.add('task-completed'); // Add a visual indicator for completed tasks
-            }
-        
-            const title = document.createElement('h4');
-            title.textContent = taskName;
-        
-            const type = document.createElement('p');
-            type.textContent = `Type: ${taskType}`;
-        
-            const descriptionElement = document.createElement('p');
-            descriptionElement.textContent = description;
-        
-            const dueDate = document.createElement('p');
-            dueDate.textContent = `Due: ${dueTime.toLocaleString()}`;
-        
-            // Countdown for urgent tasks (less than 24 hours)
-            if (!task.isCompleted && timeLeft > 0 && timeLeft < 86400000) {
-                taskBox.style.backgroundColor = '#ffcccc';
-                const countdown = document.createElement('p');
-                countdown.textContent = `Time left: ${formatTimeLeft(timeLeft)}`;
-                const interval = setInterval(() => {
-                    const remainingTime = dueTime - new Date();
-                    if (remainingTime <= 0) {
-                        clearInterval(interval); // Stop updating countdown when time is up
-                        countdown.textContent = "Time's up!";
-                    } else {
-                        countdown.textContent = `Time left: ${formatTimeLeft(remainingTime)}`;
-                    }
-                }, 1000);
-                taskBox.appendChild(countdown);
-            }
-        
-            // Checkbox for marking completion
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = task.isCompleted;
-            checkbox.addEventListener('change', () => toggleCompletion(task.id, checkbox.checked));
-
-            const locationElement = document.createElement('p');
-            locationElement.textContent = task.locationAddress
+    function renderTask(task, taskGrid, now) {
+        const dueTime = new Date(task.dueDateTime || now); // Handle missing dueDateTime
+        const timeLeft = dueTime - now;
+    
+        // Set default values for missing fields
+        const taskName = task.taskName || "Unnamed Task";
+        const taskType = task.taskType ? task.taskType.type : "Unknown"; // Handle missing taskType
+        const description = task.description || "No description provided.";
+    
+        // Task box creation
+        const taskBox = document.createElement('div');
+        taskBox.classList.add('task-box');
+        taskBox.setAttribute('data-task-id', task.id); // Add task ID as data attribute
+    
+        if (task.isCompleted) {
+            taskBox.classList.add('task-completed'); // Add a visual indicator for completed tasks
+        }
+    
+        // Title
+        const title = document.createElement('h4');
+        title.textContent = taskName;
+    
+        // Task type
+        const type = document.createElement('p');
+        type.textContent = `Type: ${taskType}`;
+    
+        // Description
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = description;
+    
+        // Due date
+        const dueDate = document.createElement('p');
+        dueDate.textContent = `Due: ${dueTime.toLocaleString()}`;
+    
+        // Countdown for urgent tasks (less than 24 hours)
+        if (!task.isCompleted && timeLeft > 0 && timeLeft < 86400000) {
+            taskBox.style.backgroundColor = '#ffcccc';
+            const countdown = document.createElement('p');
+            countdown.textContent = `Time left: ${formatTimeLeft(timeLeft)}`;
+            const interval = setInterval(() => {
+                const remainingTime = dueTime - new Date();
+                if (remainingTime <= 0) {
+                    clearInterval(interval); // Stop updating countdown when time is up
+                    countdown.textContent = "Time's up!";
+                } else {
+                    countdown.textContent = `Time left: ${formatTimeLeft(remainingTime)}`;
+                }
+            }, 1000);
+            taskBox.appendChild(countdown);
+        }
+    
+        // Checkbox for marking completion
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.isCompleted;
+        checkbox.addEventListener('change', () => toggleCompletion(task.id, checkbox.checked));
+    
+        // Location information
+        const locationElement = document.createElement('p');
+        locationElement.textContent = task.locationAddress
             ? `Location: ${task.locationAddress}`
             : 'No location provided.';
-        
-            // Edit button
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Edit';
-            editButton.classList.add('edit-button');
-            editButton.addEventListener('click', () => populateTaskFormForEdit(task));
-        
-            // Delete button
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.classList.add('delete-button');
-            deleteButton.addEventListener('click', () => deleteTask(task.id));
-        
-            // Append elements to the task box
-            taskBox.append(checkbox, title, type, descriptionElement, dueDate, locationElement, editButton, deleteButton);
-            taskGrid.appendChild(taskBox);
+    
+        // Image (if available)
+        if (task.picture) {
+            const image = document.createElement('img');
+            image.src = task.picture;
+            image.alt = "Task Image";
+            image.style.maxWidth = "200px";
+            image.style.marginBottom = "10px";
+            taskBox.appendChild(image);
         }
+    
+        // Edit button
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit-button');
+        editButton.addEventListener('click', () => populateTaskFormForEdit(task));
+    
+        // Delete button
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('delete-button');
+        deleteButton.addEventListener('click', () => deleteTask(task.id));
+    
+        // Append elements to the task box
+        taskBox.append(
+            checkbox,
+            title,
+            type,
+            descriptionElement,
+            dueDate,
+            locationElement,
+            editButton,
+            deleteButton
+        );
+        taskGrid.appendChild(taskBox);
+    }
         
     
     
@@ -429,62 +455,89 @@ async function toggleCompletion(taskId, isCompleted) {
         cancelEditButton.style.display = 'inline';
     }
 
-    // Create or update a task
+    // Create or update a task !!!!!!!!!!!!!!!!
     taskForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Preprečimo privzeto obnašanje obrazca
-    
-        // Preprečimo večkratno oddajo obrazca
+        event.preventDefault();
         const submitButton = taskForm.querySelector('button[type="submit"]');
-        submitButton.disabled = true; // Onemogočimo gumb za oddajo
-    
-        const taskLocation = document.getElementById('taskLocation').value;
-    
-        let geocodedLocation = null;
-        if (taskLocation) {
-            try {
-                geocodedLocation = await geocodeAddress(taskLocation);
-                console.log('Geocoded Location:', geocodedLocation);
-            } catch (error) {
-                console.error('Error geocoding address:', error);
-                alert('Failed to geocode the address. Please try again or leave it blank.');
-                submitButton.disabled = false; // Ponovno omogočimo gumb, če pride do napake
-                return;
-            }
-        }
-    
-        const taskData = {
-            taskName: document.getElementById('taskName').value,
-            taskType: { id: parseInt(taskTypeSelect.value) },
-            description: document.getElementById('taskDescription').value,
-            dueDateTime: document.getElementById('dueDate').value,
-            locationAddress: taskLocation || null, // Naslov
-            latitude: geocodedLocation ? geocodedLocation.latitude : null, // Latitude
-            longitude: geocodedLocation ? geocodedLocation.longitude : null, // Longitude
-            isCompleted: false,
-            user: { id: parseInt(userId) },
-        };
+        submitButton.disabled = true;
     
         try {
-            const response = await fetch('/tasks', {
+            const taskLocation = document.getElementById('taskLocation').value;
+    
+            let geocodedLocation = null;
+            if (taskLocation) {
+                geocodedLocation = await geocodeAddress(taskLocation);
+            }
+    
+            const taskData = {
+                taskName: document.getElementById('taskName').value,
+                taskType: { id: parseInt(taskTypeSelect.value) },
+                description: document.getElementById('taskDescription').value,
+                dueDateTime: document.getElementById('dueDate').value,
+                locationAddress: taskLocation || null,
+                latitude: geocodedLocation ? geocodedLocation.latitude : null,
+                longitude: geocodedLocation ? geocodedLocation.longitude : null,
+                isCompleted: false,
+                user: { id: parseInt(userId) },
+            };
+    
+            // Step 1: Create the task
+            const taskResponse = await fetch('/tasks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'user-id': userId },
                 body: JSON.stringify(taskData),
             });
     
-            if (response.ok) {
-                alert('Task created successfully!');
-                fetchTasks(); // Osvežimo seznam nalog
-                taskForm.reset(); // Počistimo obrazec
-            } else {
-                const errorText = await response.text();
-                console.error('Failed to save the task:', errorText);
-                alert(`Failed to save the task: ${errorText}`);
+            if (!taskResponse.ok) {
+                const errorText = await taskResponse.text();
+                throw new Error(`Failed to save the task: ${errorText}`);
             }
+    
+            const createdTask = await taskResponse.json();
+            console.log("Task created:", createdTask); // Log task creation
+    
+            // Step 2: Upload the picture (if selected)
+            const pictureInput = document.getElementById('taskPicture');
+            const picture = pictureInput.files[0];
+    
+            if (picture) {
+                const formData = new FormData();
+                formData.append('picture', picture);
+    
+                const uploadResponse = await fetch(`/tasks/${createdTask.id}/upload`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'user-id': userId }, // Content-Type is set automatically by FormData
+                });
+    
+                if (!uploadResponse.ok) {
+                    const errorText = await uploadResponse.text();
+                    throw new Error(`Failed to upload picture: ${errorText}`);
+                }
+    
+                console.log("Picture uploaded successfully.");
+            }
+    
+            // Step 3: Fetch and render the updated task
+            const updatedTaskResponse = await fetch(`/tasks/${createdTask.id}`, {
+                headers: { 'user-id': userId },
+            });
+    
+            if (!updatedTaskResponse.ok) {
+                throw new Error('Failed to fetch updated task after uploading picture.');
+            }
+    
+            const updatedTask = await updatedTaskResponse.json();
+            console.log("Updated task:", updatedTask); // Log updated task
+    
+            renderTask(updatedTask, taskGrid, new Date());
+            alert('Task created successfully!');
+            taskForm.reset(); // Clear the form
         } catch (error) {
             console.error('Error saving task:', error);
             alert('An unexpected error occurred while saving the task.');
         } finally {
-            submitButton.disabled = false; // Vedno omogočimo gumb po zaključku
+            submitButton.disabled = false;
         }
     });
     

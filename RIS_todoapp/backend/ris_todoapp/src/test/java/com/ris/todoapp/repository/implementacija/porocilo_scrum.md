@@ -51,21 +51,21 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 
 ## Sprint Napredek
 
-| Naloga                                     | Status | Opombe                        |
-|-------------------------------------------|--------|--------------------------------|
-| Prilagoditev podatkovne baze              | Done   |  ////////////////////////////  |
-| Posodobitev entitet in repozitorijev      | Done   |  ////////////////////////////  |
-| Posodobitev `TaskController`              | Done   |  ////////////////////////////  |
-| Posodobitev uporabniškega vmesnika        | Doing     |                                |
-| Posodobitev API povezav (`server.js`)     | ToDo   |                                |
-| Upravljanje slik na strežniku             | ToDo   |                                |
-| Testiranje funkcionalnosti                | ToDo   |                                |
+| Naloga                                     | Status | Opombe                       |
+|-------------------------------------------|--------|------------------------------|
+| Prilagoditev podatkovne baze              | Done   | //////////////////////////// |
+| Posodobitev entitet in repozitorijev      | Done   | //////////////////////////// |
+| Posodobitev `TaskController`              | Done   | //////////////////////////// |
+| Posodobitev uporabniškega vmesnika        | Done   | /                            |
+| Posodobitev API povezav (`server.js`)     | Done   | /                            |
+| Upravljanje slik na strežniku             | Doing  |                              |
+| Testiranje funkcionalnosti                | ToDo   |                              |
 
 ---
 
 ## Ovire in Izzivi
-
-
+- Prikaz default slike
+- potreben refresh page za prikaz task-a
 ---
 
 ## Sprint Skupni Čas
@@ -79,17 +79,20 @@ Prilagoditev podatkovne baze **0.5 ur**
 - Posodobitev `TaskController`: **1 ura**
   -**Dodan default.jpg v TaskController**
    -v primeru če ni zbrana nobena slika
+- Posodobitev uporabniškega vmesnika: **3 ure**
+    - Dodan obrazec za nalaganje slik.
+    - Prikaz slik pri ustvarjenih nalogah.
+- Posodobitev API povezav (`server.js`): **2 uri**
+    - Dodani endpointi za nalaganje in prikaz slik.
   
 **Naslednji korak:**  
-- posodobitev uporabniškega vmesnika
+- Upravljanje slik na strežniku
 
 
 **V teku:** 
 -
 
-**Preostale naloge:** 
-- posodobitev uporabniškega vmesnika
-- Povezava API-ja (`server.js`).
+**Preostale naloge:**
 - Upravljanje slik na strežniku.
 - Testiranje vseh funkcionalnosti.
 
@@ -98,3 +101,7 @@ Prilagoditev podatkovne baze **0.5 ur**
 **Zaključek:**
 Backend del je uspešno implementiran, vključno s podatkovno bazo, entitetami in kontrolerji.   
 Naslednji korak je posodobitev uporabniškega vmesnika in testiranje celotnega sistema.
+
+Frontend del je uspešno implementiran. Omogočeno je nalaganje slik in ogled slik pred kreacijo taska.
+Slika se prikaže ob tasku, z dodajanjem novega endpointa v server.js.
+Naslednji korak je Upravljanje slik na strežniku.

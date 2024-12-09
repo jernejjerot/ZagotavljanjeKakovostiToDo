@@ -67,10 +67,17 @@ public class TaskRepositoryTest {
 
     @AfterEach
     void tearDown() {
-        taskRepository.deleteAll();
-        taskTypeRepository.deleteAll();
-        userRepository.deleteAll();
+        // Izbriši samo naloge, ustvarjene v testih
+        taskRepository.deleteById(testUser.getId());
+
+        // Izbriši samo testne tipe nalog
+        taskTypeRepository.deleteById(testTaskType.getId());
+
+        // Izbriši samo testne uporabnike
+        userRepository.deleteById(testUser.getId());
     }
+
+
 
     @Test
     void testFindByUserId() {

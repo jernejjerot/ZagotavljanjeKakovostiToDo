@@ -56,10 +56,10 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 | Prilagoditev podatkovne baze              | Done   | //////////////////////////// |
 | Posodobitev entitet in repozitorijev      | Done   | //////////////////////////// |
 | Posodobitev `TaskController`              | Done   | //////////////////////////// |
-| Posodobitev uporabniškega vmesnika        | Done   | /                            |
-| Posodobitev API povezav (`server.js`)     | Done   | /                            |
+| Posodobitev uporabniškega vmesnika        | Done   | //////////////////////////// |
+| Posodobitev API povezav (`server.js`)     | Done   | //////////////////////////// |
 | Upravljanje slik na strežniku             | Doing  |                              |
-| Testiranje funkcionalnosti                | Done   | /                            |
+| Testiranje funkcionalnosti                | Done   | //////////////////////////// |
 
 ---
 

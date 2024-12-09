@@ -59,7 +59,7 @@ Implementirati funkcionalnost za nalaganje, shranjevanje in prikaz prilog v To-D
 | Posodobitev uporabniškega vmesnika        | Done   | /                            |
 | Posodobitev API povezav (`server.js`)     | Done   | /                            |
 | Upravljanje slik na strežniku             | Doing  |                              |
-| Testiranje funkcionalnosti                | ToDo   |                              |
+| Testiranje funkcionalnosti                | Done   | /                            |
 
 ---
 
@@ -84,6 +84,7 @@ Prilagoditev podatkovne baze **0.5 ur**
     - Prikaz slik pri ustvarjenih nalogah.
 - Posodobitev API povezav (`server.js`): **3 ure**
     - Dodani endpointi za nalaganje in prikaz slik.
+- Testiranje vseh funkcionalnosti: **2 uri**
   
 **Naslednji korak:**  
 - Upravljanje slik na strežniku
@@ -94,7 +95,6 @@ Prilagoditev podatkovne baze **0.5 ur**
 
 **Preostale naloge:**
 - Upravljanje slik na strežniku.
-- Testiranje vseh funkcionalnosti.
 
 ---
 
@@ -104,4 +104,10 @@ Naslednji korak je posodobitev uporabniškega vmesnika in testiranje celotnega s
 
 Frontend del je uspešno implementiran. Omogočeno je nalaganje slik in ogled slik pred kreacijo taska.
 Slika se prikaže ob tasku, z dodajanjem novega endpointa v server.js.
-Naslednji korak je Upravljanje slik na strežniku.
+
+Izvedeno je bilo testiranje funkcionalnosti, ki vključuje:
+Enostavne teste: ustvarjanje nalog, posodabljanje podatkov nalog in nalaganje slik.
+Mejne primere: preverjanje ravnanja s privzetimi slikami, neveljavnimi podatki in praznimi datotekami.
+Testiranje API endpointov: preverjanje vseh pomembnih tokov, vključno s preverjanjem avtorizacije uporabnikov.
+Testiranje je bilo izvedeno za preverjanje vseh osnovnih in mejnih primerov ter za zagotovitev pravilnega delovanja integracij med backendom in frontendom. 
+

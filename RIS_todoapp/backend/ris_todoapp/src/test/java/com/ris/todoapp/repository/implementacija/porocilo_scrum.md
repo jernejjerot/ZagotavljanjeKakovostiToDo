@@ -106,8 +106,8 @@ Frontend del je uspešno implementiran. Omogočeno je nalaganje slik in ogled sl
 Slika se prikaže ob tasku, z dodajanjem novega endpointa v server.js.
 
 Izvedeno je bilo testiranje funkcionalnosti, ki vključuje:
-Enostavne teste: ustvarjanje nalog, posodabljanje podatkov nalog in nalaganje slik.
-Mejne primere: preverjanje ravnanja s privzetimi slikami, neveljavnimi podatki in praznimi datotekami.
-Testiranje API endpointov: preverjanje vseh pomembnih tokov, vključno s preverjanjem avtorizacije uporabnikov.
-Testiranje je bilo izvedeno za preverjanje vseh osnovnih in mejnih primerov ter za zagotovitev pravilnega delovanja integracij med backendom in frontendom. 
+- enostavne teste: ustvarjanje nalog, posodabljanje podatkov nalog in nalaganje slik
+- mejne primere: preverjanje ravnanja s privzetimi slikami, neveljavnimi podatki in praznimi datotekami
+- testiranje API endpointov: preverjanje vseh pomembnih tokov, vključno s preverjanjem avtorizacije uporabnikov
+- testiranje je bilo izvedeno za preverjanje vseh osnovnih in mejnih primerov ter za zagotovitev pravilnega delovanja integracij med backendom in frontendom. 
 

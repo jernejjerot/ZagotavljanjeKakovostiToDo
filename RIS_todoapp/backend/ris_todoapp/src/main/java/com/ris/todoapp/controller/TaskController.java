@@ -19,16 +19,26 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 
+import com.ris.todoapp.microsoft.DeviceCodeFlowAuth;
+import com.ris.todoapp.microsoft.MicrosoftCalendarService;
 
 
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "http://localhost:3000") // Allow requests from the frontend
 public class TaskController {
+
+    private static final String CLIENT_ID = "your-client-id"; // Nadomestite z vašim Client ID
+    private static final Set<String> SCOPES = Set.of("Calendars.ReadWrite");
+
+    private ResponseEntity<String> handleOutlookSyncError(Exception e, String message) {
+        e.printStackTrace();
+        return ResponseEntity.status(500).body(message + " Outlook Calendar sync failed. Reason: " + e.getMessage());
+    }
 
     @Autowired
     private GeocodingService geocodingService;
@@ -61,10 +71,9 @@ public class TaskController {
                 return ResponseEntity.badRequest().body("Invalid task type ID.");
             }
 
-            // Check and save the location address
+            // Geocoding za naslov naloge (če obstaja)
             if (task.getLocationAddress() != null && !task.getLocationAddress().isBlank()) {
                 Optional<GeocodingResult> resultOptional = geocodingService.geocode(task.getLocationAddress());
-
                 if (resultOptional.isPresent()) {
                     GeocodingResult result = resultOptional.get();
                     task.setLatitude(result.getLatitude());
@@ -78,10 +87,26 @@ public class TaskController {
             task.setTaskType(taskType.get());
 
             if (task.getPicture() == null || task.getPicture().isBlank()) {
-                task.setPicture("/uploads/default.jpg");  // Default image if not provided
+                task.setPicture("/uploads/default.jpg"); // Default slika, če ni podana
             }
 
             Task savedTask = taskRepository.save(task);
+
+            // Sinhronizacija z Microsoft Outlook Calendar
+            try {
+                DeviceCodeFlowAuth auth = new DeviceCodeFlowAuth(CLIENT_ID, SCOPES);
+                String accessToken = auth.getAccessToken();
+
+                MicrosoftCalendarService calendarService = new MicrosoftCalendarService(accessToken);
+                calendarService.createEvent(
+                        savedTask.getTaskName(),
+                        savedTask.getDueDateTime().toString(),
+                        savedTask.getDueDateTime().plusHours(1).toString(),
+                        savedTask.getDescription()
+                );
+            } catch (Exception e) {
+                return handleOutlookSyncError(e, "Task created, but");
+            }
 
             return ResponseEntity.ok(savedTask);
         } catch (Exception e) {
@@ -97,7 +122,7 @@ public class TaskController {
             @RequestHeader("user-id") Long userId,
             @RequestParam("picture") MultipartFile picture) {
         try {
-            // Check if the task exists and belongs to the user
+            // Preverite obstoj naloge
             Optional<Task> optionalTask = taskRepository.findById(id);
             if (optionalTask.isEmpty()) {
                 return ResponseEntity.status(404).body("Task not found.");
@@ -108,20 +133,23 @@ public class TaskController {
                 return ResponseEntity.status(403).body("Unauthorized to upload picture for this task.");
             }
 
-            // Check if file is empty
+            // Preverite, ali je datoteka prazna
             if (picture.isEmpty()) {
                 return ResponseEntity.badRequest().body("Uploaded file is empty.");
             }
 
-            // Set the upload path
+            // Prepričajte se, da mapa obstaja
+            Path uploadPath = Paths.get(System.getProperty("user.dir") + "/uploads");
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Shranite datoteko
             String picturePath = "/uploads/" + picture.getOriginalFilename();
-            String absolutePath = System.getProperty("user.dir") + "/uploads/" + picture.getOriginalFilename();
+            Path absolutePath = uploadPath.resolve(picture.getOriginalFilename());
+            Files.write(absolutePath, picture.getBytes());
 
-            // Save the file to the uploads directory
-            picture.transferTo(new java.io.File(absolutePath));
-            System.out.println("Picture saved at: " + absolutePath);
-
-            // Update the task with the picture URL
+            // Posodobite nalogo
             task.setPicture(picturePath);
             taskRepository.save(task);
 
@@ -135,33 +163,33 @@ public class TaskController {
 
     // Get all tasks for a user
     @GetMapping
-public ResponseEntity<?> getTasks(@RequestHeader("user-id") Long userId) {
-    Optional<User> user = userRepository.findById(userId);
-    if (user.isEmpty()) {
-        return ResponseEntity.badRequest().body("Invalid user ID.");
+    public ResponseEntity<?> getTasks(@RequestHeader("user-id") Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid user ID.");
+        }
+        // Fetch only non-completed tasks
+        List<Task> tasks = taskRepository.findByUserId(userId).stream()
+                .filter(task -> !task.isCompleted())
+                .toList();
+        return ResponseEntity.ok(tasks);
     }
-    // Fetch only non-completed tasks
-    List<Task> tasks = taskRepository.findByUserId(userId).stream()
-            .filter(task -> !task.isCompleted())
-            .toList();
-    return ResponseEntity.ok(tasks);
-}
 
 
     // Fetch a single task by ID
     @GetMapping("/{id}")
-public ResponseEntity<?> getTaskById(@PathVariable Long id, @RequestHeader("user-id") Long userId) {
-    try {
-        Optional<Task> task = taskRepository.findById(id);
-        if (task.isEmpty() || !task.get().getUser().getId().equals(userId)) {
-            return ResponseEntity.status(403).body("Unauthorized access or task not found.");
+    public ResponseEntity<?> getTaskById(@PathVariable Long id, @RequestHeader("user-id") Long userId) {
+        try {
+            Optional<Task> task = taskRepository.findById(id);
+            if (task.isEmpty() || !task.get().getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Unauthorized access or task not found.");
+            }
+            return ResponseEntity.ok(task.get());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error fetching task.");
         }
-        return ResponseEntity.ok(task.get());
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body("Error fetching task.");
     }
-}
 
 // Update a task
 @PutMapping("/{id}")
@@ -206,7 +234,7 @@ public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task tas
         if (taskDetails.getPicture() != null && !taskDetails.getPicture().isBlank()) {
             taskToUpdate.setPicture(taskDetails.getPicture()); //pictures added
         }
-    
+
         taskRepository.save(taskToUpdate);
 
         return ResponseEntity.ok("Task updated successfully.");
@@ -217,9 +245,6 @@ public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task tas
 }
 
 
-
-
-
     // Delete a task
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id, @RequestHeader("user-id") Long userId) {
@@ -227,6 +252,18 @@ public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task tas
         if (task.isEmpty() || !task.get().getUser().getId().equals(userId)) {
             return ResponseEntity.status(403).body("Unauthorized delete.");
         }
+
+        // Opcijsko: Brisanje dogodka iz Outlook Calendar
+        try {
+            DeviceCodeFlowAuth auth = new DeviceCodeFlowAuth(CLIENT_ID, SCOPES);
+            String accessToken = auth.getAccessToken();
+
+            MicrosoftCalendarService calendarService = new MicrosoftCalendarService(accessToken);
+            calendarService.deleteEvent(task.get().getExternalEventId()); // Povežite task z ID dogodka
+        } catch (Exception e) {
+            return handleOutlookSyncError(e, "Task deleted, but");
+        }
+
         taskRepository.deleteById(id);
         return ResponseEntity.ok("Task deleted successfully.");
     }

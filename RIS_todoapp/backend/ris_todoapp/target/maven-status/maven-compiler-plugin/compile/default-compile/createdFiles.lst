@@ -9,5 +9,7 @@ com/ris/todoapp/repository/TaskRepository.class
 com/ris/todoapp/dto/NominatimResponse.class
 com/ris/todoapp/controller/TaskController.class
 com/ris/todoapp/entity/User.class
+com/ris/todoapp/microsoft/DeviceCodeFlowAuth.class
 com/ris/todoapp/dto/GeocodingResult.class
+com/ris/todoapp/microsoft/MicrosoftCalendarService.class
 com/ris/todoapp/service/GeocodingService.class

@@ -9,12 +9,12 @@ import com.ris.todoapp.repository.UserRepository;
 import com.ris.todoapp.service.GeocodingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class TaskControllerDefaultPictureTest {
@@ -40,26 +40,35 @@ class TaskControllerDefaultPictureTest {
         taskController.setUserRepository(userRepository);
         taskController.setTaskTypeRepository(taskTypeRepository);
         taskController.setGeocodingService(geocodingService);
-    }
 
-    @Test
-    void createTask_NoPicture_DefaultPictureSet() {
-        // Priprava podatkov
+        // Privzeti podatki za mockanje
         User user = new User();
         user.setId(1L);
 
         TaskType taskType = new TaskType();
         taskType.setId(1L);
 
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(taskTypeRepository.findById(1L)).thenReturn(Optional.of(taskType));
+
+        // Pravilna inicializacija GeocodingResult
+        com.ris.todoapp.dto.GeocodingResult geocodingResult = new com.ris.todoapp.dto.GeocodingResult();
+        geocodingResult.setLatitude(40.7128);
+        geocodingResult.setLongitude(-74.0060);
+
+        // Mockiranje geokodiranja
+        when(geocodingService.geocode(anyString())).thenReturn(Optional.of(geocodingResult));
+    }
+
+    @Test
+    void createTask_NoPicture_DefaultPictureSet() {
+        // Priprava podatkov
         Task task = new Task();
         task.setTaskName("Testna naloga");
         task.setLocationAddress("New York");
-        task.setTaskType(taskType);
+        task.setTaskType(new TaskType());
+        task.getTaskType().setId(1L);
         task.setPicture(null); // Ni slike
-
-        // Mockiranje vedenja odvisnosti
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(taskTypeRepository.findById(1L)).thenReturn(Optional.of(taskType));
 
         // Izvedba metode kontrolerja
         ResponseEntity<?> response = taskController.createTask(task, 1L);
@@ -74,21 +83,12 @@ class TaskControllerDefaultPictureTest {
     @Test
     void createTask_EmptyPicture_DefaultPictureSet() {
         // Priprava podatkov
-        User user = new User();
-        user.setId(1L);
-
-        TaskType taskType = new TaskType();
-        taskType.setId(1L);
-
         Task task = new Task();
         task.setTaskName("Testna naloga");
         task.setLocationAddress("New York");
-        task.setTaskType(taskType);
+        task.setTaskType(new TaskType());
+        task.getTaskType().setId(1L);
         task.setPicture(""); // Prazna vrednost za sliko
-
-        // Mockiranje vedenja odvisnosti
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(taskTypeRepository.findById(1L)).thenReturn(Optional.of(taskType));
 
         // Izvedba metode kontrolerja
         ResponseEntity<?> response = taskController.createTask(task, 1L);
@@ -103,21 +103,12 @@ class TaskControllerDefaultPictureTest {
     @Test
     void createTask_WithPicture_CustomPictureSet() {
         // Priprava podatkov
-        User user = new User();
-        user.setId(1L);
-
-        TaskType taskType = new TaskType();
-        taskType.setId(1L);
-
         Task task = new Task();
         task.setTaskName("Testna naloga");
         task.setLocationAddress("New York");
-        task.setTaskType(taskType);
+        task.setTaskType(new TaskType());
+        task.getTaskType().setId(1L);
         task.setPicture("/uploads/custom.jpg"); // Določena slika
-
-        // Mockiranje vedenja odvisnosti
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(taskTypeRepository.findById(1L)).thenReturn(Optional.of(taskType));
 
         // Izvedba metode kontrolerja
         ResponseEntity<?> response = taskController.createTask(task, 1L);

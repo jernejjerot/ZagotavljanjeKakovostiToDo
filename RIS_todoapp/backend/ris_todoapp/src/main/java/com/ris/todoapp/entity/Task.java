@@ -79,4 +79,14 @@ public class Task {
     }
     public String getPicture() {return picture;} //dodano
     public void setPicture(String picture) {this.picture = picture;} //dodano
+
+    private String externalEventId;
+
+    public String getExternalEventId() {
+        return externalEventId;
+    }
+
+    public void setExternalEventId(String externalEventId) {
+        this.externalEventId = externalEventId;
+    }
 }

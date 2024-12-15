@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.controller.AdminControllerTest" time="10.581" tests="6" errors="0" skipped="0" failures="0">
-=======
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.controller.AdminControllerTest" time="0.305" tests="6" errors="0" skipped="0" failures="0">
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.ris.todoapp.controller.AdminControllerTest" time="0.275" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/test-classes:/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/classes:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.4/spring-boot-starter-web-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.4/spring-boot-starter-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot/3.3.4/spring-boot-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.4/spring-boot-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.4/spring-boot-starter-logging-3.3.4.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/AM/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/Users/AM/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/AM/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.4/spring-boot-starter-json-3.3.4.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.2/jackson-datatype-jdk8-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.4/spring-boot-starter-tomcat-3.3.4.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.30/tomcat-embed-el-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.30/tomcat-embed-websocket-10.1.30.jar:/Users/AM/.m2/repository/org/springframework/spring-web/6.1.13/spring-web-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-beans/6.1.13/spring-beans-6.1.13.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-observation/1.13.4/micrometer-observation-1.13.4.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-commons/1.13.4/micrometer-commons-1.13.4.jar:/Users/AM/.m2/repository/org/springframework/spring-webmvc/6.1.13/spring-webmvc-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aop/6.1.13/spring-aop-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-context/6.1.13/spring-context-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-expression/6.1.13/spring-expression-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.3.4/spring-boot-starter-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.3.4/spring-boot-starter-aop-3.3.4.jar:/Users/AM/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.3.4/spring-boot-starter-jdbc-3.3.4.jar:/Users/AM/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/AM/.m2/repository/org/springframework/spring-jdbc/6.1.13/spring-jdbc-6.1.13.jar:/Users/AM/.m2/repository/org/hibernate/orm/hibernate-core/6.5.3.Final/hibernate-core-6.5.3.Final.jar:/Users/AM/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/AM/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/AM/.m2/repository/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar:/Users/AM/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/Users/AM/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar:/Users/AM/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/Users/AM/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/Users/AM/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/AM/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/AM/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-jpa/3.3.4/spring-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-commons/3.3.4/spring-data-commons-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/spring-orm/6.1.13/spring-orm-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-tx/6.1.13/spring-tx-6.1.13.jar:/Users/AM/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/AM/.m2/repository/org/springframework/spring-aspects/6.1.13/spring-aspects-6.1.13.jar:/Users/AM/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.3.4/spring-boot-starter-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test/3.3.4/spring-boot-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.3.4/spring-boot-test-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/AM/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/Users/AM/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/Users/AM/.m2/repository/net/minidev/json-smart/2.5.1/json-smart-2.5.1.jar:/Users/AM/.m2/repository/net/minidev/accessors-smart/2.5.1/accessors-smart-2.5.1.jar:/Users/AM/.m2/repository/org/ow2/asm/asm/9.6/asm-9.6.jar:/Users/AM/.m2/repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar:/Users/AM/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/AM/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/AM/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/Users/AM/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/AM/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/AM/.m2/repository/org/springframework/spring-core/6.1.13/spring-core-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-jcl/6.1.13/spring-jcl-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-test/6.1.13/spring-test-6.1.13.jar:/Users/AM/.m2/repository/org/xmlunit/xmlunit-core/2.9.1/xmlunit-core-2.9.1.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/AM/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/AM/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/AM/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy/1.14.19/byte-buddy-1.14.19.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar:/Users/AM/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:"/>
+    <property name="java.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/test-classes:/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/classes:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.4/spring-boot-starter-web-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.4/spring-boot-starter-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot/3.3.4/spring-boot-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.4/spring-boot-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.4/spring-boot-starter-logging-3.3.4.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/AM/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/Users/AM/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/AM/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.4/spring-boot-starter-json-3.3.4.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.2/jackson-datatype-jdk8-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.4/spring-boot-starter-tomcat-3.3.4.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.30/tomcat-embed-el-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.30/tomcat-embed-websocket-10.1.30.jar:/Users/AM/.m2/repository/org/springframework/spring-web/6.1.13/spring-web-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-beans/6.1.13/spring-beans-6.1.13.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-observation/1.13.4/micrometer-observation-1.13.4.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-commons/1.13.4/micrometer-commons-1.13.4.jar:/Users/AM/.m2/repository/org/springframework/spring-webmvc/6.1.13/spring-webmvc-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aop/6.1.13/spring-aop-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-context/6.1.13/spring-context-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-expression/6.1.13/spring-expression-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.3.4/spring-boot-starter-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.3.4/spring-boot-starter-aop-3.3.4.jar:/Users/AM/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.3.4/spring-boot-starter-jdbc-3.3.4.jar:/Users/AM/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/AM/.m2/repository/org/springframework/spring-jdbc/6.1.13/spring-jdbc-6.1.13.jar:/Users/AM/.m2/repository/org/hibernate/orm/hibernate-core/6.5.3.Final/hibernate-core-6.5.3.Final.jar:/Users/AM/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/AM/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/AM/.m2/repository/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar:/Users/AM/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/Users/AM/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar:/Users/AM/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/Users/AM/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/Users/AM/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/AM/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/AM/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-jpa/3.3.4/spring-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-commons/3.3.4/spring-data-commons-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/spring-orm/6.1.13/spring-orm-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-tx/6.1.13/spring-tx-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aspects/6.1.13/spring-aspects-6.1.13.jar:/Users/AM/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.3.4/spring-boot-starter-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test/3.3.4/spring-boot-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.3.4/spring-boot-test-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/AM/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/Users/AM/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/Users/AM/.m2/repository/net/minidev/json-smart/2.5.1/json-smart-2.5.1.jar:/Users/AM/.m2/repository/net/minidev/accessors-smart/2.5.1/accessors-smart-2.5.1.jar:/Users/AM/.m2/repository/org/ow2/asm/asm/9.6/asm-9.6.jar:/Users/AM/.m2/repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar:/Users/AM/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/AM/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/AM/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/Users/AM/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/AM/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/AM/.m2/repository/org/springframework/spring-core/6.1.13/spring-core-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-jcl/6.1.13/spring-jcl-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-test/6.1.13/spring-test-6.1.13.jar:/Users/AM/.m2/repository/org/xmlunit/xmlunit-core/2.9.1/xmlunit-core-2.9.1.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/AM/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/AM/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/AM/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy/1.14.19/byte-buddy-1.14.19.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar:/Users/AM/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/AM/.m2/repository/com/microsoft/azure/msal4j/1.13.3/msal4j-1.13.3.jar:/Users/AM/.m2/repository/com/nimbusds/oauth2-oidc-sdk/9.35/oauth2-oidc-sdk-9.35.jar:/Users/AM/.m2/repository/com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0-1.jar:/Users/AM/.m2/repository/com/nimbusds/content-type/2.2/content-type-2.2.jar:/Users/AM/.m2/repository/com/nimbusds/lang-tag/1.6/lang-tag-1.6.jar:/Users/AM/.m2/repository/com/nimbusds/nimbus-jose-jwt/9.22/nimbus-jose-jwt-9.22.jar:/Users/AM/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/AM/.m2/repository/com/squareup/okhttp3/okhttp/4.11.0/okhttp-4.11.0.jar:/Users/AM/.m2/repository/com/squareup/okio/okio/3.2.0/okio-3.2.0.jar:/Users/AM/.m2/repository/com/squareup/okio/okio-jvm/3.2.0/okio-jvm-3.2.0.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.25/kotlin-stdlib-common-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.9.25/kotlin-stdlib-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.25/kotlin-stdlib-jdk8-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.25/kotlin-stdlib-jdk7-1.9.25.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:"/>
     <property name="java.vm.vendor" value="Homebrew"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
@@ -17,23 +13,17 @@
     <property name="os.name" value="Mac OS X"/>
     <property name="java.vm.specification.version" value="23"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-<<<<<<< HEAD
-    <property name="user.country" value="GB"/>
-    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\cvikl\AppData\Local\Temp\surefire18433171579343522014\surefirebooter-20241207171348430_3.jar C:\Users\cvikl\AppData\Local\Temp\surefire18433171579343522014 2024-12-07T17-13-48_260-jvmRun1 surefire-20241207171348430_1tmp surefire_0-20241207171348430_2tmp"/>
-=======
     <property name="user.country" value="SI"/>
-    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/23/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire/surefirebooter-20241202184301379_3.jar /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire 2024-12-02T18-43-01_341-jvmRun1 surefire-20241202184301379_1tmp surefire_0-20241202184301379_2tmp"/>
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire/surefirebooter-20241215135436581_3.jar /Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire 2024-12-15T13-54-36_535-jvmRun1 surefire-20241215135436581_1tmp surefire_0-20241215135436581_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/test-classes:/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/classes:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.4/spring-boot-starter-web-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.4/spring-boot-starter-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot/3.3.4/spring-boot-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.4/spring-boot-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.4/spring-boot-starter-logging-3.3.4.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/AM/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/Users/AM/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/AM/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.4/spring-boot-starter-json-3.3.4.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.2/jackson-datatype-jdk8-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.4/spring-boot-starter-tomcat-3.3.4.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.30/tomcat-embed-el-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.30/tomcat-embed-websocket-10.1.30.jar:/Users/AM/.m2/repository/org/springframework/spring-web/6.1.13/spring-web-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-beans/6.1.13/spring-beans-6.1.13.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-observation/1.13.4/micrometer-observation-1.13.4.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-commons/1.13.4/micrometer-commons-1.13.4.jar:/Users/AM/.m2/repository/org/springframework/spring-webmvc/6.1.13/spring-webmvc-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aop/6.1.13/spring-aop-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-context/6.1.13/spring-context-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-expression/6.1.13/spring-expression-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.3.4/spring-boot-starter-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.3.4/spring-boot-starter-aop-3.3.4.jar:/Users/AM/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.3.4/spring-boot-starter-jdbc-3.3.4.jar:/Users/AM/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/AM/.m2/repository/org/springframework/spring-jdbc/6.1.13/spring-jdbc-6.1.13.jar:/Users/AM/.m2/repository/org/hibernate/orm/hibernate-core/6.5.3.Final/hibernate-core-6.5.3.Final.jar:/Users/AM/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/AM/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/AM/.m2/repository/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar:/Users/AM/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/Users/AM/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar:/Users/AM/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/Users/AM/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/Users/AM/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/AM/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/AM/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-jpa/3.3.4/spring-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-commons/3.3.4/spring-data-commons-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/spring-orm/6.1.13/spring-orm-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-tx/6.1.13/spring-tx-6.1.13.jar:/Users/AM/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/AM/.m2/repository/org/springframework/spring-aspects/6.1.13/spring-aspects-6.1.13.jar:/Users/AM/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.3.4/spring-boot-starter-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test/3.3.4/spring-boot-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.3.4/spring-boot-test-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/AM/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/Users/AM/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/Users/AM/.m2/repository/net/minidev/json-smart/2.5.1/json-smart-2.5.1.jar:/Users/AM/.m2/repository/net/minidev/accessors-smart/2.5.1/accessors-smart-2.5.1.jar:/Users/AM/.m2/repository/org/ow2/asm/asm/9.6/asm-9.6.jar:/Users/AM/.m2/repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar:/Users/AM/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/AM/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/AM/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/Users/AM/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/AM/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/AM/.m2/repository/org/springframework/spring-core/6.1.13/spring-core-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-jcl/6.1.13/spring-jcl-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-test/6.1.13/spring-test-6.1.13.jar:/Users/AM/.m2/repository/org/xmlunit/xmlunit-core/2.9.1/xmlunit-core-2.9.1.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/AM/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/AM/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/AM/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy/1.14.19/byte-buddy-1.14.19.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar:/Users/AM/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:"/>
+    <property name="surefire.test.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/test-classes:/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/classes:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.4/spring-boot-starter-web-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.4/spring-boot-starter-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot/3.3.4/spring-boot-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.4/spring-boot-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.4/spring-boot-starter-logging-3.3.4.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar:/Users/AM/.m2/repository/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/AM/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/AM/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar:/Users/AM/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/AM/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.4/spring-boot-starter-json-3.3.4.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.2/jackson-datatype-jdk8-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.4/spring-boot-starter-tomcat-3.3.4.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.30/tomcat-embed-el-10.1.30.jar:/Users/AM/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.30/tomcat-embed-websocket-10.1.30.jar:/Users/AM/.m2/repository/org/springframework/spring-web/6.1.13/spring-web-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-beans/6.1.13/spring-beans-6.1.13.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-observation/1.13.4/micrometer-observation-1.13.4.jar:/Users/AM/.m2/repository/io/micrometer/micrometer-commons/1.13.4/micrometer-commons-1.13.4.jar:/Users/AM/.m2/repository/org/springframework/spring-webmvc/6.1.13/spring-webmvc-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aop/6.1.13/spring-aop-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-context/6.1.13/spring-context-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-expression/6.1.13/spring-expression-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.3.4/spring-boot-starter-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.3.4/spring-boot-starter-aop-3.3.4.jar:/Users/AM/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.3.4/spring-boot-starter-jdbc-3.3.4.jar:/Users/AM/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar:/Users/AM/.m2/repository/org/springframework/spring-jdbc/6.1.13/spring-jdbc-6.1.13.jar:/Users/AM/.m2/repository/org/hibernate/orm/hibernate-core/6.5.3.Final/hibernate-core-6.5.3.Final.jar:/Users/AM/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/Users/AM/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/Users/AM/.m2/repository/org/jboss/logging/jboss-logging/3.5.3.Final/jboss-logging-3.5.3.Final.jar:/Users/AM/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/Users/AM/.m2/repository/io/smallrye/jandex/3.1.2/jandex-3.1.2.jar:/Users/AM/.m2/repository/com/fasterxml/classmate/1.7.0/classmate-1.7.0.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.5/jaxb-runtime-4.0.5.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.5/jaxb-core-4.0.5.jar:/Users/AM/.m2/repository/org/eclipse/angus/angus-activation/2.0.2/angus-activation-2.0.2.jar:/Users/AM/.m2/repository/org/glassfish/jaxb/txw2/4.0.5/txw2-4.0.5.jar:/Users/AM/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.2/istack-commons-runtime-4.1.2.jar:/Users/AM/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/Users/AM/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-jpa/3.3.4/spring-data-jpa-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/data/spring-data-commons/3.3.4/spring-data-commons-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/spring-orm/6.1.13/spring-orm-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-tx/6.1.13/spring-tx-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-aspects/6.1.13/spring-aspects-6.1.13.jar:/Users/AM/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-starter-test/3.3.4/spring-boot-starter-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test/3.3.4/spring-boot-test-3.3.4.jar:/Users/AM/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/3.3.4/spring-boot-test-autoconfigure-3.3.4.jar:/Users/AM/.m2/repository/com/jayway/jsonpath/json-path/2.9.0/json-path-2.9.0.jar:/Users/AM/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar:/Users/AM/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar:/Users/AM/.m2/repository/net/minidev/json-smart/2.5.1/json-smart-2.5.1.jar:/Users/AM/.m2/repository/net/minidev/accessors-smart/2.5.1/accessors-smart-2.5.1.jar:/Users/AM/.m2/repository/org/ow2/asm/asm/9.6/asm-9.6.jar:/Users/AM/.m2/repository/org/assertj/assertj-core/3.25.3/assertj-core-3.25.3.jar:/Users/AM/.m2/repository/org/awaitility/awaitility/4.2.2/awaitility-4.2.2.jar:/Users/AM/.m2/repository/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.3/junit-jupiter-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.3/junit-jupiter-params-5.10.3.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.3/junit-jupiter-engine-5.10.3.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-engine/1.10.3/junit-platform-engine-1.10.3.jar:/Users/AM/.m2/repository/org/mockito/mockito-junit-jupiter/5.11.0/mockito-junit-jupiter-5.11.0.jar:/Users/AM/.m2/repository/org/skyscreamer/jsonassert/1.5.3/jsonassert-1.5.3.jar:/Users/AM/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar:/Users/AM/.m2/repository/org/springframework/spring-core/6.1.13/spring-core-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-jcl/6.1.13/spring-jcl-6.1.13.jar:/Users/AM/.m2/repository/org/springframework/spring-test/6.1.13/spring-test-6.1.13.jar:/Users/AM/.m2/repository/org/xmlunit/xmlunit-core/2.9.1/xmlunit-core-2.9.1.jar:/Users/AM/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.3/junit-jupiter-api-5.10.3.jar:/Users/AM/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/Users/AM/.m2/repository/org/junit/platform/junit-platform-commons/1.10.3/junit-platform-commons-1.10.3.jar:/Users/AM/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/AM/.m2/repository/org/mockito/mockito-core/5.5.0/mockito-core-5.5.0.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy/1.14.19/byte-buddy-1.14.19.jar:/Users/AM/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar:/Users/AM/.m2/repository/org/objenesis/objenesis/3.3/objenesis-3.3.jar:/Users/AM/.m2/repository/com/microsoft/azure/msal4j/1.13.3/msal4j-1.13.3.jar:/Users/AM/.m2/repository/com/nimbusds/oauth2-oidc-sdk/9.35/oauth2-oidc-sdk-9.35.jar:/Users/AM/.m2/repository/com/github/stephenc/jcip/jcip-annotations/1.0-1/jcip-annotations-1.0-1.jar:/Users/AM/.m2/repository/com/nimbusds/content-type/2.2/content-type-2.2.jar:/Users/AM/.m2/repository/com/nimbusds/lang-tag/1.6/lang-tag-1.6.jar:/Users/AM/.m2/repository/com/nimbusds/nimbus-jose-jwt/9.22/nimbus-jose-jwt-9.22.jar:/Users/AM/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar:/Users/AM/.m2/repository/com/squareup/okhttp3/okhttp/4.11.0/okhttp-4.11.0.jar:/Users/AM/.m2/repository/com/squareup/okio/okio/3.2.0/okio-3.2.0.jar:/Users/AM/.m2/repository/com/squareup/okio/okio-jvm/3.2.0/okio-jvm-3.2.0.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.25/kotlin-stdlib-common-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.9.25/kotlin-stdlib-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.25/kotlin-stdlib-jdk8-1.9.25.jar:/Users/AM/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.25/kotlin-stdlib-jdk7-1.9.25.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar:/Users/AM/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/AM"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2024-09-17"/>
-    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/23/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="java.version.date" value="2024-10-15"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home"/>
     <property name="file.separator" value="/"/>
     <property name="basedir" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
@@ -42,15 +32,10 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="FILE_LOG_CHARSET" value="UTF-8"/>
     <property name="java.awt.headless" value="true"/>
-<<<<<<< HEAD
-    <property name="surefire.real.class.path" value="C:\Users\cvikl\AppData\Local\Temp\surefire18433171579343522014\surefirebooter-20241207171348430_3.jar"/>
-    <property name="user.script" value=""/>
-=======
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire/surefirebooter-20241202184301379_3.jar"/>
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+    <property name="surefire.real.class.path" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/target/surefire/surefirebooter-20241215135436581_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="23"/>
+    <property name="java.runtime.version" value="23.0.1"/>
     <property name="user.name" value="HP2"/>
     <property name="stdout.encoding" value="UTF-8"/>
     <property name="path.separator" value=":"/>
@@ -63,125 +48,27 @@
     <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
     <property name="java.io.tmpdir" value="/var/folders/qk/p47nh4r90xn8xqmzqz4pfgmh0000gq/T/"/>
     <property name="com.zaxxer.hikari.pool_number" value="2"/>
-    <property name="catalina.home" value="/private/var/folders/qk/p47nh4r90xn8xqmzqz4pfgmh0000gq/T/tomcat.0.13451456864204886826"/>
-    <property name="java.version" value="23"/>
+    <property name="catalina.home" value="/private/var/folders/qk/p47nh4r90xn8xqmzqz4pfgmh0000gq/T/tomcat.0.1889692404492969151"/>
+    <property name="java.version" value="23.0.1"/>
     <property name="user.dir" value="/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp"/>
     <property name="os.arch" value="aarch64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-<<<<<<< HEAD
-    <property name="PID" value="10824"/>
-    <property name="sun.os.patch.level" value=""/>
-=======
-    <property name="PID" value="22833"/>
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+    <property name="PID" value="5108"/>
     <property name="CONSOLE_LOG_CHARSET" value="UTF-8"/>
-    <property name="catalina.base" value="/private/var/folders/qk/p47nh4r90xn8xqmzqz4pfgmh0000gq/T/tomcat.0.13451456864204886826"/>
+    <property name="catalina.base" value="/private/var/folders/qk/p47nh4r90xn8xqmzqz4pfgmh0000gq/T/tomcat.0.1889692404492969151"/>
     <property name="native.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/AM/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="UTF-8"/>
     <property name="java.vendor" value="Homebrew"/>
-    <property name="java.vm.version" value="23"/>
+    <property name="java.vm.version" value="23.0.1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-<<<<<<< HEAD
-  <testcase name="testDeleteTaskAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="1.488">
-    <system-out><![CDATA[17:13:49.711 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.ris.todoapp.controller.AdminControllerTest]: AdminControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-17:13:49.953 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.controller.AdminControllerTest
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
-
- :: Spring Boot ::                (v3.3.4)
-
-2024-12-07T17:13:50.566+01:00  INFO 10824 --- [           main] c.r.t.controller.AdminControllerTest     : Starting AdminControllerTest using Java 21.0.1 with PID 10824 (started by cvikl in C:\Users\cvikl\OneDrive\Namizje\RIS_skupinska\RIS_todoapp\backend\ris_todoapp)
-2024-12-07T17:13:50.566+01:00  INFO 10824 --- [           main] c.r.t.controller.AdminControllerTest     : No active profile set, falling back to 1 default profile: "default"
-2024-12-07T17:13:50.624+01:00 DEBUG 10824 --- [           main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@11ee02f8
-2024-12-07T17:13:51.271+01:00  INFO 10824 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-12-07T17:13:51.372+01:00  INFO 10824 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 3 JPA repository interfaces.
-2024-12-07T17:13:52.479+01:00  INFO 10824 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-12-07T17:13:52.573+01:00  INFO 10824 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2024-12-07T17:13:52.621+01:00  INFO 10824 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-12-07T17:13:53.276+01:00  INFO 10824 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-12-07T17:13:53.348+01:00  INFO 10824 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-12-07T17:13:53.866+01:00  INFO 10824 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4a833595
-2024-12-07T17:13:53.870+01:00  INFO 10824 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-12-07T17:13:53.950+01:00  WARN 10824 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-12-07T17:13:53.950+01:00  WARN 10824 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-12-07T17:13:55.496+01:00  INFO 10824 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-12-07T17:13:55.601+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table tasks 
-       modify column description varchar(1000)
-Hibernate: 
-    alter table tasks 
-       modify column description varchar(1000)
-2024-12-07T17:13:55.776+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table tasks 
-       add column latitude float(53)
-Hibernate: 
-    alter table tasks 
-       add column latitude float(53)
-2024-12-07T17:13:55.809+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table tasks 
-       add column location_address varchar(255)
-Hibernate: 
-    alter table tasks 
-       add column location_address varchar(255)
-2024-12-07T17:13:55.836+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table tasks 
-       add column longitude float(53)
-Hibernate: 
-    alter table tasks 
-       add column longitude float(53)
-2024-12-07T17:13:55.860+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table tasks 
-       modify column task_name varchar(255) not null
-Hibernate: 
-    alter table tasks 
-       modify column task_name varchar(255) not null
-2024-12-07T17:13:55.880+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table taskType 
-       modify column type varchar(255) not null
-Hibernate: 
-    alter table taskType 
-       modify column type varchar(255) not null
-2024-12-07T17:13:55.996+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table user 
-       modify column email varchar(255)
-Hibernate: 
-    alter table user 
-       modify column email varchar(255)
-2024-12-07T17:13:56.133+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table user 
-       modify column name varchar(255)
-Hibernate: 
-    alter table user 
-       modify column name varchar(255)
-2024-12-07T17:13:56.259+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    alter table user 
-       modify column surname varchar(255)
-Hibernate: 
-    alter table user 
-       modify column surname varchar(255)
-2024-12-07T17:13:56.431+01:00  INFO 10824 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-12-07T17:13:57.250+01:00  WARN 10824 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-12-07T17:13:57.407+01:00 DEBUG 10824 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 21 mappings in 'requestMappingHandlerMapping'
-2024-12-07T17:13:57.580+01:00 DEBUG 10824 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2024-12-07T17:13:57.653+01:00 DEBUG 10824 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2024-12-07T17:13:57.710+01:00 DEBUG 10824 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2024-12-07T17:13:57.852+01:00  INFO 10824 --- [           main] c.r.t.controller.AdminControllerTest     : Started AdminControllerTest in 7.639 seconds (process running for 9.289)
-2024-12-07T17:13:58.555+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-  <testcase name="testDeleteTaskAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.178">
-    <system-out><![CDATA[2024-12-02T18:43:04.835+01:00  INFO 22833 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.controller.AdminControllerTest]: AdminControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-12-02T18:43:04.837+01:00  INFO 22833 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.controller.AdminControllerTest
-2024-12-02T18:43:04.842+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+  <testcase name="testDeleteTaskAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.168">
+    <system-out><![CDATA[2024-12-15T13:54:40.197+01:00  INFO 5108 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.ris.todoapp.controller.AdminControllerTest]: AdminControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-12-15T13:54:40.200+01:00  INFO 5108 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.ris.todoapp.App for test class com.ris.todoapp.controller.AdminControllerTest
+2024-12-15T13:54:40.207+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -195,11 +82,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:58.612+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:04.846+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.210+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -213,11 +96,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:58.624+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:04.848+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.212+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -231,11 +110,7 @@ Hibernate:
         taskType (type) 
     values
         (?)
-<<<<<<< HEAD
-2024-12-07T17:13:58.636+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:04.851+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.213+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
@@ -248,13 +123,8 @@ Hibernate:
     into
         tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-<<<<<<< HEAD
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:58.692+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:04.855+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.216+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -278,11 +148,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.190+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:04.995+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.352+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* select
         count(*) 
     from
@@ -306,11 +172,7 @@ Hibernate:
             tasks t1_0 
         where
             t1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.198+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:04.998+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.354+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         t1_0.id,
         t1_0.description,
@@ -372,11 +234,7 @@ Hibernate:
             on u1_0.id=t1_0.user_id 
     where
         t1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.211+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.000+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.356+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.Task */delete 
     from
         tasks 
@@ -388,11 +246,7 @@ Hibernate:
         tasks 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.231+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.003+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.358+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* select
         count(*) 
     from
@@ -416,11 +270,7 @@ Hibernate:
             tasks t1_0 
         where
             t1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.263+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.007+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.361+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -450,167 +300,7 @@ Hibernate:
         t1_0.user_id 
     from
         tasks t1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.267+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-Hibernate: 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-2024-12-07T17:13:59.267+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-2024-12-07T17:13:59.271+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-Hibernate: 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-2024-12-07T17:13:59.276+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-2024-12-07T17:13:59.276+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-Hibernate: 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-2024-12-07T17:13:59.280+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-2024-12-07T17:13:59.284+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-2024-12-07T17:13:59.288+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-2024-12-07T17:13:59.288+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-2024-12-07T17:13:59.300+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.009+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.363+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -622,11 +312,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.304+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.010+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.364+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -638,11 +324,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.304+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.011+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.364+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -654,43 +336,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.308+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.011+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.311+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.012+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.320+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.014+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.366+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -710,11 +356,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.324+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.014+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.367+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -726,285 +368,7 @@ Hibernate:
         user 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.324+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-2024-12-07T17:13:59.328+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-2024-12-07T17:13:59.328+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-2024-12-07T17:13:59.332+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-]]></system-out>
-    <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\cvikl\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar)
-WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-WARNING: Dynamic loading of agents will be disallowed by default in a future release
-]]></system-err>
-  </testcase>
-  <testcase name="testDeleteTaskAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.106">
-    <system-out><![CDATA[2024-12-07T17:13:59.378+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* insert for
-        com.ris.todoapp.entity.User */insert 
-    into
-        user (admin, email, name, password, surname) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    /* insert for
-        com.ris.todoapp.entity.User */insert 
-    into
-        user (admin, email, name, password, surname) 
-    values
-        (?, ?, ?, ?, ?)
-2024-12-07T17:13:59.389+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* insert for
-        com.ris.todoapp.entity.User */insert 
-    into
-        user (admin, email, name, password, surname) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    /* insert for
-        com.ris.todoapp.entity.User */insert 
-    into
-        user (admin, email, name, password, surname) 
-    values
-        (?, ?, ?, ?, ?)
-2024-12-07T17:13:59.399+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* insert for
-        com.ris.todoapp.entity.TaskType */insert 
-    into
-        taskType (type) 
-    values
-        (?)
-Hibernate: 
-    /* insert for
-        com.ris.todoapp.entity.TaskType */insert 
-    into
-        taskType (type) 
-    values
-        (?)
-2024-12-07T17:13:59.411+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* insert for
-        com.ris.todoapp.entity.Task */insert 
-    into
-        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
-    values
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-Hibernate: 
-    /* insert for
-        com.ris.todoapp.entity.Task */insert 
-    into
-        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
-    values
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:59.422+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-2024-12-07T17:13:59.431+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* <criteria> */ select
-        t1_0.id,
-        t1_0.description,
-        t1_0.due_datetime,
-        t1_0.is_completed,
-        t1_0.latitude,
-        t1_0.location_address,
-        t1_0.longitude,
-        t1_0.picture,
-        t1_0.task_name,
-        t1_0.task_type_id,
-        t1_0.user_id 
-    from
-        tasks t1_0
-Hibernate: 
-    /* <criteria> */ select
-        t1_0.id,
-        t1_0.description,
-        t1_0.due_datetime,
-        t1_0.is_completed,
-        t1_0.latitude,
-        t1_0.location_address,
-        t1_0.longitude,
-        t1_0.picture,
-        t1_0.task_name,
-        t1_0.task_type_id,
-        t1_0.user_id 
-    from
-        tasks t1_0
-2024-12-07T17:13:59.432+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-Hibernate: 
-    select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0 
-    where
-        tt1_0.id=?
-2024-12-07T17:13:59.435+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0 
-    where
-        u1_0.id=?
-2024-12-07T17:13:59.439+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.Task */delete 
-    from
-        tasks 
-    where
-        id=?
-2024-12-07T17:13:59.447+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* <criteria> */ select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0
-Hibernate: 
-    /* <criteria> */ select
-        tt1_0.id,
-        tt1_0.type 
-    from
-        taskType tt1_0
-2024-12-07T17:13:59.451+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.TaskType */delete 
-    from
-        taskType 
-    where
-        id=?
-2024-12-07T17:13:59.461+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* <criteria> */ select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0
-Hibernate: 
-    /* <criteria> */ select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0
-2024-12-07T17:13:59.463+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-Hibernate: 
-    /* delete for com.ris.todoapp.entity.User */delete 
-    from
-        user 
-    where
-        id=?
-2024-12-07T17:13:59.467+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.015+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.367+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1018,13 +382,8 @@ Hibernate:
         id=?
 ]]></system-out>
   </testcase>
-<<<<<<< HEAD
-  <testcase name="testDeleteUserAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.183">
-    <system-out><![CDATA[2024-12-07T17:13:59.483+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-  <testcase name="testDeleteTaskAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.023">
-    <system-out><![CDATA[2024-12-02T18:43:05.019+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+  <testcase name="testDeleteTaskAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.019">
+    <system-out><![CDATA[2024-12-15T13:54:40.371+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1038,11 +397,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.496+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.021+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.373+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1056,11 +411,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.580+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.024+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.375+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -1074,11 +425,7 @@ Hibernate:
         taskType (type) 
     values
         (?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.593+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.026+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.376+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
@@ -1091,13 +438,8 @@ Hibernate:
     into
         tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-<<<<<<< HEAD
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:59.605+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:05.029+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.379+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1121,11 +463,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.614+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.031+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.380+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -1155,11 +493,7 @@ Hibernate:
         t1_0.user_id 
     from
         tasks t1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.618+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.032+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.381+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         tt1_0.id,
         tt1_0.type 
@@ -1175,11 +509,7 @@ Hibernate:
         taskType tt1_0 
     where
         tt1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.618+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.032+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.382+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1203,11 +533,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.622+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.033+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.382+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.Task */delete 
     from
         tasks 
@@ -1219,11 +545,7 @@ Hibernate:
         tasks 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.634+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.035+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.384+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -1235,11 +557,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.634+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.036+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.384+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -1251,11 +569,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.646+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.038+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.386+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -1275,11 +589,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.651+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.038+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.386+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1291,11 +601,7 @@ Hibernate:
         user 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.651+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.039+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.387+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1309,13 +615,8 @@ Hibernate:
         id=?
 ]]></system-out>
   </testcase>
-<<<<<<< HEAD
-  <testcase name="testGetAllUsersAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.109">
-    <system-out><![CDATA[2024-12-07T17:13:59.670+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-  <testcase name="testDeleteUserAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.022">
-    <system-out><![CDATA[2024-12-02T18:43:05.043+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+  <testcase name="testDeleteUserAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.02">
+    <system-out><![CDATA[2024-12-15T13:54:40.390+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1329,11 +630,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.680+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.045+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.392+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1347,11 +644,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.690+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.048+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.393+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -1365,11 +658,7 @@ Hibernate:
         taskType (type) 
     values
         (?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.698+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.049+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.394+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
@@ -1382,13 +671,8 @@ Hibernate:
     into
         tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-<<<<<<< HEAD
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:59.711+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:05.051+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.396+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1412,31 +696,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.719+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-    /* <criteria> */ select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0
-Hibernate: 
-    /* <criteria> */ select
-        u1_0.id,
-        u1_0.admin,
-        u1_0.email,
-        u1_0.name,
-        u1_0.password,
-        u1_0.surname 
-    from
-        user u1_0
-2024-12-07T17:13:59.731+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.053+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.400+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -1466,11 +726,7 @@ Hibernate:
         t1_0.user_id 
     from
         tasks t1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.731+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.054+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.401+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         tt1_0.id,
         tt1_0.type 
@@ -1486,11 +742,7 @@ Hibernate:
         taskType tt1_0 
     where
         tt1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.735+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.054+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.401+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1514,11 +766,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.735+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.055+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.402+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.Task */delete 
     from
         tasks 
@@ -1530,11 +778,7 @@ Hibernate:
         tasks 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.747+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.057+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.404+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -1546,11 +790,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.751+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.058+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.405+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -1562,11 +802,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.759+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.060+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.407+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -1586,11 +822,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.763+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.061+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.407+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1602,11 +834,7 @@ Hibernate:
         user 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.767+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.061+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.408+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1620,13 +848,8 @@ Hibernate:
         id=?
 ]]></system-out>
   </testcase>
-<<<<<<< HEAD
-  <testcase name="testDeleteUserAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.106">
-    <system-out><![CDATA[2024-12-07T17:13:59.780+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-  <testcase name="testGetAllUsersAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.027">
-    <system-out><![CDATA[2024-12-02T18:43:05.065+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+  <testcase name="testGetAllUsersAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.019">
+    <system-out><![CDATA[2024-12-15T13:54:40.411+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1640,11 +863,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.788+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.071+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.413+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1658,11 +877,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.801+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.073+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.414+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -1676,11 +891,7 @@ Hibernate:
         taskType (type) 
     values
         (?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.813+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.075+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.415+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
@@ -1693,13 +904,8 @@ Hibernate:
     into
         tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-<<<<<<< HEAD
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:59.825+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:05.077+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.418+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1723,10 +929,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.833+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.079+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.421+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -1746,7 +949,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-2024-12-02T18:43:05.081+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.422+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -1755,6 +958,7 @@ Hibernate:
         t1_0.latitude,
         t1_0.location_address,
         t1_0.longitude,
+        t1_0.picture,
         t1_0.task_name,
         t1_0.task_type_id,
         t1_0.user_id 
@@ -1769,12 +973,13 @@ Hibernate:
         t1_0.latitude,
         t1_0.location_address,
         t1_0.longitude,
+        t1_0.picture,
         t1_0.task_name,
         t1_0.task_type_id,
         t1_0.user_id 
     from
         tasks t1_0
-2024-12-02T18:43:05.082+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.423+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         tt1_0.id,
         tt1_0.type 
@@ -1790,7 +995,7 @@ Hibernate:
         taskType tt1_0 
     where
         tt1_0.id=?
-2024-12-02T18:43:05.082+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.423+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1814,7 +1019,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-2024-12-02T18:43:05.083+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.424+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.Task */delete 
     from
         tasks 
@@ -1826,7 +1031,7 @@ Hibernate:
         tasks 
     where
         id=?
-2024-12-02T18:43:05.085+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.425+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -1838,7 +1043,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-2024-12-02T18:43:05.086+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.425+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -1850,7 +1055,7 @@ Hibernate:
         taskType 
     where
         id=?
-2024-12-02T18:43:05.087+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.426+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -1870,7 +1075,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-2024-12-02T18:43:05.088+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.427+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1882,7 +1087,7 @@ Hibernate:
         user 
     where
         id=?
-2024-12-02T18:43:05.088+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.427+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -1897,7 +1102,7 @@ Hibernate:
 ]]></system-out>
   </testcase>
   <testcase name="testDeleteUserAsAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.025">
-    <system-out><![CDATA[2024-12-02T18:43:05.094+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+    <system-out><![CDATA[2024-12-15T13:54:40.430+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1911,7 +1116,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-2024-12-02T18:43:05.097+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.432+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -1925,7 +1130,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-2024-12-02T18:43:05.099+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.433+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -1939,21 +1144,21 @@ Hibernate:
         taskType (type) 
     values
         (?)
-2024-12-02T18:43:05.101+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+2024-12-15T13:54:40.434+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
-        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, task_name, task_type_id, user_id) 
+        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 Hibernate: 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
-        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, task_name, task_type_id, user_id) 
+        tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:05.103+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2024-12-15T13:54:40.436+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -1977,8 +1182,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-2024-12-02T18:43:05.106+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.439+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* select
         count(*) 
     from
@@ -2002,11 +1206,7 @@ Hibernate:
             user u1_0 
         where
             u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.837+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.107+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.441+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -2030,11 +1230,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.837+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.108+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.441+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -2046,11 +1242,7 @@ Hibernate:
         user 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.845+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.109+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.443+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* select
         count(*) 
     from
@@ -2074,11 +1266,7 @@ Hibernate:
             user u1_0 
         where
             u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.853+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.111+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.448+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -2108,11 +1296,7 @@ Hibernate:
         t1_0.user_id 
     from
         tasks t1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.857+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.112+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.449+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -2124,11 +1308,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.857+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.113+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.450+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -2140,11 +1320,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.869+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.115+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.451+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -2164,11 +1340,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.869+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.116+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.452+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -2182,13 +1354,8 @@ Hibernate:
         id=?
 ]]></system-out>
   </testcase>
-<<<<<<< HEAD
-  <testcase name="testGetAllUsersAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.09">
-    <system-out><![CDATA[2024-12-07T17:13:59.886+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-  <testcase name="testGetAllUsersAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.02">
-    <system-out><![CDATA[2024-12-02T18:43:05.119+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+  <testcase name="testGetAllUsersAsNonAdmin" classname="com.ris.todoapp.controller.AdminControllerTest" time="0.016">
+    <system-out><![CDATA[2024-12-15T13:54:40.455+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -2202,11 +1369,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.896+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.120+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.457+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.User */insert 
     into
@@ -2220,11 +1383,7 @@ Hibernate:
         user (admin, email, name, password, surname) 
     values
         (?, ?, ?, ?, ?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.906+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.121+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.458+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.TaskType */insert 
     into
@@ -2238,11 +1397,7 @@ Hibernate:
         taskType (type) 
     values
         (?)
-<<<<<<< HEAD
-2024-12-07T17:13:59.916+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.125+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.459+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* insert for
         com.ris.todoapp.entity.Task */insert 
     into
@@ -2255,13 +1410,8 @@ Hibernate:
     into
         tasks (description, due_datetime, is_completed, latitude, location_address, longitude, picture, task_name, task_type_id, user_id) 
     values
-<<<<<<< HEAD
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-07T17:13:59.926+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-        (?, ?, ?, ?, ?, ?, ?, ?, ?)
-2024-12-02T18:43:05.128+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.461+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -2285,11 +1435,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.930+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.130+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.462+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         t1_0.id,
         t1_0.description,
@@ -2319,11 +1465,7 @@ Hibernate:
         t1_0.user_id 
     from
         tasks t1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.934+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.131+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.463+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         tt1_0.id,
         tt1_0.type 
@@ -2339,11 +1481,7 @@ Hibernate:
         taskType tt1_0 
     where
         tt1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.934+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.131+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.463+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     select
         u1_0.id,
         u1_0.admin,
@@ -2367,11 +1505,7 @@ Hibernate:
         user u1_0 
     where
         u1_0.id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.938+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.132+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.464+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.Task */delete 
     from
         tasks 
@@ -2383,11 +1517,7 @@ Hibernate:
         tasks 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.946+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.134+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.466+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         tt1_0.id,
         tt1_0.type 
@@ -2399,11 +1529,7 @@ Hibernate:
         tt1_0.type 
     from
         taskType tt1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.946+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.134+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.466+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.TaskType */delete 
     from
         taskType 
@@ -2415,11 +1541,7 @@ Hibernate:
         taskType 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.959+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.135+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.467+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* <criteria> */ select
         u1_0.id,
         u1_0.admin,
@@ -2439,11 +1561,7 @@ Hibernate:
         u1_0.surname 
     from
         user u1_0
-<<<<<<< HEAD
-2024-12-07T17:13:59.959+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.136+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.468+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 
@@ -2455,11 +1573,7 @@ Hibernate:
         user 
     where
         id=?
-<<<<<<< HEAD
-2024-12-07T17:13:59.963+01:00 DEBUG 10824 --- [           main] org.hibernate.SQL                        : 
-=======
-2024-12-02T18:43:05.137+01:00 DEBUG 22833 --- [           main] org.hibernate.SQL                        : 
->>>>>>> e01ed0707238385cbec8c4b9828dea015034aa07
+2024-12-15T13:54:40.468+01:00 DEBUG 5108 --- [           main] org.hibernate.SQL                        : 
     /* delete for com.ris.todoapp.entity.User */delete 
     from
         user 

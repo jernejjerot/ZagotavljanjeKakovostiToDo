@@ -4,6 +4,7 @@ import com.ris.todoapp.dto.GeocodingResult;
 import com.ris.todoapp.entity.Task;
 import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.entity.User;
+import com.ris.todoapp.google.GoogleCalendarService;
 import com.ris.todoapp.repository.TaskRepository;
 import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.repository.UserRepository;
@@ -12,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
@@ -22,9 +22,6 @@ import java.nio.file.Paths;
 import java.util.Set;
 import java.util.List;
 import java.util.Optional;
-
-import com.ris.todoapp.microsoft.DeviceCodeFlowAuth;
-import com.ris.todoapp.microsoft.MicrosoftCalendarService;
 
 
 @RestController
@@ -43,7 +40,6 @@ public class TaskController {
     @Autowired
     private GeocodingService geocodingService;
 
-
     @Autowired
     private TaskRepository taskRepository;
 
@@ -51,7 +47,12 @@ public class TaskController {
     private UserRepository userRepository;
 
     @Autowired
+    private GoogleCalendarService googleCalendarService;
+
+
+    @Autowired
     private TaskTypeRepository taskTypeRepository;
+
 
     // Create a new task
     @PostMapping
@@ -92,21 +93,16 @@ public class TaskController {
 
             Task savedTask = taskRepository.save(task);
 
-            // Sinhronizacija z Microsoft Outlook Calendar
-            try {
-                DeviceCodeFlowAuth auth = new DeviceCodeFlowAuth(CLIENT_ID, SCOPES);
-                String accessToken = auth.getAccessToken();
 
-                MicrosoftCalendarService calendarService = new MicrosoftCalendarService(accessToken);
-                calendarService.createEvent(
-                        savedTask.getTaskName(),
-                        savedTask.getDueDateTime().toString(),
-                        savedTask.getDueDateTime().plusHours(1).toString(),
-                        savedTask.getDescription()
+        // Add task to Google Calendar if due date is provided
+           /* if (task.getDueDateTime() != null) {
+                googleCalendarService.addTaskToCalendar(
+                        task.getTaskName(),
+                        task.getDescription(),
+                        new Date(), // Current date as start date
+                        Date.from(task.getDueDateTime().atZone(ZoneId.systemDefault()).toInstant()) // Due date as end date
                 );
-            } catch (Exception e) {
-                return handleOutlookSyncError(e, "Task created, but");
-            }
+            } */
 
             return ResponseEntity.ok(savedTask);
         } catch (Exception e) {
@@ -165,6 +161,7 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<?> getTasks(@RequestHeader("user-id") Long userId) {
         Optional<User> user = userRepository.findById(userId);
+        System.out.println(userId);
         if (user.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid user ID.");
         }
@@ -191,58 +188,58 @@ public class TaskController {
         }
     }
 
-// Update a task
-@PutMapping("/{id}")
-public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task taskDetails, @RequestHeader("user-id") Long userId) {
-    try {
-        Optional<Task> taskOptional = taskRepository.findById(id);
+    // Update a task
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task taskDetails, @RequestHeader("user-id") Long userId) {
+        try {
+            Optional<Task> taskOptional = taskRepository.findById(id);
 
-        if (taskOptional.isEmpty() || !taskOptional.get().getUser().getId().equals(userId)) {
-            return ResponseEntity.status(403).body("Unauthorized update or task not found.");
-        }
-
-        Task taskToUpdate = taskOptional.get();
-
-        // Validate taskName
-        if (taskDetails.getTaskName() == null || taskDetails.getTaskName().isBlank()) {
-            return ResponseEntity.badRequest().body("Task name cannot be blank.");
-        }
-        taskToUpdate.setTaskName(taskDetails.getTaskName());
-
-        // Validate description
-        if (taskDetails.getDescription() == null || taskDetails.getDescription().isBlank()) {
-            taskToUpdate.setDescription("No description provided.");
-        } else {
-            taskToUpdate.setDescription(taskDetails.getDescription());
-        }
-
-        if (taskDetails.getDueDateTime() != null) {
-            taskToUpdate.setDueDateTime(taskDetails.getDueDateTime());
-        }
-
-        if (taskDetails.getTaskType() != null && taskDetails.getTaskType().getId() != null) {
-            Optional<TaskType> taskType = taskTypeRepository.findById(taskDetails.getTaskType().getId());
-            if (taskType.isEmpty()) {
-                return ResponseEntity.badRequest().body("Invalid task type ID.");
+            if (taskOptional.isEmpty() || !taskOptional.get().getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Unauthorized update or task not found.");
             }
-            taskToUpdate.setTaskType(taskType.get());
+
+            Task taskToUpdate = taskOptional.get();
+
+            // Validate taskName
+            if (taskDetails.getTaskName() == null || taskDetails.getTaskName().isBlank()) {
+                return ResponseEntity.badRequest().body("Task name cannot be blank.");
+            }
+            taskToUpdate.setTaskName(taskDetails.getTaskName());
+
+            // Validate description
+            if (taskDetails.getDescription() == null || taskDetails.getDescription().isBlank()) {
+                taskToUpdate.setDescription("No description provided.");
+            } else {
+                taskToUpdate.setDescription(taskDetails.getDescription());
+            }
+
+            if (taskDetails.getDueDateTime() != null) {
+                taskToUpdate.setDueDateTime(taskDetails.getDueDateTime());
+            }
+
+            if (taskDetails.getTaskType() != null && taskDetails.getTaskType().getId() != null) {
+                Optional<TaskType> taskType = taskTypeRepository.findById(taskDetails.getTaskType().getId());
+                if (taskType.isEmpty()) {
+                    return ResponseEntity.badRequest().body("Invalid task type ID.");
+                }
+                taskToUpdate.setTaskType(taskType.get());
+            }
+
+            taskToUpdate.setCompleted(taskDetails.isCompleted());
+
+
+            if (taskDetails.getPicture() != null && !taskDetails.getPicture().isBlank()) {
+                taskToUpdate.setPicture(taskDetails.getPicture()); //pictures added
+            }
+
+            taskRepository.save(taskToUpdate);
+
+            return ResponseEntity.ok("Task updated successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error updating task.");
         }
-
-        taskToUpdate.setCompleted(taskDetails.isCompleted());
-
-
-        if (taskDetails.getPicture() != null && !taskDetails.getPicture().isBlank()) {
-            taskToUpdate.setPicture(taskDetails.getPicture()); //pictures added
-        }
-
-        taskRepository.save(taskToUpdate);
-
-        return ResponseEntity.ok("Task updated successfully.");
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body("Error updating task.");
     }
-}
 
 
     // Delete a task
@@ -253,81 +250,70 @@ public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task tas
             return ResponseEntity.status(403).body("Unauthorized delete.");
         }
 
-        // Opcijsko: Brisanje dogodka iz Outlook Calendar
-        try {
-            DeviceCodeFlowAuth auth = new DeviceCodeFlowAuth(CLIENT_ID, SCOPES);
-            String accessToken = auth.getAccessToken();
-
-            MicrosoftCalendarService calendarService = new MicrosoftCalendarService(accessToken);
-            calendarService.deleteEvent(task.get().getExternalEventId()); // Povežite task z ID dogodka
-        } catch (Exception e) {
-            return handleOutlookSyncError(e, "Task deleted, but");
-        }
-
         taskRepository.deleteById(id);
         return ResponseEntity.ok("Task deleted successfully.");
     }
 
     @GetMapping("/done")
-public ResponseEntity<?> getDoneTasks(@RequestHeader("user-id") Long userId) {
-    try {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid user ID.");
+    public ResponseEntity<?> getDoneTasks(@RequestHeader("user-id") Long userId) {
+        try {
+            Optional<User> user = userRepository.findById(userId);
+            if (user.isEmpty()) {
+                return ResponseEntity.badRequest().body("Invalid user ID.");
+            }
+
+            // Fetch completed tasks
+            List<Task> doneTasks = taskRepository.findByUserIdAndIsCompletedTrue(userId);
+
+            return ResponseEntity.ok(doneTasks);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error fetching done tasks.");
         }
-
-        // Fetch completed tasks
-        List<Task> doneTasks = taskRepository.findByUserIdAndIsCompletedTrue(userId);
-
-        return ResponseEntity.ok(doneTasks);
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body("Error fetching done tasks.");
     }
-}
 
-@PostMapping("/done")
-public ResponseEntity<?> moveTaskToDone(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
-    System.out.println("Received Task Object:");
-    System.out.println("ID: " + task.getId());
-    System.out.println("Task Name: " + task.getTaskName());
-    System.out.println("Task Type: " + (task.getTaskType() != null ? task.getTaskType().getId() : "null"));
-    System.out.println("Description: " + task.getDescription());
-    System.out.println("Due DateTime: " + task.getDueDateTime());
-    System.out.println("User: " + (task.getUser() != null ? task.getUser().getId() : "null"));
-    System.out.println("Received task payload: " + task); // Debugging input
-    
-    
-    if (task.getTaskName() == null || task.getTaskName().isBlank()) {
-        return ResponseEntity.badRequest().body("Task name cannot be blank.");
-    }
-    try {
-        // Fetch the task from the database
-        Optional<Task> optionalTask = taskRepository.findById(task.getId());
-        if (optionalTask.isEmpty()) {
-            return ResponseEntity.status(404).body("Task not found.");
+    @PostMapping("/done")
+    public ResponseEntity<?> moveTaskToDone(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
+        System.out.println("Received Task Object:");
+        System.out.println("ID: " + task.getId());
+        System.out.println("Task Name: " + task.getTaskName());
+        System.out.println("Task Type: " + (task.getTaskType() != null ? task.getTaskType().getId() : "null"));
+        System.out.println("Description: " + task.getDescription());
+        System.out.println("Due DateTime: " + task.getDueDateTime());
+        System.out.println("User: " + (task.getUser() != null ? task.getUser().getId() : "null"));
+        System.out.println("Received task payload: " + task); // Debugging input
+
+
+        if (task.getTaskName() == null || task.getTaskName().isBlank()) {
+            return ResponseEntity.badRequest().body("Task name cannot be blank.");
         }
+        try {
+            // Fetch the task from the database
+            Optional<Task> optionalTask = taskRepository.findById(task.getId());
+            if (optionalTask.isEmpty()) {
+                return ResponseEntity.status(404).body("Task not found.");
+            }
 
-        Task existingTask = optionalTask.get();
+            Task existingTask = optionalTask.get();
 
-        // Ensure the task belongs to the user
-        if (!existingTask.getUser().getId().equals(userId)) {
-            return ResponseEntity.status(403).body("Unauthorized to update this task.");
+            // Ensure the task belongs to the user
+            if (!existingTask.getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Unauthorized to update this task.");
+            }
+
+            // Only update the "isCompleted" flag
+            existingTask.setCompleted(true);
+
+            // Save the updated task
+            Task updatedTask = taskRepository.save(existingTask);
+            System.out.println("Updated Task: " + updatedTask);
+
+            return ResponseEntity.ok("Task moved to done successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error moving task to done.");
         }
-
-        // Only update the "isCompleted" flag
-        existingTask.setCompleted(true);
-
-        // Save the updated task
-        Task updatedTask = taskRepository.save(existingTask);
-        System.out.println("Updated Task: " + updatedTask);
-
-        return ResponseEntity.ok("Task moved to done successfully.");
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body("Error moving task to done.");
     }
-}
 
     public void setTaskRepository(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;

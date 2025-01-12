@@ -170,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchTasks() {
         const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
+        console.log('fetchTasks: ' + localStorage.getItem('userId'));
         const tasks = await response.json();
         console.log("Fetched tasks:", tasks); // Debugging
     
@@ -383,63 +384,63 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${hours}h ${minutes}m ${seconds}s`;
     }
 
- // Toggle task completion
-async function toggleCompletion(taskId, isCompleted) {
-    try {
-        // Fetch current task details
-        const currentTaskResponse = await fetch(`/tasks/${taskId}`, {
-            headers: { 'user-id': userId },
-        });
+    // Toggle task completion
+    async function toggleCompletion(taskId, isCompleted) {
+        try {
+            // Fetch current task details
+            const currentTaskResponse = await fetch(`/tasks/${taskId}`, {
+                headers: { 'user-id': userId },
+            });
 
-        if (!currentTaskResponse.ok) {
-            throw new Error(`Failed to fetch task details: ${await currentTaskResponse.text()}`);
-        }
-
-        const currentTask = await currentTaskResponse.json();
-        currentTask.isCompleted = isCompleted; // Update completion status
-
-        // Send the full updated task object to the backend
-        const response = await fetch(`/tasks/${taskId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json', 'user-id': userId },
-            body: JSON.stringify(currentTask), // Send the full task object
-        });
-
-        if (response.ok) {
-            alert('Task updated successfully!');
-
-            // Update the UI
-            const taskBox = document.querySelector(`[data-task-id="${taskId}"]`);
-            if (taskBox) {
-                taskBox.style.opacity = isCompleted ? "0.5" : "1.0";
-
-                // Remove "Edit" and "Delete" buttons for completed tasks
-                if (isCompleted) {
-                    const editButton = taskBox.querySelector('.edit-button');
-                    const deleteButton = taskBox.querySelector('.delete-button');
-                    if (editButton) editButton.remove();
-                    if (deleteButton) deleteButton.remove();
-
-                    // Add "Move to Completed Tasks" button
-                    const moveButton = document.createElement('button');
-                    moveButton.textContent = 'Move to Completed Tasks';
-                    moveButton.classList.add('move-button');
-                    moveButton.addEventListener('click', async () => {
-                        await moveToDoneTasks(currentTask);
-                        taskBox.remove(); // Remove from the main task grid
-                    });
-                    taskBox.appendChild(moveButton);
-                }
+            if (!currentTaskResponse.ok) {
+                throw new Error(`Failed to fetch task details: ${await currentTaskResponse.text()}`);
             }
-        } else {
-            const errorText = await response.text();
-            console.error(`Failed to update task: ${errorText}`);
-            alert('Error updating task.');
+
+            const currentTask = await currentTaskResponse.json();
+            currentTask.isCompleted = isCompleted; // Update completion status
+
+            // Send the full updated task object to the backend
+            const response = await fetch(`/tasks/${taskId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'user-id': userId },
+                body: JSON.stringify(currentTask), // Send the full task object
+            });
+
+            if (response.ok) {
+                alert('Task updated successfully!');
+
+                // Update the UI
+                const taskBox = document.querySelector(`[data-task-id="${taskId}"]`);
+                if (taskBox) {
+                    taskBox.style.opacity = isCompleted ? "0.5" : "1.0";
+
+                    // Remove "Edit" and "Delete" buttons for completed tasks
+                    if (isCompleted) {
+                        const editButton = taskBox.querySelector('.edit-button');
+                        const deleteButton = taskBox.querySelector('.delete-button');
+                        if (editButton) editButton.remove();
+                        if (deleteButton) deleteButton.remove();
+
+                        // Add "Move to Completed Tasks" button
+                        const moveButton = document.createElement('button');
+                        moveButton.textContent = 'Move to Completed Tasks';
+                        moveButton.classList.add('move-button');
+                        moveButton.addEventListener('click', async () => {
+                            await moveToDoneTasks(currentTask);
+                            taskBox.remove(); // Remove from the main task grid
+                        });
+                        taskBox.appendChild(moveButton);
+                    }
+                }
+            } else {
+                const errorText = await response.text();
+                console.error(`Failed to update task: ${errorText}`);
+                alert('Error updating task.');
+            }
+        } catch (error) {
+            console.error('Error toggling task completion:', error);
         }
-    } catch (error) {
-        console.error('Error toggling task completion:', error);
     }
-}
 
 
     
@@ -498,9 +499,9 @@ async function toggleCompletion(taskId, isCompleted) {
     
             // Step 2: Upload the picture (if selected)
             const pictureInput = document.getElementById('taskPicture');
-            const picture = pictureInput.files[0];
+            //const picture = pictureInput.files[0];
     
-            if (picture) {
+            if (false) {
                 const formData = new FormData();
                 formData.append('picture', picture);
     
@@ -516,7 +517,26 @@ async function toggleCompletion(taskId, isCompleted) {
                 }
     
                 console.log("Picture uploaded successfully.");
+            } else {
+                const formData = new FormData();
+                const picture = "../../uploads/default.jpg";
+                formData.append('picture', picture);
+
+                const uploadResponse = await fetch(`/tasks/${createdTask.id}/upload`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'user-id': userId }, // Content-Type is set automatically by FormData
+                });
+    
+                if (!uploadResponse.ok) {
+                    const errorText = await uploadResponse.text();
+                    throw new Error(`Failed to upload picture: ${errorText}`);
+                }
+    
+                console.log("Default picture uploaded successfully.");
             }
+
+
     
             // Step 3: Fetch and render the updated task
             const updatedTaskResponse = await fetch(`/tasks/${createdTask.id}`, {

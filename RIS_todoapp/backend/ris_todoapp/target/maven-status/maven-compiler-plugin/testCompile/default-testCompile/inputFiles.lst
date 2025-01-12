@@ -1,9 +1,9 @@
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/controller/AdminControllerTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/controller/TaskControllerDefaultPictureTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/controller/TaskControllerTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/controller/TaskTypeControllerTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/controller/UserControllerTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/repository/TaskRepositoryTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/repository/TaskTypeRepositoryTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/repository/UserRepositoryTest.java
-/Users/AM/Documents/Ales.java/FERI/2_letnik/RIS/RIS_skupinski_projekt/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/test/java/com/ris/todoapp/service/GeocodingServiceTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\controller\AdminControllerTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\controller\TaskControllerDefaultPictureTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\controller\TaskControllerTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\controller\TaskTypeControllerTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\controller\UserControllerTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\repository\TaskRepositoryTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\repository\TaskTypeRepositoryTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\repository\UserRepositoryTest.java
+C:\Users\Uporabnik\Desktop\Ris projekt\ToDoApp\RIS_todoapp\backend\ris_todoapp\src\test\java\com\ris\todoapp\service\GeocodingServiceTest.java

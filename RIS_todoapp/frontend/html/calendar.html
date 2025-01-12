@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Calendar</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.css" rel="stylesheet">
+
+    <!-- FullCalendar JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction/main.min.js"></script> -->
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <ul id="navLinks">
+                <li><a href="/html/register.html">Register</a></li>
+                <li><a href="/html/editUser.html">Edit Account</a></li>
+                <li><a href="/html/index.html">Tasks</a></li>
+            </ul>
+        </nav>
+        <div id="userActions" class="login-container"></div>
+    </header>
+
+    <main>
+        <h1>Task Calendar</h1>
+        <div id="calendar"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script>
+        // FullCalendar Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek',
+                },
+                events: async function(fetchInfo, successCallback, failureCallback) {
+                    try {
+                        const userId = localStorage.getItem("userId");
+                        if (!userId) {
+                            console.error('User ID not found in localStorage.');
+                            failureCallback('User not logged in.');
+                            return;
+                        }
+
+                        const response = await fetch('/tasks', {
+                            headers: { 'user-id': userId }
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch tasks');
+                        }
+
+                        const tasks = await response.json();
+                        const events = tasks.map(task => ({
+                            title: task.taskName,
+                            start: task.dueDateTime, // Assuming ISO 8601 string format from backend
+                            description: task.description || 'No description provided',
+                        }));
+
+                        successCallback(events);
+                    } catch (error) {
+                        console.error(error);
+                        failureCallback(error);
+                    }
+                },
+            });
+
+            calendar.render();
+        });
+    </script>
+</body>
+</html>

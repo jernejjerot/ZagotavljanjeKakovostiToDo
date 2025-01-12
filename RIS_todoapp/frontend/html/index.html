@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tasks</title>
     <link rel="stylesheet" href="../css/styles.css">
+    
+
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+
+
 </head>
 <body>
     <header class="navbar">
@@ -12,7 +18,7 @@
             <ul id="navLinks">
                 <li><a href="/html/register.html">Register</a></li>
                 <li><a href="/html/editUser.html">Edit Account</a></li>
-                <li><a href="/html/doneTasks.html">Completed Tasks</a></li>
+                <li><a href="/html/calendar.html">Calendar</a></li>
                 <!--<button id="logoutButton" class="logout-button">Logout</button> -->
                 <!-- Admin link dynamically added -->
             </ul>
@@ -62,6 +68,7 @@
                 </div>
             </form>
             <div id="taskGrid" class="task-grid"></div>
+            <div id="calendar"></div>
         </section>
 
         <!-- Create User Section (Visible for Admins Only) -->

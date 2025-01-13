@@ -193,7 +193,7 @@ To Do (V čakanju): Naloge, ki so bile določene kot prioriteta in so pripravlje
 Doing (V teku): Naloge, na katerih ekipa trenutno aktivno dela.
 Done (Dokončano): Naloge, ki so uspešno implementirane in testirane.
 
-# Primeri nalog na Kanban tabeli:
+### Primeri nalog na Kanban tabeli:
 Backlog:
 
 Raziskava knjižnice FullCalendar.js.
@@ -214,7 +214,7 @@ Uspešna integracija koledarja v aplikacijo.
 Naloge se dinamično dodajo v koledar ob ustvarjanju.
 Vse funkcionalnosti testirane in potrjene.
 
-# Pomen Kanban tabele
+### Pomen Kanban tabele
 Uporaba Kanban tabele nam je omogočila jasnejšo delitev dela, spremljanje napredka in prioritetno razvrščanje nalog. Poleg tega smo lahko hitro odkrili morebitne ovire in izboljšali sodelovanje znotraj ekipe.
 
 Za pregled celotnega projekta lahko obiščete GitHub Kanban tabelo: TODOAPP_kanban.

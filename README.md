@@ -184,3 +184,37 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
 
 ## Testiranje
 V projektu je bila dodana mapa `testiranje`, ki vsebuje poročilo o enotnem testiranju (`porocilo_testiranja.md`). V poročilu so opisani testi, rezultati testiranja in analiza uspešnosti.
+
+## Upravljanje projekta s Kanban tabelo
+Pri razvoju To-Do aplikacije smo za organizacijo dela in boljšo preglednost nalog uporabili Kanban tabelo na GitHub Projects. Kanban tabela omogoča vizualno sledenje napredka pri razvoju in razdelitev nalog na različne faze. Tabela vsebuje naslednje stolpce:
+
+Backlog (Ideje/Načrti): Tukaj so zapisane vse naloge in ideje, ki čakajo na prioritizacijo in razvrstitev.
+To Do (V čakanju): Naloge, ki so bile določene kot prioriteta in so pripravljene za izvedbo.
+Doing (V teku): Naloge, na katerih ekipa trenutno aktivno dela.
+Done (Dokončano): Naloge, ki so uspešno implementirane in testirane.
+
+# Primeri nalog na Kanban tabeli:
+Backlog:
+
+Raziskava knjižnice FullCalendar.js.
+Načrtovanje API točk za naloge.
+Testiranje robnih primerov (npr. naloge brez datumov ali opisov).
+To Do:
+
+Integracija FullCalendar.js v datoteko calendar.html.
+Pridobivanje uporabniških nalog prek API-ja.
+Prikaz nalog kot dogodkov v koledarju.
+Doing:
+
+Odpravljanje napake pri inicializaciji koledarja.
+Testiranje pravilne integracije nalog in koledarja.
+Done:
+
+Uspešna integracija koledarja v aplikacijo.
+Naloge se dinamično dodajo v koledar ob ustvarjanju.
+Vse funkcionalnosti testirane in potrjene.
+
+# Pomen Kanban tabele
+Uporaba Kanban tabele nam je omogočila jasnejšo delitev dela, spremljanje napredka in prioritetno razvrščanje nalog. Poleg tega smo lahko hitro odkrili morebitne ovire in izboljšali sodelovanje znotraj ekipe.
+
+Za pregled celotnega projekta lahko obiščete GitHub Kanban tabelo: TODOAPP_kanban.

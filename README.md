@@ -45,14 +45,28 @@ Koraki za namestitev
    cd ToDoApp
 
 2. Nastavite podatkovno bazo
-   - Preverite konfiguracijo baze podatkov v application.properties, ki se nahaja v	src/main/resources/.
-   - Baza podatkov mora biti konfigurirana za uporabo MySQL verzije 8.4. Poskrbite, da je MySQL strežnik aktiven 	in da je baza pravilno konfigurirana.
+   - **Ustvarite podatkovno bazo v MySQL**:
+    
+    ```
+    CREATE DATABASE ime_baze;
+    ```
 
-3. Zagon backend strežnika
+  - **Posodobite datoteko "application.properties" v IntelliJ**:
+
+    ```
+    spring.datasource.url=jdbc:mysql://localhost:[port]/ime_baze
+    spring.datasource.username=tvoje_ime
+    spring.datasource.password=tvoje_geslo
+    ```
+    
+   - ** Preverite konfiguracijo baze podatkov v application.properties, ki se nahaja v	src/main/resources/. **
+   - ** Baza podatkov mora biti konfigurirana za uporabo MySQL verzije 8.4. Poskrbite, da je MySQL strežnik aktiven in da je baza pravilno konfigurirana. ** 
+
+4. Zagon backend strežnika
    mvn spring-boot:run
    Backend bo tekel na http://localhost:8080
 
-4. Zagon frontend proxy strežnika
+5. Zagon frontend proxy strežnika
    - Premaknite se v mapo "frontend".
    bash
    cd frontend
@@ -60,7 +74,7 @@ Koraki za namestitev
    node server.js
    - Frontend proxy strežnik bo tekel na http://localhost:3000.
 
-5. Dostop do aplikacije
+6. Dostop do aplikacije
    - Odprite brskalnik in obiščite http://localhost:3000 za uporabo aplikacije.
 
 Navodila za razvijalce

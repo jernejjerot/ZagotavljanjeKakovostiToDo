@@ -40,18 +40,20 @@ Zahteve
 Koraki za namestitev
 
 1. Klonirajte repozitorij
-   bash
-   git clone https://github.com/JCvkl1/ToDoApp.git
-   cd ToDoApp
+   ```
+     bash
+     git clone https://github.com/JCvkl1/ToDoApp.git
+     cd ToDoApp
+   ```
 
-2. Nastavite podatkovno bazo
+3. Nastavite podatkovno bazo
    - **Ustvarite podatkovno bazo v MySQL**:
     
     ```
     CREATE DATABASE ime_baze;
     ```
 
-  - **Posodobite datoteko "application.properties" v IntelliJ**:
+    - **Posodobite datoteko "application.properties" v IntelliJ**:
 
     ```
     spring.datasource.url=jdbc:mysql://localhost:[port]/ime_baze
@@ -59,8 +61,8 @@ Koraki za namestitev
     spring.datasource.password=tvoje_geslo
     ```
     
-   - ** Preverite konfiguracijo baze podatkov v application.properties, ki se nahaja v	src/main/resources/. **
-   - ** Baza podatkov mora biti konfigurirana za uporabo MySQL verzije 8.4. Poskrbite, da je MySQL strežnik aktiven in da je baza pravilno konfigurirana. ** 
+     - **Preverite konfiguracijo baze podatkov v application.properties, ki se nahaja v	src/main/resources/.**
+     - **Baza podatkov mora biti konfigurirana za uporabo MySQL verzije 8.4. Poskrbite, da je MySQL strežnik aktiven in da je baza pravilno konfigurirana.** 
 
 4. Zagon backend strežnika
    mvn spring-boot:run
@@ -68,10 +70,12 @@ Koraki za namestitev
 
 5. Zagon frontend proxy strežnika
    - Premaknite se v mapo "frontend".
-   bash
-   cd frontend
-   npm install
-   node server.js
+    ```
+       bash
+       cd frontend
+       npm install
+       node server.js
+    ```
    - Frontend proxy strežnik bo tekel na http://localhost:3000.
 
 6. Dostop do aplikacije

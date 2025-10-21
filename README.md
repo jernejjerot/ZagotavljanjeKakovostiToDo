@@ -201,7 +201,57 @@ Dodajanje opravila: Uporabnik lahko doda novo opravilo v aplikacijo. Ta funkcion
 
 
 ## Testiranje
-V projektu je bila dodana mapa `testiranje`, ki vsebuje poročilo o enotnem testiranju (`porocilo_testiranja.md`). V poročilu so opisani testi, rezultati testiranja in analiza uspešnosti.
+
+### **Namen testiranja**
+Testi preverjajo delovanje repozitorijev v aplikaciji *ToDoApp*, ki upravljajo s podatki o uporabnikih in nalogah.  
+Cilj je potrditi pravilnost osnovnih CRUD operacij ter odziv sistema na napačne ali podvojene vnose.
+
+---
+
+####  `testFindByUserId()`
+**Namen:** Namen testa je preveriti pravilno delovanje metode findByUserId(), ki mora iz baze vrniti vse naloge (Tasks), ki pripadajo določenemu uporabniku. Funkcija mora biti sposobna poizkati vse zapise, kjer je tuji kljuš user_id enak podanemu indetifikatorju uporabnika.
+**Vhod:** 
+  - userId: je ID testnega uporabnika
+  - podatki v bazi: dve nalogi z različnim opisom in datumom izvedbe in razlićnim statusom
+    
+**Pričakovano:** metoda vrne seznam z dvema nalogama, ki pripadata temu uporabniku.  
+**Ugotovitev:** test uspešno potrdi pravilno povezavo med uporabnikom in nalogami.
+
+---
+
+####  `testFindByUserIdAndIsCompletedTrue()`
+**Namen:** Preveriti delovanje metode testFindByUserIdAndIsCompletedTrue(), ki mora vrniti samo tiste naloge, ki pripradajo določenemu uporabniku in so hkrati označene kot dokončane
+**Vhod:**
+  - userId: ID tistega uporabnika
+  - Stranje baze: ena dokončana in ena nedokončana naloga
+    
+**Pričakovano:** metoda vrne samo eno, dokončano nalogo.  
+**Ugotovitev:** rezultat potrjuje pravilno filtriranje po atributu `isCompleted`.
+
+---
+
+####  `testFindByPicture()`
+**Namen:** Namen testa je preveriti metodo findByPicture(), ki mora poizkati naloge na podlagi natančnega ujemanja poti slike
+**Vhod:** 
+  - picture: »/uploads/task1.jpg«
+  - Baza vsebuje zapise z task1.jpg in task2.jpg
+    
+**Pričakovano:** rezultat vsebuje točno eno nalogo z ustrezno potjo slike.  
+**Ugotovitev:** test potrjuje pravilno delovanje metode `findByPicture()`.
+
+---
+
+#### `testSave_DuplicateEmail()`
+**Namen:** Preveriti, da aplikacija ne dovoli dveh uporabnikov z enakim emailom. Cilj je potrditi obstoj in delovanje unikatne omejitve na stolpcu email v tabeli user
+**Vhod:** 
+  - Obstoječi zapis: email = testuser@example.com,  name = »Test«, surname = »User«, admin =  false
+  - Nov zapis: email = »testuser@example.com«, name = »Dup«, surname = »User«, admin = false
+    
+**Pričakovano:** sproži se napaka `DataIntegrityViolationException`.  
+**Ugotovitev:** test pade, če v shemi baze manjka unikatna omejitev za e-mail.
+
+
+
 
 ## Upravljanje projekta s Kanban tabelo
 Pri razvoju To-Do aplikacije smo za organizacijo dela in boljšo preglednost nalog uporabili Kanban tabelo na GitHub Projects. Kanban tabela omogoča vizualno sledenje napredka pri razvoju in razdelitev nalog na različne faze. Tabela vsebuje naslednje stolpce:

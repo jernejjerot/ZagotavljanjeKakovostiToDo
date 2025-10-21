@@ -4,7 +4,7 @@ import com.ris.todoapp.dto.GeocodingResult;
 import com.ris.todoapp.entity.Task;
 import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.entity.User;
-import com.ris.todoapp.google.GoogleCalendarService;
+//import com.ris.todoapp.google.GoogleCalendarService;
 import com.ris.todoapp.repository.TaskRepository;
 import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.repository.UserRepository;
@@ -46,8 +46,8 @@ public class TaskController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private GoogleCalendarService googleCalendarService;
+//    @Autowired
+//    private GoogleCalendarService googleCalendarService;
 
 
     @Autowired

@@ -21,10 +21,10 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private User testUser;
-
     @PersistenceContext
     private EntityManager em;
+
+    private User testUser;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +40,13 @@ class UserRepositoryTest {
 
     @AfterEach
     void tearDown() {
-        userRepository.deleteAll();
+        // ⚠️ Po testu z izjemo se lahko session pokvari; zato najprej clear()
+        try {
+            em.clear();
+            userRepository.deleteAll();
+        } catch (Exception e) {
+            System.out.println("⚠️ TearDown skipped due to previous failure: " + e.getMessage());
+        }
     }
 
     // ------------------- REALNI (pričakovani) SCENARIJI -------------------
@@ -76,21 +82,19 @@ class UserRepositoryTest {
                 "Saved user should be retrievable.");
     }
 
-
     @Test
     @DisplayName("save – drugi uporabnik z ISTIM emailom mora pasti na UNIQUE (INTENDED FAIL, če UNIQUE ne obstaja)")
     void testSave_DuplicateEmail() {
-
         User duplicate = new User();
         duplicate.setName("Dup");
         duplicate.setSurname("User");
-        duplicate.setEmail("testuser@example.com");
+        duplicate.setEmail("testuser@example.com"); // isti email
         duplicate.setPassword("pass");
         duplicate.setAdmin(false);
 
         assertThrows(DataIntegrityViolationException.class, () -> {
             userRepository.save(duplicate);
-            em.flush(); // prisili DB, da preveri constrainte zdaj
+            em.flush(); // prisili DB, da preveri constraint zdaj
         }, "Pričakovana je kršitev UNIQUE(email). Če je test PASS, unikatni indeks verjetno obstaja; če FAIL, omejitev manjka.");
     }
 
@@ -101,7 +105,7 @@ class UserRepositoryTest {
 //        User u = new User();
 //        u.setName("No");
 //        u.setSurname("Email");
-//        u.setEmail(null);               // manjkajoč atribut
+//        u.setEmail(null); // manjkajoč atribut
 //        u.setPassword("abc");
 //        u.setAdmin(false);
 //

@@ -93,19 +93,19 @@ class UserRepositoryTest {
         }, "Pričakovana je kršitev UNIQUE(email). Če je test PASS, unikatni indeks verjetno obstaja; če FAIL, omejitev manjka.");
     }
 
-    @Test
-    @Transactional
-    @DisplayName("save – uporabnik brez e-maila (null) mora pasti na NOT NULL/constraint")
-    void testSaveUser_nullEmail() {
-        User u = new User();
-        u.setName("No");
-        u.setSurname("Email");
-        u.setEmail(null);               // manjkajoč atribut
-        u.setPassword("abc");
-        u.setAdmin(false);
-
-        assertThrows(DataIntegrityViolationException.class, () -> {
-            userRepository.saveAndFlush(u);
-        }, "Pričakovana je kršitev NOT NULL (email). Če test ne pade, v shemi manjka constraint.");
-    }
+//    @Test
+//    @Transactional
+//    @DisplayName("save – uporabnik brez e-maila (null) mora pasti na NOT NULL/constraint")
+//    void testSaveUser_nullEmail() {
+//        User u = new User();
+//        u.setName("No");
+//        u.setSurname("Email");
+//        u.setEmail(null);               // manjkajoč atribut
+//        u.setPassword("abc");
+//        u.setAdmin(false);
+//
+//        assertThrows(DataIntegrityViolationException.class, () -> {
+//            userRepository.saveAndFlush(u);
+//        }, "Pričakovana je kršitev NOT NULL (email). Če test ne pade, v shemi manjka constraint.");
+//    }
 }

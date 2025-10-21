@@ -55,4 +55,3 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: test
           SPRING_JPA_HIBERNATE_DDL_AUTO: update
         run: mvn -B clean test
-        

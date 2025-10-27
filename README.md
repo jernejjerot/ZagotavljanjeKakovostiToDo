@@ -251,7 +251,42 @@ Cilj je potrditi pravilnost osnovnih CRUD operacij ter odziv sistema na napačne
 **Ugotovitev:** test pade, če v shemi baze manjka unikatna omejitev za e-mail.
 
 
+--- 
 
+## Testni primeri
+
+  ### Test case 1
+    Namen: Preveriti, ali sistem omogoča uspešno ustvarjanje nove naloge
+    Predpogoji: Uporabnik je pripravljen
+    Vhodni podatki:
+      Ime: Nakup Hrane
+      Tip: Personal
+      Datum: 29.10.2025
+      Opis: Nakup v trgovini LIDL
+    Pričakovani Rezultat: Nova naloge se pojavi na seznamu opravil in se shrani v podatkovno bazo
+    Status: 
+    Opomba:
+
+  ### Test case 2
+    Namen: Preveriti delovanje funkcij za urejanje naloge
+    Predpogoji: Že ustvarjena neka naloga
+    Vhodni podatki:
+      Novi Datum: 1.11.2025
+      Novi Opis: Nakup v trgovini SPAR
+    Pričakovani Rezultat: Naloge se posodobi in prikaže z novimi podatki
+    Status: 
+    Opomba:
+
+
+  ### Test case 3
+    Namen: Preveriti ali aplikacija omogoča brisanje naloge
+    Predpogoji: Že ustvarjena neka naloga
+    Vhodni podatki: / 
+    Pričakovani Rezultat: Naloga izgine iz seznama in se izbrie iz baze
+    Status: 
+    Opomba:
+
+--- 
 
 ## Upravljanje projekta s Kanban tabelo
 Pri razvoju To-Do aplikacije smo za organizacijo dela in boljšo preglednost nalog uporabili Kanban tabelo na GitHub Projects. Kanban tabela omogoča vizualno sledenje napredka pri razvoju in razdelitev nalog na različne faze. Tabela vsebuje naslednje stolpce:

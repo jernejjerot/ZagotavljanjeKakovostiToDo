@@ -3,10 +3,15 @@ package com.ris.todoapp.controller;
 import com.ris.todoapp.entity.Task;
 import com.ris.todoapp.entity.User;
 import com.ris.todoapp.repository.TaskRepository;
+import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.repository.UserRepository;
 import com.ris.todoapp.service.GeocodingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -15,89 +20,88 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class TaskControllerTest {
 
-    private TaskRepository taskRepository;
-    private UserRepository userRepository;
-    private GeocodingService geocodingService;
+    @Mock private TaskRepository taskRepository;
+    @Mock private UserRepository userRepository;
+    @Mock private TaskTypeRepository taskTypeRepository;   // zahteva ga konstruktor
+    @Mock private GeocodingService geocodingService;
 
+    // Mockito bo uporabil konstruktor TaskController(TaskRepository, UserRepository, TaskTypeRepository, GeocodingService)
+    @InjectMocks
     private TaskController taskController;
+
+    private User user;
+    private Task existingTask;
 
     @BeforeEach
     void setUp() {
-        // Mockiranje odvisnosti
-        taskRepository = mock(TaskRepository.class);
-        userRepository = mock(UserRepository.class);
-        geocodingService = mock(GeocodingService.class);
-
-        // Inicializacija kontrolerja
-        taskController = new TaskController();
-        taskController.setTaskRepository(taskRepository);
-        taskController.setUserRepository(userRepository);
-        taskController.setGeocodingService(geocodingService);
-
-        // Ustvarjanje privzetega uporabnika in naloge
-        User user = new User();
+        // Ustvarimo testnega userja in nalogo
+        user = new User();
         user.setId(1L);
 
-        Task task = new Task();
-        task.setId(1L);
-        task.setUser(user);
+        existingTask = new Task();
+        existingTask.setId(1L);
+        existingTask.setUser(user);
 
-        // Mockiranje vedenja odvisnosti
+        // Privzeti stubi
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(existingTask));
+        // če metoda med shranjevanjem kliče save, vrnemo objekt z ID-jem
+        when(taskRepository.save(any(Task.class))).thenAnswer(inv -> inv.getArgument(0));
     }
 
     @Test
     void uploadTaskPicture_ValidPicture_Success() throws Exception {
         // Priprava podatkov
-        MockMultipartFile picture = new MockMultipartFile("picture", "test.jpg", "image/jpeg", "sample image".getBytes());
+        MockMultipartFile picture =
+                new MockMultipartFile("picture", "test.jpg", "image/jpeg", "sample image".getBytes());
 
-        // Izvedba metode kontrolerja
+        // Klic metode
         ResponseEntity<?> response = taskController.uploadTaskPicture(1L, 1L, picture);
 
-        // Preverjanje rezultatov
+        // Preverjanje
         assertEquals(200, response.getStatusCodeValue(), "Pričakovana je statusna koda 200.");
-        assertEquals("Picture uploaded successfully.", response.getBody(), "Pričakovano sporočilo o uspešnem nalaganju slike.");
+        assertEquals("Picture uploaded successfully.", response.getBody(),
+                "Pričakovano sporočilo o uspešnem nalaganju slike.");
         verify(taskRepository, times(1)).save(any(Task.class));
     }
 
     @Test
     void uploadTaskPicture_FileEmpty_Failure() {
-        // Priprava podatkov
-        MockMultipartFile emptyFile = new MockMultipartFile("picture", "", "image/jpeg", new byte[0]);
+        MockMultipartFile emptyFile =
+                new MockMultipartFile("picture", "", "image/jpeg", new byte[0]);
 
-        // Izvedba metode kontrolerja
         ResponseEntity<?> response = taskController.uploadTaskPicture(1L, 1L, emptyFile);
 
-        // Preverjanje rezultatov
         assertEquals(400, response.getStatusCodeValue(), "Pričakovana je statusna koda 400 za prazen file.");
-        assertEquals("Uploaded file is empty.", response.getBody(), "Pričakovano sporočilo o praznem file-u.");
+        assertEquals("Uploaded file is empty.", response.getBody(),
+                "Pričakovano sporočilo o praznem file-u.");
         verify(taskRepository, never()).save(any(Task.class));
     }
 
     @Test
     void uploadTaskPicture_UnauthorizedUser_Failure() {
-        // Priprava podatkov
+        // naloga pripada drugemu userju
         User unauthorizedUser = new User();
         unauthorizedUser.setId(2L);
 
-        Task task = new Task();
-        task.setId(1L);
-        task.setUser(unauthorizedUser);
+        Task taskOwnedByOther = new Task();
+        taskOwnedByOther.setId(1L);
+        taskOwnedByOther.setUser(unauthorizedUser);
 
-        MockMultipartFile picture = new MockMultipartFile("picture", "test.jpg", "image/jpeg", "sample image".getBytes());
+        when(taskRepository.findById(1L)).thenReturn(Optional.of(taskOwnedByOther));
 
-        // Mockiranje vedenja odvisnosti
-        when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+        MockMultipartFile picture =
+                new MockMultipartFile("picture", "test.jpg", "image/jpeg", "sample image".getBytes());
 
-        // Izvedba metode kontrolerja
         ResponseEntity<?> response = taskController.uploadTaskPicture(1L, 1L, picture);
 
-        // Preverjanje rezultatov
-        assertEquals(403, response.getStatusCodeValue(), "Pričakovana je statusna koda 403 za nepooblaščenega uporabnika.");
-        assertEquals("Unauthorized to upload picture for this task.", response.getBody(), "Pričakovano sporočilo o nepooblaščenem dostopu.");
+        assertEquals(403, response.getStatusCodeValue(),
+                "Pričakovana je statusna koda 403 za nepooblaščenega uporabnika.");
+        assertEquals("Unauthorized to upload picture for this task.", response.getBody(),
+                "Pričakovano sporočilo o nepooblaščenem dostopu.");
         verify(taskRepository, never()).save(any(Task.class));
     }
 }

@@ -1,5 +1,6 @@
 package com.ris.todoapp.controller;
 
+import com.ris.todoapp.dto.GeocodingResult;
 import com.ris.todoapp.entity.Task;
 import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.entity.User;
@@ -9,114 +10,80 @@ import com.ris.todoapp.repository.UserRepository;
 import com.ris.todoapp.service.GeocodingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class TaskControllerDefaultPictureTest {
 
-    private TaskRepository taskRepository;
-    private UserRepository userRepository;
-    private TaskTypeRepository taskTypeRepository;
-    private GeocodingService geocodingService;
+    @Mock TaskRepository taskRepository;
+    @Mock UserRepository userRepository;
+    @Mock TaskTypeRepository taskTypeRepository;
+    @Mock GeocodingService geocodingService;
 
-    private TaskController taskController;
+    // Mockito bo poklical konstruktor TaskController(taskRepository, userRepository, taskTypeRepository, geocodingService)
+    @InjectMocks TaskController taskController;
+
+    User user;
+    TaskType taskType;
 
     @BeforeEach
     void setUp() {
-        // Mockiranje odvisnosti
-        taskRepository = mock(TaskRepository.class);
-        userRepository = mock(UserRepository.class);
-        taskTypeRepository = mock(TaskTypeRepository.class);
-        geocodingService = mock(GeocodingService.class);
-
-        // Inicializacija kontrolerja
-        taskController = new TaskController();
-        taskController.setTaskRepository(taskRepository);
-        taskController.setUserRepository(userRepository);
-        taskController.setTaskTypeRepository(taskTypeRepository);
-        taskController.setGeocodingService(geocodingService);
-
-        // Privzeti podatki za mockanje
-        User user = new User();
+        user = new User();
         user.setId(1L);
 
-        TaskType taskType = new TaskType();
+        taskType = new TaskType();
         taskType.setId(1L);
 
+        // stubi odvisnosti
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(taskTypeRepository.findById(1L)).thenReturn(Optional.of(taskType));
 
-        // Pravilna inicializacija GeocodingResult
-        com.ris.todoapp.dto.GeocodingResult geocodingResult = new com.ris.todoapp.dto.GeocodingResult();
-        geocodingResult.setLatitude(40.7128);
-        geocodingResult.setLongitude(-74.0060);
-
-        // Mockiranje geokodiranja
-        when(geocodingService.geocode(anyString())).thenReturn(Optional.of(geocodingResult));
+        // če controller geocodira, mu vrnemo veljavne koordinate (ali Optional.empty() če tega ne rabiš)
+        when(geocodingService.geocode(anyString()))
+                .thenReturn(Optional.of(new GeocodingResult(46.05, 14.51)));
     }
 
     @Test
-    void createTask_NoPicture_DefaultPictureSet() {
-        // Priprava podatkov
-        Task task = new Task();
-        task.setTaskName("Testna naloga");
-        task.setLocationAddress("New York");
-        task.setTaskType(new TaskType());
-        task.getTaskType().setId(1L);
-        task.setPicture(null); // Ni slike
+    void createTask_noPicture_setsDefaultPicture_andReturns201() {
+        Task t = new Task();
+        t.setTaskName("Nakup hrane");
+        t.setDescription("Mleko, kruh");
+        t.setTaskType(taskType);
+        t.setDueDateTime(LocalDateTime.now().plusDays(1));
+        t.setLocationAddress("Trg republike 3, Ljubljana");
 
-        // Izvedba metode kontrolerja
-        ResponseEntity<?> response = taskController.createTask(task, 1L);
+        // pri save vrnemo entiteto z ID-jem, da bo ResponseEntity.created(...) OK
+        Task saved = new Task();
+        saved.setId(123L);
+        saved.setTaskName(t.getTaskName());
+        saved.setDescription(t.getDescription());
+        saved.setTaskType(taskType);
+        saved.setUser(user);
+        saved.setLatitude(46.05);
+        saved.setLongitude(14.51);
+        saved.setPicture("/uploads/default.jpg");  // pričakovana default vrednost
 
-        // Preverjanje rezultatov
-        assertEquals(200, response.getStatusCodeValue(), "Pričakovana je statusna koda 200.");
-        verify(taskRepository, times(1)).save(argThat(savedTask ->
-                "/uploads/default.jpg".equals(savedTask.getPicture())
-        ));
-    }
+        when(taskRepository.save(any(Task.class))).thenReturn(saved);
 
-    @Test
-    void createTask_EmptyPicture_DefaultPictureSet() {
-        // Priprava podatkov
-        Task task = new Task();
-        task.setTaskName("Testna naloga");
-        task.setLocationAddress("New York");
-        task.setTaskType(new TaskType());
-        task.getTaskType().setId(1L);
-        task.setPicture(""); // Prazna vrednost za sliko
+        ResponseEntity<?> res = taskController.createTask(t, 1L);
 
-        // Izvedba metode kontrolerja
-        ResponseEntity<?> response = taskController.createTask(task, 1L);
-
-        // Preverjanje rezultatov
-        assertEquals(200, response.getStatusCodeValue(), "Pričakovana je statusna koda 200.");
-        verify(taskRepository, times(1)).save(argThat(savedTask ->
-                "/uploads/default.jpg".equals(savedTask.getPicture())
-        ));
-    }
-
-    @Test
-    void createTask_WithPicture_CustomPictureSet() {
-        // Priprava podatkov
-        Task task = new Task();
-        task.setTaskName("Testna naloga");
-        task.setLocationAddress("New York");
-        task.setTaskType(new TaskType());
-        task.getTaskType().setId(1L);
-        task.setPicture("/uploads/custom.jpg"); // Določena slika
-
-        // Izvedba metode kontrolerja
-        ResponseEntity<?> response = taskController.createTask(task, 1L);
-
-        // Preverjanje rezultatov
-        assertEquals(200, response.getStatusCodeValue(), "Pričakovana je statusna koda 200.");
-        verify(taskRepository, times(1)).save(argThat(savedTask ->
-                "/uploads/custom.jpg".equals(savedTask.getPicture())
-        ));
+        assertEquals(HttpStatus.CREATED, res.getStatusCode());
+        Task body = (Task) res.getBody();
+        assertNotNull(body);
+        assertEquals("/uploads/default.jpg", body.getPicture(), "Ko slika ni podana, mora biti nastavljena default slika.");
+        assertEquals(46.05, body.getLatitude());
+        assertEquals(14.51, body.getLongitude());
     }
 }

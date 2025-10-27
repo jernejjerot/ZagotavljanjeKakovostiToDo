@@ -1,671 +1,434 @@
+// index.js
 import { geocodeAddress } from './locationUtils.js';
 
+const API = 'http://localhost:8080';
+
 document.addEventListener('DOMContentLoaded', () => {
-    const userId = localStorage.getItem("userId");
-    const userName = localStorage.getItem("userName");
-    const isAdmin = localStorage.getItem("isAdmin") === "true"; // Check admin status
-    const navLinks = document.getElementById("navLinks");
-    const userNameElement = document.getElementById("userName");
-    const userActions = document.getElementById("userActions");
-    const taskGrid = document.getElementById("taskGrid");
-    const taskForm = document.getElementById("taskForm");
-    const taskTypeSelect = document.getElementById("taskType");
-    const tasksSection = document.getElementById("tasksSection");
-    const createUserSection = document.getElementById("createUserSection"); // Forma za ustvarjanje uporabnikov
+  // --- state & elements ---
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userName');
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
-    
+  const navLinks = document.getElementById('navLinks');
+  const userNameElement = document.getElementById('userName');
+  const userActions = document.getElementById('userActions');
+  const taskGrid = document.getElementById('taskGrid');
+  const taskForm = document.getElementById('taskForm');
+  const taskTypeSelect = document.getElementById('taskType');
+  const tasksSection = document.getElementById('tasksSection');
+  const createUserSection = document.getElementById('createUserSection');
 
-    // Privzeto skrij formo za ustvarjanje uporabnikov
-    if (createUserSection) {
-        createUserSection.style.display = 'none';
-    }
+  if (createUserSection) createUserSection.style.display = 'none';
 
-    // prva izvedba funkcije
-    checkUserProximity();
+  // ---------- helpers ----------
+  function formatTimeLeft(ms) {
+    const h = Math.floor(ms / 3600000);
+    const m = Math.floor((ms % 3600000) / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    return `${h}h ${m}m ${s}s`;
+  }
 
-    // periodično preverjanje lokacije
-    setInterval(() => {
-        console.log("Running periodic proximity check...");
-        checkUserProximity();
-    }, 60000); // Preverjanje vsakih 60 sekund (60000 ms)
+  function setTasks(tasks) {
+    taskGrid.innerHTML = '';
+    const now = new Date();
+    (tasks || []).forEach(t => renderTask(t, taskGrid, now));
+  }
 
-    // Prikaz forme za ustvarjanje uporabnikov in admin navigacijskega elementa
-    if (isAdmin && userId) {
-        // Prikaži formo za admina
-        if (createUserSection) {
-            createUserSection.style.display = 'block';
-        }
+  function toIsoOrNull(value) {
+    // Sprejme npr. "2025-10-30T10:00" ali prazen niz
+    if (!value) return null;
+    // Če je value že ISO, vrni kar je; sicer ga normaliziraj
+    try {
+      const dt = new Date(value);
+      if (isNaN(dt.getTime())) return null;
+      return dt.toISOString();
+    } catch { return null; }
+  }
 
-        // Dodaj povezavo do admin strani
-        const adminLink = document.createElement("li");
-        adminLink.innerHTML = `<a href="/html/admin.html">Admin Page</a>`;
-        navLinks.appendChild(adminLink);
+  // ---------- ADMIN ----------
+  if (isAdmin && userId) {
+    if (createUserSection) createUserSection.style.display = 'block';
 
-        // Poslušalec dogodkov za formo za ustvarjanje uporabnikov
-        document.getElementById('createUserForm')?.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    const adminLink = document.createElement('li');
+    adminLink.innerHTML = `<a href="/html/admin.html">Admin Page</a>`;
+    navLinks?.appendChild(adminLink);
 
-            const userData = {
-                name: document.getElementById('name').value,
-                surname: document.getElementById('surname').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                admin: document.getElementById('admin').checked,
-            };
-
-            try {
-                const response = await fetch('/users/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData),
-                });
-
-                if (response.ok) {
-                    alert('User created successfully!');
-                    document.getElementById('createUserForm').reset();
-                } else {
-                    const errorText = await response.text();
-                    alert(`Failed to create user: ${errorText}`);
-                }
-            } catch (error) {
-                console.error('Error creating user:', error);
-            }
+    document.getElementById('createUserForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userData = {
+        name: document.getElementById('name').value,
+        surname: document.getElementById('surname').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        admin: document.getElementById('admin').checked,
+      };
+      try {
+        const res = await fetch(`${API}/users/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData),
         });
-    }
+        if (res.ok) {
+          alert('User created successfully!');
+          e.target.reset();
+        } else {
+          alert(`Failed to create user: ${await res.text()}`);
+        }
+      } catch (err) {
+        console.error('Error creating user:', err);
+      }
+    });
+  }
 
-    // Login/logout funkcionalnost
-    if (!userId) {
-        userActions.innerHTML = `
-            <form id="loginForm">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        `;
-        document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    } else {
-        userActions.innerHTML = `
-            <div class="logout-container">
-                <p>Logged in as: ${userName}</p>
-                <button id="logoutButton" class="logout-button">Logout</button>
-            </div>
-        `;
-        document.getElementById('logoutButton').addEventListener('click', handleLogout);
-        userNameElement.textContent = userName;
-        tasksSection.style.display = 'block';
-        loadTaskTypes();
-        fetchTasks();
-    }
-    
+  // ---------- AUTH UI ----------
+  if (!userId) {
+    userActions.innerHTML = `
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>`;
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  } else {
+    userActions.innerHTML = `
+      <div class="logout-container">
+        <p>Logged in as: ${userName}</p>
+        <button id="logoutButton" class="logout-button">Logout</button>
+      </div>`;
+    document.getElementById('logoutButton').addEventListener('click', handleLogout);
+    userNameElement.textContent = userName ?? '';
+    tasksSection.style.display = 'block';
+    loadTaskTypes();
+    fetchTasks();
+  }
+
+  // gumb Cancel Edit
+  if (taskForm) {
+    const cancelEditButton = document.createElement('button');
     cancelEditButton.id = 'cancelEditButton';
     cancelEditButton.textContent = 'Cancel Edit';
     cancelEditButton.style.display = 'none';
-    taskForm.appendChild(cancelEditButton);
-
-    let editingTaskId = null;
-
-
-    async function moveToDoneTasks(task) {
-        // console.log("Task received by moveToDoneTasks:", task); // Debugging input task
-    
-        // // Validate taskName
-        // if (!task.taskName || task.taskName.trim() === "") {
-        //     console.error("Task name is missing or empty.");
-        //     return;
-        // }
-        // if (!task.taskType || !task.taskType.id) {
-        //     console.error("Task type is missing or invalid.");
-        //     return;
-        // }
-    
-        // const payload = {
-        //     id: task.id,
-        //     taskName: task.taskName,
-        //     taskType: {
-        //         id: task.taskType.id,
-        //         type: task.taskType.type, // Optional but helpful for clarity
-        //     },
-        //     description: task.description,
-        //     dueDateTime: task.dueDateTime,
-        //     user: {
-        //         id: task.user.id,
-        //     },
-        //     isCompleted: task.isCompleted,
-        // };
-    
-        // console.log("Payload sent to /tasks/done:", JSON.stringify(payload, null, 2)); // Debugging payload
-    
-        // try {
-        //     const response = await fetch('/tasks/done', {
-        //         method: 'POST',
-        //         headers: { 
-        //             'Content-Type': 'application/json', 
-        //             'user-id': localStorage.getItem('userId') 
-        //         },
-        //         body: JSON.stringify({
-        //             id: task.id,
-        //             taskName: task.taskName,
-        //             taskType: task.taskType, // Ensure taskType is an object with `id` and `type`
-        //             description: task.description,
-        //             dueDateTime: task.dueDateTime,
-        //             user: task.user, // Ensure this is an object with `id`
-        //             isCompleted: true, // Mark as done
-        //         }),
-        //     });
-    
-        //     if (!response.ok) {
-        //         const errorText = await response.text();
-        //         console.error("Error from server:", errorText);
-        //         alert(`Failed to mark task as done: ${errorText}`);
-        //         return;
-        //     }
-    
-        //     console.log(`Task "${task.taskName}" marked as completed.`);
-        //     alert(`Task "${task.taskName}" moved to completed.`);
-        // } catch (error) {
-        //     console.error("Error in moveToDoneTasks:", error.message);
-        //     alert("Failed to mark task as done.");
-        // }
-    }
-
-    async function fetchTasks() {
-        const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
-        console.log('fetchTasks: ' + localStorage.getItem('userId'));
-        const tasks = await response.json();
-        console.log("Fetched tasks:", tasks); // Debugging
-    
-        // Počistimo mrežo nalog
-        const taskGrid = document.getElementById('taskGrid');
-        taskGrid.innerHTML = '';
-    
-        const now = new Date();
-    
-        for (const task of tasks) {
-            console.log("Processing task:", task);
-    
-            const dueTime = new Date(task.dueDateTime);
-            const timeLeft = dueTime - now;
-    
-            // Premaknemo nalogo v "done", če je rok potekel
-            if (timeLeft <= 0 && !task.isCompleted) {
-                await moveToDoneTasks(task);
-            } else if (!task.isCompleted) {
-                // Prikazujemo le nepopolne naloge
-                renderTask(task, taskGrid, now);
-            }
-        }
-    }
-    
-
-    // // Display login/logout functionality
-    // if (!userId) {
-    //     userActions.innerHTML = `
-    //         <form id="loginForm">
-    //             <input type="email" id="email" placeholder="Email" required>
-    //             <input type="password" id="password" placeholder="Password" required>
-    //             <button type="submit">Login</button>
-    //         </form>
-    //     `;
-    //     document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    // } else {
-    //     userActions.innerHTML = `
-    //         <div class="logout-container">
-    //             <p>Logged in as: ${userName}</p>
-    //             <button id="logoutButton" class="logout-button">Logout</button>
-    //         </div>
-    //     `;
-    //     document.getElementById('logoutButton').addEventListener('click', handleLogout);
-    //     userNameElement.textContent = userName;
-    //     tasksSection.style.display = 'block';
-    //     loadTaskTypes();
-    //     fetchTasks();
-    // }
-
-    // Login functionality
-    async function handleLogin(event) {
-        event.preventDefault();
-        const loginData = {
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-        };
-
-        try {
-            const response = await fetch('/users/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(loginData),
-            });
-
-            if (response.ok) {
-                const user = await response.json();
-                localStorage.setItem('userId', user.id);
-                localStorage.setItem('userName', user.name);
-                localStorage.setItem('isAdmin', user.admin); // Shranimo status admina
-                location.reload(); // Osveži stran po prijavi
-            } else {
-                alert('Login failed.');
-            }
-        } catch (error) {
-            console.error('Error logging in:', error);
-        }
-    }
-
-    // Logout functionality
-    function handleLogout() {
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('isAdmin');
-        alert('You have been logged out.');
-        location.reload();
-    }
-
-    // Load task types from the backend
-    async function loadTaskTypes() {
-        try {
-            const response = await fetch('/task-types');
-            if (!response.ok) throw new Error('Failed to load task types.');
-
-            const taskTypes = await response.json();
-            taskTypeSelect.innerHTML = taskTypes.map(type => `<option value="${type.id}">${type.type}</option>`).join('');
-        } catch (error) {
-            console.error('Error loading task types:', error);
-        }
-    }
-    
-
-    function renderTask(task, taskGrid, now) {
-        const dueTime = new Date(task.dueDateTime || now); // Handle missing dueDateTime
-        const timeLeft = dueTime - now;
-    
-        // Set default values for missing fields
-        const taskName = task.taskName || "Unnamed Task";
-        const taskType = task.taskType ? task.taskType.type : "Unknown"; // Handle missing taskType
-        const description = task.description || "No description provided.";
-    
-        // Task box creation
-        const taskBox = document.createElement('div');
-        taskBox.classList.add('task-box');
-        taskBox.setAttribute('data-task-id', task.id); // Add task ID as data attribute
-    
-        if (task.isCompleted) {
-            taskBox.classList.add('task-completed'); // Add a visual indicator for completed tasks
-        }
-    
-        // Title
-        const title = document.createElement('h4');
-        title.textContent = taskName;
-    
-        // Task type
-        const type = document.createElement('p');
-        type.textContent = `Type: ${taskType}`;
-    
-        // Description
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = description;
-    
-        // Due date
-        const dueDate = document.createElement('p');
-        dueDate.textContent = `Due: ${dueTime.toLocaleString()}`;
-    
-        // Countdown for urgent tasks (less than 24 hours)
-        if (!task.isCompleted && timeLeft > 0 && timeLeft < 86400000) {
-            taskBox.style.backgroundColor = '#ffcccc';
-            const countdown = document.createElement('p');
-            countdown.textContent = `Time left: ${formatTimeLeft(timeLeft)}`;
-            const interval = setInterval(() => {
-                const remainingTime = dueTime - new Date();
-                if (remainingTime <= 0) {
-                    clearInterval(interval); // Stop updating countdown when time is up
-                    countdown.textContent = "Time's up!";
-                } else {
-                    countdown.textContent = `Time left: ${formatTimeLeft(remainingTime)}`;
-                }
-            }, 1000);
-            taskBox.appendChild(countdown);
-        }
-    
-        // Checkbox for marking completion
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = task.isCompleted;
-        checkbox.addEventListener('change', () => toggleCompletion(task.id, checkbox.checked));
-    
-        // Location information
-        const locationElement = document.createElement('p');
-        locationElement.textContent = task.locationAddress
-            ? `Location: ${task.locationAddress}`
-            : 'No location provided.';
-    
-        // Image (if available)
-        if (task.picture) {
-            const image = document.createElement('img');
-            image.src = task.picture;
-            image.alt = "Task Image";
-            image.style.maxWidth = "200px";
-            image.style.marginBottom = "10px";
-            taskBox.appendChild(image);
-        }
-    
-        // Edit button
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.classList.add('edit-button');
-        editButton.addEventListener('click', () => populateTaskFormForEdit(task));
-    
-        // Delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete-button');
-        deleteButton.addEventListener('click', () => deleteTask(task.id));
-    
-        // Append elements to the task box
-        taskBox.append(
-            checkbox,
-            title,
-            type,
-            descriptionElement,
-            dueDate,
-            locationElement,
-            editButton,
-            deleteButton
-        );
-        taskGrid.appendChild(taskBox);
-    }
-        
-    
-    
-    
-
-    // Format time left for countdown
-    function formatTimeLeft(ms) {
-        const hours = Math.floor(ms / 3600000);
-        const minutes = Math.floor((ms % 3600000) / 60000);
-        const seconds = Math.floor((ms % 60000) / 1000);
-        return `${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    // Toggle task completion
-    async function toggleCompletion(taskId, isCompleted) {
-        try {
-            // Fetch current task details
-            const currentTaskResponse = await fetch(`/tasks/${taskId}`, {
-                headers: { 'user-id': userId },
-            });
-
-            if (!currentTaskResponse.ok) {
-                throw new Error(`Failed to fetch task details: ${await currentTaskResponse.text()}`);
-            }
-
-            const currentTask = await currentTaskResponse.json();
-            currentTask.isCompleted = isCompleted; // Update completion status
-
-            // Send the full updated task object to the backend
-            const response = await fetch(`/tasks/${taskId}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'user-id': userId },
-                body: JSON.stringify(currentTask), // Send the full task object
-            });
-
-            if (response.ok) {
-                alert('Task updated successfully!');
-
-                // Update the UI
-                const taskBox = document.querySelector(`[data-task-id="${taskId}"]`);
-                if (taskBox) {
-                    taskBox.style.opacity = isCompleted ? "0.5" : "1.0";
-
-                    // Remove "Edit" and "Delete" buttons for completed tasks
-                    if (isCompleted) {
-                        const editButton = taskBox.querySelector('.edit-button');
-                        const deleteButton = taskBox.querySelector('.delete-button');
-                        if (editButton) editButton.remove();
-                        if (deleteButton) deleteButton.remove();
-
-                        // Add "Move to Completed Tasks" button
-                        const moveButton = document.createElement('button');
-                        moveButton.textContent = 'Move to Completed Tasks';
-                        moveButton.classList.add('move-button');
-                        moveButton.addEventListener('click', async () => {
-                            await moveToDoneTasks(currentTask);
-                            taskBox.remove(); // Remove from the main task grid
-                        });
-                        taskBox.appendChild(moveButton);
-                    }
-                }
-            } else {
-                const errorText = await response.text();
-                console.error(`Failed to update task: ${errorText}`);
-                alert('Error updating task.');
-            }
-        } catch (error) {
-            console.error('Error toggling task completion:', error);
-        }
-    }
-
-
-    
-    
-
-    // Populate the task form for editing
-    function populateTaskFormForEdit(task) {
-        document.getElementById('taskName').value = task.taskName;
-        document.getElementById('taskDescription').value = task.description;
-        document.getElementById('dueDate').value = new Date(task.dueDateTime).toISOString().slice(0, 16);
-        taskTypeSelect.value = task.taskType.id;
-        editingTaskId = task.id;
-        cancelEditButton.style.display = 'inline';
-    }
-
-    // Create or update a task !!!!!!!!!!!!!!!!
-    taskForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const submitButton = taskForm.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-    
-        try {
-            const taskLocation = document.getElementById('taskLocation').value;
-    
-            let geocodedLocation = null;
-            if (taskLocation) {
-                geocodedLocation = await geocodeAddress(taskLocation);
-            }
-    
-            const taskData = {
-                taskName: document.getElementById('taskName').value,
-                taskType: { id: parseInt(taskTypeSelect.value) },
-                description: document.getElementById('taskDescription').value,
-                dueDateTime: document.getElementById('dueDate').value,
-                locationAddress: taskLocation || null,
-                latitude: geocodedLocation ? geocodedLocation.latitude : null,
-                longitude: geocodedLocation ? geocodedLocation.longitude : null,
-                isCompleted: false,
-                user: { id: parseInt(userId) },
-            };
-    
-            // Step 1: Create the task
-            const taskResponse = await fetch('/tasks', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'user-id': userId },
-                body: JSON.stringify(taskData),
-            });
-    
-            if (!taskResponse.ok) {
-                const errorText = await taskResponse.text();
-                throw new Error(`Failed to save the task: ${errorText}`);
-            }
-    
-            const createdTask = await taskResponse.json();
-            console.log("Task created:", createdTask); // Log task creation
-    
-            // Step 2: Upload the picture (if selected)
-            const pictureInput = document.getElementById('taskPicture');
-            //const picture = pictureInput.files[0];
-    
-            if (false) {
-                const formData = new FormData();
-                formData.append('picture', picture);
-    
-                const uploadResponse = await fetch(`/tasks/${createdTask.id}/upload`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'user-id': userId }, // Content-Type is set automatically by FormData
-                });
-    
-                if (!uploadResponse.ok) {
-                    const errorText = await uploadResponse.text();
-                    throw new Error(`Failed to upload picture: ${errorText}`);
-                }
-    
-                console.log("Picture uploaded successfully.");
-            } else {
-                const formData = new FormData();
-                const picture = "../../uploads/default.jpg";
-                formData.append('picture', picture);
-
-                const uploadResponse = await fetch(`/tasks/${createdTask.id}/upload`, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'user-id': userId }, // Content-Type is set automatically by FormData
-                });
-    
-                if (!uploadResponse.ok) {
-                    const errorText = await uploadResponse.text();
-                    throw new Error(`Failed to upload picture: ${errorText}`);
-                }
-    
-                console.log("Default picture uploaded successfully.");
-            }
-
-
-    
-            // Step 3: Fetch and render the updated task
-            const updatedTaskResponse = await fetch(`/tasks/${createdTask.id}`, {
-                headers: { 'user-id': userId },
-            });
-    
-            if (!updatedTaskResponse.ok) {
-                throw new Error('Failed to fetch updated task after uploading picture.');
-            }
-    
-            const updatedTask = await updatedTaskResponse.json();
-            console.log("Updated task:", updatedTask); // Log updated task
-    
-            renderTask(updatedTask, taskGrid, new Date());
-            alert('Task created successfully!');
-            taskForm.reset(); // Clear the form
-        } catch (error) {
-            console.error('Error saving task:', error);
-            alert('An unexpected error occurred while saving the task.');
-        } finally {
-            submitButton.disabled = false;
-        }
+    cancelEditButton.type = 'button';
+    cancelEditButton.addEventListener('click', () => {
+      editingTaskId = null;
+      cancelEditButton.style.display = 'none';
+      taskForm.reset();
     });
-    
-    
+    taskForm.appendChild(cancelEditButton);
+  }
+  let editingTaskId = null;
 
-    // Delete a task
-    async function deleteTask(taskId) {
-        await fetch(`/tasks/${taskId}`, {
-            method: 'DELETE',
-            headers: { 'user-id': userId },
-        });
-        fetchTasks();
+  // ---------- API: GET tasks ----------
+  async function fetchTasks() {
+    const uid = localStorage.getItem('userId');
+    if (!uid) {
+      console.error('No userId in localStorage');
+      return;
+    }
+    try {
+      const res = await fetch(`${API}/tasks?userid=${uid}`, {
+        headers: { 'user-id': uid }
+      });
+      if (!res.ok) {
+        console.error('Failed to fetch tasks:', await res.text());
+        return alert('Failed to load tasks!');
+      }
+      const tasks = await res.json();
+      setTasks(tasks);
+    } catch (err) {
+      console.error('Error loading tasks:', err);
+      alert('Failed to load tasks!');
+    }
+  }
+
+  // ---------- AUTH handlers ----------
+  async function handleLogin(e) {
+    e.preventDefault();
+    const loginData = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    };
+    try {
+      const res = await fetch(`${API}/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(loginData),
+      });
+      if (!res.ok) return alert('Login failed.');
+      const user = await res.json();
+      localStorage.setItem('userId', user.id);
+      localStorage.setItem('userName', user.name ?? '');
+      localStorage.setItem('isAdmin', String(!!user.admin));
+      location.reload();
+    } catch (err) {
+      console.error('Error logging in:', err);
+    }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('isAdmin');
+    alert('You have been logged out.');
+    location.reload();
+  }
+
+  // ---------- Task types ----------
+  async function loadTaskTypes() {
+    try {
+      const res = await fetch(`${API}/task-types`);
+      if (!res.ok) throw new Error(await res.text());
+      const types = await res.json();
+      taskTypeSelect.innerHTML = (types || [])
+        .map(t => `<option value="${t.id}">${t.type}</option>`)
+        .join('');
+    } catch (err) {
+      console.error('Error loading task types:', err);
+    }
+  }
+
+  // ---------- Render task ----------
+  function renderTask(task, grid, now) {
+    const dueTime = task.dueDateTime ? new Date(task.dueDateTime) : now;
+    const timeLeft = dueTime - now;
+
+    const taskName = task.taskName || 'Unnamed Task';
+    const taskType = task.taskType?.type || 'Unknown';
+    const description = task.description || 'No description provided.';
+
+    const box = document.createElement('div');
+    box.classList.add('task-box');
+    box.dataset.taskId = task.id;
+    if (task.isCompleted) box.classList.add('task-completed');
+
+    const h = document.createElement('h4'); h.textContent = taskName;
+    const ty = document.createElement('p'); ty.textContent = `Type: ${taskType}`;
+    const de = document.createElement('p'); de.textContent = description;
+    const dd = document.createElement('p'); dd.textContent = `Due: ${dueTime.toLocaleString()}`;
+
+    if (!task.isCompleted && timeLeft > 0 && timeLeft < 86400000) {
+      box.style.backgroundColor = '#ffcccc';
+      const cd = document.createElement('p');
+      const tick = () => {
+        const left = new Date(task.dueDateTime) - new Date();
+        cd.textContent = left <= 0 ? "Time's up!" : `Time left: ${formatTimeLeft(left)}`;
+      };
+      tick(); setInterval(tick, 1000);
+      box.appendChild(cd);
     }
 
-    // Geokodiranje naslova (pretvorba v latitude/longitude)
-async function geocodeAddress(address) {
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=YOUR_API_KEY`);
-    const data = await response.json();
-    if (data.results.length > 0) {
-        return {
-            latitude: data.results[0].geometry.location.lat,
-            longitude: data.results[0].geometry.location.lng,
-        };
-    }
-    return null;
-}
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = !!task.isCompleted;
+    cb.addEventListener('change', () => toggleCompletion(task.id, cb.checked));
 
+    const loc = document.createElement('p');
+    loc.textContent = task.locationAddress ? `Location: ${task.locationAddress}` : 'No location provided.';
 
-async function checkUserProximity() {
-    if (!navigator.geolocation) {
-        console.error("Geolocation is not supported by this browser.");
-        return;
+    if (task.picture) {
+      const img = document.createElement('img');
+      img.src = task.picture;
+      img.alt = 'Task Image';
+      img.style.maxWidth = '200px';
+      img.style.marginBottom = '10px';
+      box.appendChild(img);
     }
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.classList.add('edit-button');
+    editBtn.addEventListener('click', () => populateTaskFormForEdit(task));
+
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete';
+    delBtn.classList.add('delete-button');
+    delBtn.addEventListener('click', () => deleteTask(task.id));
+
+    box.append(cb, h, ty, de, dd, loc, editBtn, delBtn);
+    grid.appendChild(box);
+  }
+
+  // ---------- Toggle completion ----------
+  async function toggleCompletion(taskId, complete) {
+    const uid = localStorage.getItem('userId');
+    if (!uid) return;
 
     try {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const userLatitude = position.coords.latitude;
-            const userLongitude = position.coords.longitude;
+      const cur = await fetch(`${API}/tasks/${taskId}`, { headers: { 'user-id': uid } });
+      if (!cur.ok) throw new Error(await cur.text());
+      const task = await cur.json();
+      task.isCompleted = !!complete;
 
-            console.log("User coordinates: ", userLatitude, userLongitude); // Dodano tukaj
-
-            // Pridobi vse naloge z lokacijami
-            const response = await fetch('/tasks', { headers: { 'user-id': localStorage.getItem('userId') } });
-
-            if (!response.ok) {
-                console.error("Failed to fetch tasks:", await response.text());
-                return;
-            }
-
-            const tasks = await response.json();
-
-            tasks.forEach(task => {
-                if (task.latitude && task.longitude) {
-                    const distance = calculateDistance(userLatitude, userLongitude, task.latitude, task.longitude);
-
-                    console.log("Task coordinates: ", task.latitude, task.longitude); // Dodano tukaj
-                    console.log("Calculated distance: ", distance); // Dodano tukaj
-
-                    if (distance < 10) { // Če je uporabnik v radiju 0.5 km
-                        notifyUser(task.taskName, distance);
-                    }
-                }
-            });
-        }, (error) => {
-            console.error("Error obtaining geolocation:", error.message);
-        });
-    } catch (error) {
-        console.error("Error checking user proximity:", error);
+      const res = await fetch(`${API}/tasks/${taskId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'user-id': uid },
+        body: JSON.stringify(task),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      fetchTasks();
+    } catch (err) {
+      console.error('Error updating task:', err);
+      alert('Error updating task.');
     }
-}
+  }
 
+  // ---------- Edit ----------
+  function populateTaskFormForEdit(task) {
+    document.getElementById('taskName').value = task.taskName ?? '';
+    document.getElementById('taskDescription').value = task.description ?? '';
+    document.getElementById('dueDate').value = task.dueDateTime
+      ? new Date(task.dueDateTime).toISOString().slice(0, 16)
+      : '';
+    taskTypeSelect.value = task.taskType?.id ?? '';
+    document.getElementById('taskLocation').value = task.locationAddress ?? '';
+    editingTaskId = task.id;
+    document.getElementById('cancelEditButton').style.display = 'inline';
+  }
 
-// Funkcija za izračun razdalje med dvema točkama (Haversine formula)
-function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Polmer Zemlje v km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Razdalja v km
-}
+  // ---------- Create / Update ----------
+  taskForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = taskForm.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
 
-// Funkcija za obveščanje uporabnika
-function notifyUser(taskName, distance) {
-    if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("Task Nearby", {
-            body: `You're within ${distance.toFixed(2)} km of the location for task: ${taskName}`,
+    try {
+      const uid = localStorage.getItem('userId');
+      if (!uid) { alert('You must be logged in.'); return; }
+
+      const name = document.getElementById('taskName').value.trim();
+      const desc = document.getElementById('taskDescription').value.trim();
+      const typeId = parseInt(document.getElementById('taskType').value, 10);
+      const dueIso = toIsoOrNull(document.getElementById('dueDate').value);
+      const address = document.getElementById('taskLocation').value.trim();
+
+      let coords = null;
+      if (address) {
+        try { coords = await geocodeAddress(address); }
+        catch { /* geocoding optional */ }
+      }
+
+      const payload = {
+        taskName: name,
+        description: desc,
+        taskType: { id: typeId },
+        dueDateTime: dueIso,
+        locationAddress: address || null,
+        latitude: coords ? coords.latitude : null,
+        longitude: coords ? coords.longitude : null,
+        isCompleted: false,
+        user: { id: parseInt(uid, 10) },
+      };
+
+      // CREATE ali UPDATE
+      let createdTaskId = editingTaskId;
+      if (editingTaskId) {
+        const res = await fetch(`${API}/tasks/${editingTaskId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'user-id': uid },
+          body: JSON.stringify(payload),
         });
-    } else {
-        alert(`You're near the location for task: ${taskName} (within ${distance.toFixed(2)} km)`);
-    }
-}
+        if (!res.ok) throw new Error(await res.text());
+      } else {
+        const res = await fetch(`${API}/tasks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'user-id': uid },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const created = await res.json();
+        createdTaskId = created.id;
+      }
 
-// Zahteva dovoljenje za obvestila ob nalaganju strani
-if ("Notification" in window && Notification.permission !== "granted") {
-    Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-            console.log("Notification permission granted.");
+      // Upload slike (če je izbrana)
+      const pictureInput = document.getElementById('taskPicture');
+      if (pictureInput?.files?.length > 0 && createdTaskId) {
+        const fd = new FormData();
+        fd.append('picture', pictureInput.files[0]);
+        const up = await fetch(`${API}/tasks/${createdTaskId}/upload`, {
+          method: 'POST',
+          headers: { 'user-id': uid }, // brez Content-Type
+          body: fd,
+        });
+        if (!up.ok) throw new Error(await up.text());
+      }
+
+      alert(editingTaskId ? 'Task updated successfully!' : 'Task created successfully!');
+      editingTaskId = null;
+      document.getElementById('cancelEditButton').style.display = 'none';
+      taskForm.reset();
+      fetchTasks();
+    } catch (err) {
+      console.error('Error saving task:', err);
+      alert('An unexpected error occurred while saving the task.');
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
+  });
+
+  // ---------- Delete ----------
+  async function deleteTask(taskId) {
+    const uid = localStorage.getItem('userId');
+    if (!uid) return;
+  
+    if (!confirm('Are you sure you want to delete this task?')) return;
+  
+    try {
+      const res = await fetch(`${API}/tasks/${taskId}`, {
+        method: 'DELETE',
+        headers: { 'user-id': uid },
+      });
+  
+      if (res.ok) {
+        alert('Task deleted successfully.');
+        fetchTasks(); // refresh list
+      } else {
+        const msg = await res.text();
+        console.error('Delete failed:', msg);
+        alert(`Failed to delete task: ${msg}`);
+      }
+    } catch (err) {
+      console.error('Error deleting task:', err);
+      alert('An unexpected error occurred while deleting the task.');
+    }
+  }
+
+  // ---------- Proximity (opcijsko) ----------
+  async function checkUserProximity() {
+    if (!navigator.geolocation) return;
+    const uid = localStorage.getItem('userId');
+    if (!uid) return;
+
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const { latitude: lat, longitude: lon } = pos.coords;
+      const resp = await fetch(`${API}/tasks?userid=${uid}`, { headers: { 'user-id': uid } });
+      if (!resp.ok) return;
+      const tasks = await resp.json();
+      tasks.forEach(t => {
+        if (t.latitude && t.longitude) {
+          const d = calculateDistance(lat, lon, t.latitude, t.longitude);
+          if (d < 10) notifyUser(t.taskName, d);
         }
+      });
     });
-}
+  }
 
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371, dLat = (lat2 - lat1) * Math.PI/180, dLon = (lon2 - lon1) * Math.PI/180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
+    return 2*R*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  }
 
+  function notifyUser(taskName, d) {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('Task Nearby', { body: `You're within ${d.toFixed(2)} km of: ${taskName}` });
+    } else {
+      console.log(`Near task: ${taskName} (${d.toFixed(2)} km)`);
+    }
+  }
 
-
-    
-    
+  if ('Notification' in window && Notification.permission !== 'granted') {
+    Notification.requestPermission();
+  }
+  checkUserProximity();
+  setInterval(checkUserProximity, 60000);
 });

@@ -1,333 +1,165 @@
 package com.ris.todoapp.controller;
 
-import com.ris.todoapp.dto.GeocodingResult;
 import com.ris.todoapp.entity.Task;
-import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.entity.User;
-//import com.ris.todoapp.google.GoogleCalendarService;
+import com.ris.todoapp.entity.TaskType;
 import com.ris.todoapp.repository.TaskRepository;
-import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.repository.UserRepository;
+import com.ris.todoapp.repository.TaskTypeRepository;
 import com.ris.todoapp.service.GeocodingService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Set;
-import java.util.List;
+import java.net.URI;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/tasks")
-@CrossOrigin(origins = "http://localhost:3000") // Allow requests from the frontend
+@RequestMapping("/tasks")                      // <-- baza je /tasks
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
-    private static final String CLIENT_ID = "your-client-id"; // Nadomestite z vašim Client ID
-    private static final Set<String> SCOPES = Set.of("Calendars.ReadWrite");
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+    private final TaskTypeRepository taskTypeRepository;
+    private final GeocodingService geocodingService;
 
-    private ResponseEntity<String> handleOutlookSyncError(Exception e, String message) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body(message + " Outlook Calendar sync failed. Reason: " + e.getMessage());
+    public TaskController(TaskRepository taskRepository,
+                          UserRepository userRepository,
+                          TaskTypeRepository taskTypeRepository,
+                          GeocodingService geocodingService) {
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+        this.taskTypeRepository = taskTypeRepository;
+        this.geocodingService = geocodingService;
     }
 
-    @Autowired
-    private GeocodingService geocodingService;
-
-    @Autowired
-    private TaskRepository taskRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-//    @Autowired
-//    private GoogleCalendarService googleCalendarService;
-
-
-    @Autowired
-    private TaskTypeRepository taskTypeRepository;
-
-
-    // Create a new task
-    @PostMapping
-    public ResponseEntity<?> createTask(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
-        try {
-            Optional<User> user = userRepository.findById(userId);
-            if (user.isEmpty()) {
-                return ResponseEntity.badRequest().body("Invalid user ID.");
-            }
-
-            if (task.getTaskType() == null || task.getTaskType().getId() == null) {
-                return ResponseEntity.badRequest().body("TaskType must be provided.");
-            }
-
-            Optional<TaskType> taskType = taskTypeRepository.findById(task.getTaskType().getId());
-            if (taskType.isEmpty()) {
-                return ResponseEntity.badRequest().body("Invalid task type ID.");
-            }
-
-            // Geocoding za naslov naloge (če obstaja)
-            if (task.getLocationAddress() != null && !task.getLocationAddress().isBlank()) {
-                Optional<GeocodingResult> resultOptional = geocodingService.geocode(task.getLocationAddress());
-                if (resultOptional.isPresent()) {
-                    GeocodingResult result = resultOptional.get();
-                    task.setLatitude(result.getLatitude());
-                    task.setLongitude(result.getLongitude());
-                } else {
-                    return ResponseEntity.badRequest().body("Invalid location address.");
-                }
-            }
-
-            task.setUser(user.get());
-            task.setTaskType(taskType.get());
-
-            if (task.getPicture() == null || task.getPicture().isBlank()) {
-                task.setPicture("/uploads/default.jpg"); // Default slika, če ni podana
-            }
-
-            Task savedTask = taskRepository.save(task);
-
-
-        // Add task to Google Calendar if due date is provided
-           /* if (task.getDueDateTime() != null) {
-                googleCalendarService.addTaskToCalendar(
-                        task.getTaskName(),
-                        task.getDescription(),
-                        new Date(), // Current date as start date
-                        Date.from(task.getDueDateTime().atZone(ZoneId.systemDefault()).toInstant()) // Due date as end date
-                );
-            } */
-
-            return ResponseEntity.ok(savedTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error occurred while creating task.");
+    // POST /tasks  (NE /tasks/tasks)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createTask(@RequestBody Task task,
+                                        @RequestHeader("user-id") Long userId) {
+        // 1) validacije minimalne, da ne treščimo 500
+        if (task.getTaskName() == null || task.getTaskName().isBlank()) {
+            return ResponseEntity.badRequest().body("Task name is required.");
         }
+        if (task.getTaskType() == null || task.getTaskType().getId() == null) {
+            return ResponseEntity.badRequest().body("Task type id is required.");
+        }
+
+        // 2) uporabnik in tip naloge
+        Optional<User> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid user id.");
+        }
+        Optional<TaskType> typeOpt = taskTypeRepository.findById(task.getTaskType().getId());
+        if (typeOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid task type id.");
+        }
+
+        // 3) sestavi in shrani
+        task.setUser(userOpt.get());
+        task.setTaskType(typeOpt.get());
+
+        // fallback slika, če je prazno
+        if (task.getPicture() == null || task.getPicture().isBlank()) {
+            task.setPicture("/uploads/default.jpg");
+        }
+
+        Task saved = taskRepository.save(task);
+        return ResponseEntity
+                .created(URI.create("/tasks/" + saved.getId()))
+                .body(saved);
     }
 
-    // Upload picture for a task
-    @PostMapping("/{id}/upload")
-    public ResponseEntity<?> uploadTaskPicture(
-            @PathVariable Long id,
-            @RequestHeader("user-id") Long userId,
-            @RequestParam("picture") MultipartFile picture) {
+    // Primer: GET /tasks
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listTasks(@RequestHeader("user-id") Long userId) {
+        return ResponseEntity.ok(taskRepository.findByUserId(userId));
+    }
+
+
+    @PostMapping("/users/{userId}/tasks/{taskId}/picture")
+    public ResponseEntity<?> uploadTaskPicture(@PathVariable Long userId,
+                                               @PathVariable Long taskId,
+                                               @RequestParam("picture") MultipartFile picture) {
         try {
-            // Preverite obstoj naloge
-            Optional<Task> optionalTask = taskRepository.findById(id);
-            if (optionalTask.isEmpty()) {
-                return ResponseEntity.status(404).body("Task not found.");
-            }
-
-            Task task = optionalTask.get();
-            if (!task.getUser().getId().equals(userId)) {
-                return ResponseEntity.status(403).body("Unauthorized to upload picture for this task.");
-            }
-
-            // Preverite, ali je datoteka prazna
-            if (picture.isEmpty()) {
+            if (picture == null || picture.isEmpty()) {
                 return ResponseEntity.badRequest().body("Uploaded file is empty.");
             }
 
-            // Prepričajte se, da mapa obstaja
-            Path uploadPath = Paths.get(System.getProperty("user.dir") + "/uploads");
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            // Shranite datoteko
-            String picturePath = "/uploads/" + picture.getOriginalFilename();
-            Path absolutePath = uploadPath.resolve(picture.getOriginalFilename());
-            Files.write(absolutePath, picture.getBytes());
-
-            // Posodobite nalogo
-            task.setPicture(picturePath);
-            taskRepository.save(task);
-
-            return ResponseEntity.ok("Picture uploaded successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error uploading picture.");
-        }
-    }
-
-
-    // Get all tasks for a user
-    @GetMapping
-    public ResponseEntity<?> getTasks(@RequestHeader("user-id") Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        System.out.println(userId);
-        if (user.isEmpty()) {
-            return ResponseEntity.badRequest().body("Invalid user ID.");
-        }
-        // Fetch only non-completed tasks
-        List<Task> tasks = taskRepository.findByUserId(userId).stream()
-                .filter(task -> !task.isCompleted())
-                .toList();
-        return ResponseEntity.ok(tasks);
-    }
-
-
-    // Fetch a single task by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getTaskById(@PathVariable Long id, @RequestHeader("user-id") Long userId) {
-        try {
-            Optional<Task> task = taskRepository.findById(id);
-            if (task.isEmpty() || !task.get().getUser().getId().equals(userId)) {
-                return ResponseEntity.status(403).body("Unauthorized access or task not found.");
-            }
-            return ResponseEntity.ok(task.get());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error fetching task.");
-        }
-    }
-
-    // Update a task
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody Task taskDetails, @RequestHeader("user-id") Long userId) {
-        try {
-            Optional<Task> taskOptional = taskRepository.findById(id);
-
-            if (taskOptional.isEmpty() || !taskOptional.get().getUser().getId().equals(userId)) {
-                return ResponseEntity.status(403).body("Unauthorized update or task not found.");
-            }
-
-            Task taskToUpdate = taskOptional.get();
-
-            // Validate taskName
-            if (taskDetails.getTaskName() == null || taskDetails.getTaskName().isBlank()) {
-                return ResponseEntity.badRequest().body("Task name cannot be blank.");
-            }
-            taskToUpdate.setTaskName(taskDetails.getTaskName());
-
-            // Validate description
-            if (taskDetails.getDescription() == null || taskDetails.getDescription().isBlank()) {
-                taskToUpdate.setDescription("No description provided.");
-            } else {
-                taskToUpdate.setDescription(taskDetails.getDescription());
-            }
-
-            if (taskDetails.getDueDateTime() != null) {
-                taskToUpdate.setDueDateTime(taskDetails.getDueDateTime());
-            }
-
-            if (taskDetails.getTaskType() != null && taskDetails.getTaskType().getId() != null) {
-                Optional<TaskType> taskType = taskTypeRepository.findById(taskDetails.getTaskType().getId());
-                if (taskType.isEmpty()) {
-                    return ResponseEntity.badRequest().body("Invalid task type ID.");
-                }
-                taskToUpdate.setTaskType(taskType.get());
-            }
-
-            taskToUpdate.setCompleted(taskDetails.isCompleted());
-
-
-            if (taskDetails.getPicture() != null && !taskDetails.getPicture().isBlank()) {
-                taskToUpdate.setPicture(taskDetails.getPicture()); //pictures added
-            }
-
-            taskRepository.save(taskToUpdate);
-
-            return ResponseEntity.ok("Task updated successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error updating task.");
-        }
-    }
-
-
-    // Delete a task
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long id, @RequestHeader("user-id") Long userId) {
-        Optional<Task> task = taskRepository.findById(id);
-        if (task.isEmpty() || !task.get().getUser().getId().equals(userId)) {
-            return ResponseEntity.status(403).body("Unauthorized delete.");
-        }
-
-        taskRepository.deleteById(id);
-        return ResponseEntity.ok("Task deleted successfully.");
-    }
-
-    @GetMapping("/done")
-    public ResponseEntity<?> getDoneTasks(@RequestHeader("user-id") Long userId) {
-        try {
-            Optional<User> user = userRepository.findById(userId);
-            if (user.isEmpty()) {
-                return ResponseEntity.badRequest().body("Invalid user ID.");
-            }
-
-            // Fetch completed tasks
-            List<Task> doneTasks = taskRepository.findByUserIdAndIsCompletedTrue(userId);
-
-            return ResponseEntity.ok(doneTasks);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error fetching done tasks.");
-        }
-    }
-
-    @PostMapping("/done")
-    public ResponseEntity<?> moveTaskToDone(@RequestBody Task task, @RequestHeader("user-id") Long userId) {
-        System.out.println("Received Task Object:");
-        System.out.println("ID: " + task.getId());
-        System.out.println("Task Name: " + task.getTaskName());
-        System.out.println("Task Type: " + (task.getTaskType() != null ? task.getTaskType().getId() : "null"));
-        System.out.println("Description: " + task.getDescription());
-        System.out.println("Due DateTime: " + task.getDueDateTime());
-        System.out.println("User: " + (task.getUser() != null ? task.getUser().getId() : "null"));
-        System.out.println("Received task payload: " + task); // Debugging input
-
-
-        if (task.getTaskName() == null || task.getTaskName().isBlank()) {
-            return ResponseEntity.badRequest().body("Task name cannot be blank.");
-        }
-        try {
-            // Fetch the task from the database
-            Optional<Task> optionalTask = taskRepository.findById(task.getId());
-            if (optionalTask.isEmpty()) {
+            Optional<Task> optTask = taskRepository.findById(taskId);
+            if (optTask.isEmpty()) {
                 return ResponseEntity.status(404).body("Task not found.");
             }
 
-            Task existingTask = optionalTask.get();
+            Task task = optTask.get();
 
-            // Ensure the task belongs to the user
-            if (!existingTask.getUser().getId().equals(userId)) {
-                return ResponseEntity.status(403).body("Unauthorized to update this task.");
+            // Avtorizacija: naloga mora pripadati userId
+            if (task.getUser() == null || task.getUser().getId() == null || !task.getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Unauthorized to upload picture for this task.");
             }
 
-            // Only update the "isCompleted" flag
-            existingTask.setCompleted(true);
+            // (opcijsko) shranjevanje na disk; če ne želiš pisati na disk, lahko to sekcijo izpustiš
+            String original = picture.getOriginalFilename() != null ? picture.getOriginalFilename() : "upload.bin";
+            String ext = original.contains(".") ? original.substring(original.lastIndexOf('.')) : "";
+            String storedName = UUID.randomUUID() + ext;
+            Path uploadDir = Path.of("uploads"); // ali preberi iz properties
+            Files.createDirectories(uploadDir);
+            Path filePath = uploadDir.resolve(storedName);
+            Files.write(filePath, picture.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-            // Save the updated task
-            Task updatedTask = taskRepository.save(existingTask);
-            System.out.println("Updated Task: " + updatedTask);
+            // Shrani pot/ime v entiteti
+            task.setPicture("/uploads/" + storedName);
+            taskRepository.save(task);
 
-            return ResponseEntity.ok("Task moved to done successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("Error moving task to done.");
+            return ResponseEntity.ok("Picture uploaded successfully.");
+        } catch (IOException io) {
+            return ResponseEntity.status(500).body("Failed to store picture.");
+        } catch (Exception ex) {
+            return ResponseEntity.status(500).body("Unexpected error while uploading picture.");
         }
     }
 
-    public void setTaskRepository(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    // Primer: PUT /tasks/{id}
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateTask(@PathVariable Long id,
+                                        @RequestBody Task incoming,
+                                        @RequestHeader("user-id") Long userId) {
+        return taskRepository.findById(id).map(db -> {
+            if (!db.getUser().getId().equals(userId)) {
+                return ResponseEntity.status(403).body("Forbidden");
+            }
+            if (incoming.getTaskName() != null) db.setTaskName(incoming.getTaskName());
+            if (incoming.getDescription() != null) db.setDescription(incoming.getDescription());
+            if (incoming.getDueDateTime() != null) db.setDueDateTime(incoming.getDueDateTime());
+            if (incoming.getPicture() != null) db.setPicture(incoming.getPicture());
+            return ResponseEntity.ok(taskRepository.save(db));
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTask(@RequestHeader("user-id") Long userId, @PathVariable Long id) {
+        Optional<Task> taskOpt = taskRepository.findById(id);
+        if (taskOpt.isEmpty()) return ResponseEntity.notFound().build();
 
-    public void setTaskTypeRepository(TaskTypeRepository taskTypeRepository) {
-        this.taskTypeRepository = taskTypeRepository;
-    }
+        Task task = taskOpt.get();
+        if (!task.getUser().getId().equals(userId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized delete attempt.");
+        }
 
-    public void setGeocodingService(GeocodingService geocodingService) {
-        this.geocodingService = geocodingService;
+        taskRepository.delete(task);
+        return ResponseEntity.ok("Task deleted successfully.");
     }
 }

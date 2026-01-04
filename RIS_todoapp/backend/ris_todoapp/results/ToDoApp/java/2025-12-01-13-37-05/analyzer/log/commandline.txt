@@ -1,0 +1,5 @@
+/opt/SourceMeter-10.2.0-x64-Linux/Java/AnalyzerJava
+-projectName:ToDoApp
+-projectBaseDir:/project/RIS_todoapp/backend/ris_todoapp
+-resultsDir:/project/RIS_todoapp/backend/ris_todoapp/results
+-pattern:/project/RIS_todoapp/backend/ris_todoapp/src

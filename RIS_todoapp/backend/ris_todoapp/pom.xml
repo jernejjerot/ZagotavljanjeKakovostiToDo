@@ -150,6 +150,31 @@
                     <target>21</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.26.0</version>
+                <configuration>
+                    <printFailingErrors>true</printFailingErrors>
+                    <failOnViolation>false</failOnViolation>
+                    <linkXRef>false</linkXRef>
+
+                    <!-- pomembno: da lahko ciljaš GodClass -->
+                    <rulesets>
+                        <ruleset>${project.basedir}/config/pmd/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+
+                    <!-- tipično: test kode ne analiziraš, razen če profesor želi -->
+                    <includeTests>false</includeTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.11.0.3922</version>
+            </plugin>
         </plugins>
     </build>
 </project>

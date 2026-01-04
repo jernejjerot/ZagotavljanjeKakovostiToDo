@@ -1,4 +1,6 @@
 /Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/App.java
+/Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/AdminController.java
+/Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/AuthController.java
 /Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/TaskController.java
 /Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/TaskTypeController.java
 /Users/AM/Documents/Ales.java/FERI/3_letnik/ZK/vaje/ToDoApp/RIS_todoapp/backend/ris_todoapp/src/main/java/com/ris/todoapp/controller/UserController.java

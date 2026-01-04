@@ -1,0 +1,5 @@
+[2025-12-01 13:37:05] Start:DirectoryBasedAnalysisTask
+EXCEPTION:boost::filesystem::copy_file: Invalid cross-device link: "/opt/SourceMeter-10.2.0-x64-Linux/Java/LinuxWrapper/WrapperBins/Tools/toolchain.ini", "/project/RIS_todoapp/backend/ris_todoapp/results/ToDoApp/java/2025-12-01-13-37-05/analyzer/temp/toolchain.ini"
+[2025-12-01 13:37:05] End:DirectoryBasedAnalysisTask Result:critical error 
+EXCEPTION:boost::filesystem::copy_file: Invalid cross-device link: "/opt/SourceMeter-10.2.0-x64-Linux/Java/LinuxWrapper/WrapperBins/Tools/toolchain.ini", "/project/RIS_todoapp/backend/ris_todoapp/results/ToDoApp/java/2025-12-01-13-37-05/analyzer/temp/toolchain.ini"
+

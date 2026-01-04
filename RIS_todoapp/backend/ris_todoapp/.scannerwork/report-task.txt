@@ -1,0 +1,6 @@
+projectKey=ToDoApp
+serverUrl=http://localhost:9000
+serverVersion=25.11.0.114957
+dashboardUrl=http://localhost:9000/dashboard?id=ToDoApp
+ceTaskId=00feb132-5951-4ae1-8d31-6c065e60fdf4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=00feb132-5951-4ae1-8d31-6c065e60fdf4

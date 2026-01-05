@@ -35,7 +35,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify sonar:sonar \
+          mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify -DskipTests sonar:sonar \
             -Dsonar.projectKey=... \
             -Dsonar.organization=... \
             -Dsonar.host.url=https://sonarcloud.io

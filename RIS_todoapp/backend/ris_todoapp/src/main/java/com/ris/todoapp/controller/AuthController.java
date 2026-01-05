@@ -50,4 +50,6 @@ public class AuthController {
     private boolean isBlank(String s) {
         return s == null || s.isBlank();
     }
+
+    // test za sonarqube
 }

@@ -5,6 +5,9 @@ on:
     branches: [ "master", "main" ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,11 +25,21 @@ jobs:
           distribution: "temurin"
           cache: "maven"
 
+      - name: Cache SonarCloud scanner files (optional)
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: |
+            ${{ runner.os }}-sonar
+
       - name: Build and analyze with SonarCloud
+        working-directory: RIS_todoapp/backend/ris_todoapp
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify sonar:sonar \
-          -Dsonar.projectKey=JCvikl1_ToDoApp \
-          -Dsonar.organization=jcvikl1 \
-          -Dsonar.host.url=https://sonarcloud.io
+          mvn -B clean verify sonar:sonar \
+            -Dsonar.projectKey=JCvikl1_ToDoApp \
+            -Dsonar.organization=jcvikl1 \
+            -Dsonar.host.url=https://sonarcloud.io

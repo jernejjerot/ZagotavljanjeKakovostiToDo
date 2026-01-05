@@ -78,4 +78,6 @@ public class AdminController {
     private ResponseEntity<String> forbidden() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Admin access required.");
     }
+
+    //test za sonarqube
 }

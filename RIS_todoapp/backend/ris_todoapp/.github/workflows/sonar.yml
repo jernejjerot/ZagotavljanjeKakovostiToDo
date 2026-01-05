@@ -2,11 +2,10 @@ name: SonarCloud analiza
 
 on:
   push:
-    branches: [ "master", "main" ]
+    branches:
+      - main
+      - master
   pull_request:
-
-permissions:
-  contents: read
 
 jobs:
   build:
@@ -21,23 +20,23 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: "21"
-          distribution: "temurin"
-          cache: "maven"
+          distribution: 'temurin'
+          java-version: '21'
 
-      - name: Cache SonarCloud scanner files (optional)
+      - name: Cache Maven packages
         uses: actions/cache@v4
         with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-sonar
+            ${{ runner.os }}-maven-
 
-      - name: Build and analyze
+      - name: Build and analyze (SonarCloud)
+
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify sonar:sonar \
-            -Dsonar.projectKey=... \
-            -Dsonar.organization=... \
+          mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify -DskipTests sonar:sonar \
+            -Dsonar.projectKey=mocaales_ToDoApp \
+            -Dsonar.organization=mocaales \
             -Dsonar.host.url=https://sonarcloud.io

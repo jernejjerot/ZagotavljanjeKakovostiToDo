@@ -37,7 +37,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B -f RIS_todoapp/backend/ris_todoapp/pom.xml clean verify -DskipTests sonar:sonar \
-            -Dsonar.projectKey=mocaales_ToDoApp \
-            -Dsonar.organization=mocaales \
+            -Dsonar.projectKey=jernejerot_ZagotavljanjeKakovostiToDo \
+            -Dsonar.organization=jernejerot \
             -Dsonar.host.url=https://sonarcloud.io
-          

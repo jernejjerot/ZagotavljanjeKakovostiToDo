@@ -38,7 +38,7 @@ jobs:
         run: |
           mvn -B clean verify -DskipTests sonar:sonar \
             -Dsonar.projectKey=jernejjerot_ZagotavljanjeKakovostiToDo \
-            -Dsonar.organization=jernejerot \
+            -Dsonar.organization=jernejjerot \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
 
